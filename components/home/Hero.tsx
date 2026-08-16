@@ -55,16 +55,11 @@ export default function Hero() {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
       tl.fromTo(
-        ".pz-rule",
-        { scaleX: 0 },
-        { scaleX: 1, duration: 1.1, stagger: 0.07, transformOrigin: "left center" },
+        ".pz-eyebrow > *",
+        { yPercent: 130, opacity: 0 },
+        { yPercent: 0, opacity: 1, duration: 0.85, stagger: 0.06 },
+        0,
       )
-        .fromTo(
-          ".pz-eyebrow > *",
-          { yPercent: 130, opacity: 0 },
-          { yPercent: 0, opacity: 1, duration: 0.85, stagger: 0.06 },
-          "-=0.85",
-        )
         // The portrait scales up from slightly small as the type lands.
         .fromTo(
           ".pz-portrait",
@@ -98,8 +93,6 @@ export default function Hero() {
 
   return (
     <header ref={root} className="pz" aria-label="Cydric James Bulan">
-      <div className="pz-rule" aria-hidden="true" />
-
       {/* One status item left, one place/time right. The role is already
           stated by the lede below, so it isn't repeated here. */}
       <div className="pz-eyebrow">
@@ -138,8 +131,6 @@ export default function Hero() {
           />
         </div>
       </div>
-
-      <div className="pz-rule" aria-hidden="true" />
 
       <div className="pz-foot">
         <p className="pz-lede pz-fade">

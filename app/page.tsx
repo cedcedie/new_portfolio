@@ -10,6 +10,8 @@ import {
 } from "@/components/magicui/scroll-based-velocity";
 import Reveal from "@/components/Reveal";
 import Footer from "@/components/Footer";
+import { Highlighter } from "@/components/magicui/highlighter";
+import WordReveal from "@/components/WordReveal";
 
 const mono = "var(--font-geist-mono), monospace";
 
@@ -55,12 +57,14 @@ function SectionHeader({
   return (
     <Reveal
       delay={0}
+      className="sec-head"
       style={{
+        // No rule above the heading: the (0N) index, the heading itself and
+        // the generous section padding already signal a new section, so the
+        // line was redundant weight.
         display: "flex",
         alignItems: "baseline",
         gap: 22,
-        borderTop: hairline,
-        paddingTop: 22,
         marginBottom,
       }}
     >
@@ -192,13 +196,12 @@ export default function HomePage() {
           the portrait and states the disciplines in one pass. */}
       <div
         style={{
-          // Top rule only: the About header below draws its own, so a bottom
-          // rule here produced two lines a few pixels apart.
+          // Single row now, so the flex column + gap from the two-row version
+          // are gone — they were reserving space for a second line that no
+          // longer exists and made the band look double-spaced.
           borderTop: hairline,
-          padding: "clamp(20px,3vw,34px) 0",
-          display: "flex",
-          flexDirection: "column",
-          gap: "clamp(4px,.8vw,12px)",
+          borderBottom: hairline,
+          padding: "clamp(14px,2vw,22px) 0",
         }}
       >
         {/* Scroll-velocity rows: speed and direction react to how you scroll. */}
@@ -249,9 +252,14 @@ export default function HomePage() {
                 }}
               >
                 An IT graduate who ships — built across{" "}
-                <span style={{ color: "#eaeaf0" }}>freelance work</span>, a{" "}
-                <span style={{ color: "#eaeaf0" }}>university internship</span>,
-                and four years of academic projects. Strong OOP foundations,
+                <Highlighter action="highlight" color="#4353ff">
+                  <span style={{ color: "#eaeaf0" }}>freelance work</span>
+                </Highlighter>
+                , a{" "}
+                <Highlighter action="underline" color="#6672ff">
+                  <span style={{ color: "#eaeaf0" }}>university internship</span>
+                </Highlighter>
+                , and four years of academic projects. Strong OOP foundations,
                 fluent Git, modern web tech.
               </p>
               <div
@@ -273,7 +281,7 @@ export default function HomePage() {
                 >
                   WHY I BUILD
                 </span>
-                <p
+                <WordReveal
                   style={{
                     margin: 0,
                     ...serif,
@@ -283,11 +291,8 @@ export default function HomePage() {
                     textWrap: "pretty",
                   }}
                 >
-                  I build for classrooms, courtrooms, and cafes — games that
-                  teach kids disaster prep, AR that makes Grade 7 science
-                  tangible, dashboards that keep orders flowing in real time.
-                  Software people actually use.
-                </p>
+                  {`I build for classrooms, courtrooms, and cafes — games that teach kids disaster prep, AR that makes Grade 7 science tangible, dashboards that keep orders flowing in real time. Software people actually use.`}
+                </WordReveal>
               </div>
             </Reveal>
 

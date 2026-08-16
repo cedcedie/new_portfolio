@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Reveal from "@/components/Reveal";
+import { AuroraText } from "@/components/magicui/aurora-text";
+import { KineticText } from "@/components/magicui/kinetic-text";
 import { CV_URL, EMAIL, GITHUB_URL, LINKEDIN_URL, PHONE } from "@/lib/data";
 
 const mono = "var(--font-geist-mono), monospace";
@@ -39,7 +41,6 @@ export default function Contact() {
           display: "flex",
           alignItems: "baseline",
           gap: 22,
-          borderTop: "1px solid rgba(255,255,255,.09)",
           paddingTop: 22,
           marginBottom: 56,
         }}
@@ -89,18 +90,24 @@ export default function Contact() {
           textTransform: "uppercase",
         }}
       >
-        Let&rsquo;s build
+        {/* Kinetic on the first line only: letters thicken under the cursor.
+            Paired with the Aurora word below, one effect per line. */}
+        <KineticText as="span" text="Let’s build" className="contact-kinetic" />
         <br />
+        {/* The single Aurora heading on the site — kept to the closing word so
+            it reads as a flourish, not a template effect. Colours stay inside
+            the cobalt range rather than the default rainbow. */}
         <span
           style={{
             fontFamily: "var(--font-instrument-serif), serif",
             fontStyle: "italic",
             fontWeight: 400,
             textTransform: "none",
-            color: "#6672ff",
           }}
         >
-          something.
+          <AuroraText colors={["#4353ff", "#6672ff", "#8b95ff", "#4353ff"]}>
+            something.
+          </AuroraText>
         </span>
       </Reveal>
 

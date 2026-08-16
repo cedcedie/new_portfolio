@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { allProjects, featured } from "@/lib/data";
+import { LightRays } from "@/components/magicui/light-rays";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -170,6 +171,18 @@ export default function SelectedWork() {
             FULL INDEX — 11 ↗
           </Link>
         </div>
+
+        {/* Rays sit behind the machine, not in the hero — the hero already has
+            the portrait glow, whereas the pinned stage is empty dark space
+            where they actually read. */}
+        <LightRays
+          className="sw-rays"
+          count={6}
+          color="rgba(67,83,255,.16)"
+          blur={60}
+          speed={11}
+          length="62vh"
+        />
 
         <div className="sw-lap">
           <div className="lap">

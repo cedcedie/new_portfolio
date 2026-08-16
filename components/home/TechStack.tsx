@@ -23,7 +23,6 @@ export default function TechStack() {
           display: "flex",
           alignItems: "baseline",
           gap: 22,
-          borderTop: "1px solid rgba(255,255,255,.09)",
           paddingTop: 22,
           marginBottom: 44,
         }}

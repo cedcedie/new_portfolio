@@ -86,6 +86,35 @@ a:hover {
   color: #eaeaf0;
 }
 
+/* Ambient page lighting.
+   Every section measured as a flat #0a0b10 with no background, so the middle
+   of the page read dead between the hero and the pinned laptop. These are
+   fixed, very low-alpha pools that drift the value slightly as you scroll —
+   enough to give depth without competing with section content. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 52% 38% at 12% 8%,
+      rgba(67, 83, 255, 0.07),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 46% 34% at 88% 42%,
+      rgba(67, 83, 255, 0.05),
+      transparent 66%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 40% 96%,
+      rgba(102, 114, 255, 0.045),
+      transparent 68%
+    );
+}
+
 /* Film-grain overlay — fixed full-viewport fractalNoise, opacity .05, z-90 */
 body::after {
   content: "";
@@ -188,8 +217,9 @@ body::after {
   padding: clamp(76px, 9vh, 108px) 0 clamp(18px, 2.6vh, 34px);
   overflow: hidden;
   /* Opaque while pinned, or the section above shows through behind the
-     machine during the zoom. */
-  background: #0a0b10;
+     machine during the zoom. Slightly translucent so the page's ambient
+     lighting still reads through. */
+  background: rgba(10, 11, 16, 0.94);
 }
 
 .sw-head {
@@ -200,7 +230,6 @@ body::after {
   display: flex;
   align-items: baseline;
   gap: 22px;
-  border-top: 1px solid rgba(255, 255, 255, 0.09);
   padding-top: 18px;
   will-change: opacity, transform;
 }
@@ -208,6 +237,39 @@ body::after {
 /* The machine is sized off viewport height so it always leaves room for the
    heading above and the description below. ~52svh of usable band × 1.68
    (lid aspect incl. bezel) gives the width. */
+/* Behind the machine and the copy, above the stage background.
+   Masked on all sides and blended in: without this the container reads as a
+   lit rectangle with hard edges rather than light falling into the scene. */
+.sw-rays {
+  position: absolute;
+  inset: -10% -6% 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(
+    ellipse 62% 58% at 50% 22%,
+    #000 18%,
+    rgba(0, 0, 0, 0.45) 52%,
+    transparent 82%
+  );
+  mask-image: radial-gradient(
+    ellipse 62% 58% at 50% 22%,
+    #000 18%,
+    rgba(0, 0, 0, 0.45) 52%,
+    transparent 82%
+  );
+}
+.sw-lap,
+.sw-info {
+  position: relative;
+  z-index: 1;
+}
+/* .sw-head is already absolutely positioned; only lift its stacking order. */
+.sw-head {
+  z-index: 1;
+}
+
 .sw-lap {
   min-height: 0;
   width: 100%;
@@ -523,6 +585,29 @@ body::after {
   .gh-legend {
     font-size: 9px;
   }
+}
+
+/* Contribution total — the figure carries the weight, the label stays quiet. */
+.gh-count {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: clamp(18px, 2.4vw, 28px);
+}
+.gh-count-num {
+  font-weight: 700;
+  font-size: clamp(38px, 5.2vw, 72px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #eaeaf0;
+  font-variant-numeric: tabular-nums;
+}
+.gh-count-label {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #575c6b;
 }
 
 .gh-card {
@@ -1728,6 +1813,17 @@ body::after {
     margin-top: 48px;
     padding-bottom: 40px;
   }
+}
+
+/* KineticText ships font-[300]; the contact headline is 700, so restore the
+   weight and keep the letters on one line. */
+.contact-kinetic {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  font-weight: 700 !important;
+}
+.contact-kinetic > span[aria-hidden="true"] {
+  font-weight: inherit;
 }
 
 .contact-email:hover {

@@ -1,6 +1,7 @@
 "use client";
 
 import Reveal from "@/components/Reveal";
+import { NumberTicker } from "@/components/magicui/number-ticker";
 import { GITHUB_URL } from "@/lib/data";
 
 const mono = "var(--font-geist-mono), monospace";
@@ -29,7 +30,6 @@ export default function GithubActivity() {
           display: "flex",
           alignItems: "baseline",
           gap: 22,
-          borderTop: "1px solid rgba(255,255,255,.09)",
           paddingTop: 22,
           marginBottom: 44,
         }}
@@ -69,6 +69,17 @@ export default function GithubActivity() {
         >
           @{USER} ↗
         </a>
+      </Reveal>
+
+      {/* Counts up on scroll. Update this when the yearly total changes —
+          ghchart renders the real calendar but exposes no total. */}
+      <Reveal delay={60} className="gh-count">
+        <span className="gh-count-num">
+          <NumberTicker value={466} />
+        </span>
+        <span className="gh-count-label">
+          contributions in the last year
+        </span>
       </Reveal>
 
       <Reveal delay={80} className="gh-card">

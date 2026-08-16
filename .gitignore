@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local verification scripts (config .mjs files stay tracked)
+/resp*.mjs
+/zoom*.mjs
+/pin.mjs
+/chk.mjs
+/shot.mjs
+/audit.mjs
+/lap.mjs
+/mob.mjs
+/verify*.mjs
+/gap.mjs
+/sw.mjs
+
