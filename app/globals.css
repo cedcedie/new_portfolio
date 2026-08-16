@@ -237,29 +237,6 @@ body::after {
 /* The machine is sized off viewport height so it always leaves room for the
    heading above and the description below. ~52svh of usable band × 1.68
    (lid aspect incl. bezel) gives the width. */
-/* Behind the machine and the copy, above the stage background.
-   Masked on all sides and blended in: without this the container reads as a
-   lit rectangle with hard edges rather than light falling into the scene. */
-.sw-rays {
-  position: absolute;
-  inset: -10% -6% 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.55;
-  mix-blend-mode: screen;
-  -webkit-mask-image: radial-gradient(
-    ellipse 62% 58% at 50% 22%,
-    #000 18%,
-    rgba(0, 0, 0, 0.45) 52%,
-    transparent 82%
-  );
-  mask-image: radial-gradient(
-    ellipse 62% 58% at 50% 22%,
-    #000 18%,
-    rgba(0, 0, 0, 0.45) 52%,
-    transparent 82%
-  );
-}
 .sw-lap,
 .sw-info {
   position: relative;
