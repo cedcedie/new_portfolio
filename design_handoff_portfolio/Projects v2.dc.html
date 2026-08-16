@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work — Cydric James Bulan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#0a0b10;color:#eaeaf0;font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#eaeaf0;text-decoration:none}
+a:hover{color:#6672ff}
+::selection{background:#4353ff;color:#eaeaf0}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div id="page" data-screen-label="Projects v2">
+<div id="scrollbar" style="position:fixed;top:0;left:0;right:0;height:2px;z-index:60;background:#4353ff;transform:scaleX(0);transform-origin:left;pointer-events:none"></div>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 40px;background:rgba(10,11,16,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07)">
+  <a data-nav="1" href="Home v2.dc.html" style="font-weight:600;font-size:15px;letter-spacing:-.02em;color:#eaeaf0">Cydric Bulan<span style="color:#6672ff">.</span></a>
+  <div style="display:flex;gap:32px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em">
+    <a data-nav="1" href="Home v2.dc.html" style="color:#575c6b" style-hover="color:#eaeaf0">INDEX</a>
+    <a data-nav="1" href="Projects v2.dc.html" style="color:#eaeaf0;border-bottom:1px solid #4353ff;padding-bottom:3px">WORK</a>
+    <a data-nav="1" href="Certificates v2.dc.html" style="color:#575c6b" style-hover="color:#eaeaf0">CREDENTIALS</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button onClick="{{ openCmd }}" title="Command menu" style="cursor:pointer;background:none;border:1px solid rgba(255,255,255,.14);color:#9296a3;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.12em;padding:9px 12px;border-radius:2px;transition:border-color .25s,color .25s" style-hover="border-color:#4353ff;color:#eaeaf0">⌘K</button>
+    <a data-magnet="1" href="mailto:cedricjamesbulan@gmail.com" style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#eaeaf0;border:1px solid rgba(255,255,255,.18);padding:10px 18px;border-radius:2px;transition:border-color .25s,background .25s,transform .3s" style-hover="border-color:#4353ff;background:rgba(67,83,255,.12);color:#eaeaf0">CONTACT ↗</a>
+  </div>
+</nav>
+<main style="max-width:1360px;margin:0 auto;padding:160px 40px 60px">
+  <header style="margin-bottom:100px">
+    <div style="display:flex;justify-content:space-between;gap:24px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:18px;animation:rise .7s cubic-bezier(.16,1,.3,1) both">
+      <span>/WORK — FULL INDEX</span>
+      <span>11 PROJECTS · 2023 — 2026</span>
+    </div>
+    <h1 style="margin:40px 0 0;font-weight:700;font-size:clamp(58px,10.5vw,164px);line-height:.9;letter-spacing:-.045em;text-transform:uppercase;animation:rise .9s cubic-bezier(.16,1,.3,1) .1s both">All <span style="-webkit-text-stroke:1.5px rgba(234,234,240,.9);color:transparent">work</span></h1>
+    <p style="margin:30px 0 0;max-width:520px;font-size:clamp(17px,1.8vw,21px);line-height:1.55;color:#9296a3;text-wrap:pretty;animation:rise .9s cubic-bezier(.16,1,.3,1) .22s both">Academic, freelance, and game work — <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#eaeaf0;font-size:1.1em">open any row</span> to flip through its gallery.</p>
+  </header>
+  <section id="academic" style="margin-bottom:130px">
+    <div data-reveal="0" style="display:flex;align-items:baseline;gap:22px;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;margin-bottom:8px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#6672ff">(A)</span>
+      <h2 style="margin:0;font-weight:600;font-size:clamp(30px,3.8vw,48px);letter-spacing:-.03em">Academic</h2>
+      <span style="margin-left:auto;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b">02 PROJECTS</span>
+    </div>
+    <sc-for list="{{ academic }}" as="p" hint-placeholder-count="2">
+      <div data-reveal="0" role="button" tabIndex="0" onClick="{{ p.open }}" onKeyDown="{{ p.key }}" style="cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:26px;border-top:1px solid rgba(255,255,255,.08);padding:36px 0;transition:padding-left .35s" style-hover="padding-left:22px">
+        <span style="flex:0 0 44px;font-family:'Geist Mono',monospace;font-size:12px;color:#575c6b">{{ p.idx }}</span>
+        <div style="position:relative;flex:0 0 168px;aspect-ratio:16/10;border:1px solid rgba(255,255,255,.09);border-radius:2px;background:repeating-linear-gradient(45deg,#12131b 0 10px,#0d0e14 10px 20px);display:grid;place-items:center">
+          <span style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.08em;color:#575c6b">{{ p.shots }}</span>
+        </div>
+        <div style="flex:1 1 340px;display:flex;flex-direction:column;gap:7px">
+          <h3 style="margin:0;font-weight:600;font-size:clamp(22px,3vw,38px);letter-spacing:-.025em;line-height:1.08">{{ p.title }}</h3>
+          <span style="color:#9296a3;font-size:15px;line-height:1.55;max-width:640px">{{ p.desc }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:6px">
+            <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">{{ p.meta }}</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#6672ff">{{ p.techLine }}</span>
+          </div>
+          <sc-if value="{{ p.hasGit }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ p.github }}" target="_blank" onClick="{{ stopClick }}" style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#6672ff;margin-top:4px;align-self:flex-start" style-hover="color:#8b95ff">GITHUB ↗</a>
+          </sc-if>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+  <section id="freelance" style="margin-bottom:130px">
+    <div data-reveal="0" style="display:flex;align-items:baseline;gap:22px;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;margin-bottom:8px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#6672ff">(B)</span>
+      <h2 style="margin:0;font-weight:600;font-size:clamp(30px,3.8vw,48px);letter-spacing:-.03em">Freelance</h2>
+      <span style="margin-left:auto;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b">09 PROJECTS</span>
+    </div>
+    <sc-for list="{{ freelance }}" as="p" hint-placeholder-count="9">
+      <div data-reveal="0" role="button" tabIndex="0" onClick="{{ p.open }}" onKeyDown="{{ p.key }}" style="cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:26px;border-top:1px solid rgba(255,255,255,.08);padding:36px 0;transition:padding-left .35s" style-hover="padding-left:22px">
+        <span style="flex:0 0 44px;font-family:'Geist Mono',monospace;font-size:12px;color:#575c6b">{{ p.idx }}</span>
+        <div style="position:relative;flex:0 0 168px;aspect-ratio:16/10;border:1px solid rgba(255,255,255,.09);border-radius:2px;background:repeating-linear-gradient(45deg,#12131b 0 10px,#0d0e14 10px 20px);display:grid;place-items:center">
+          <span style="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.08em;color:#575c6b">{{ p.shots }}</span>
+        </div>
+        <div style="flex:1 1 340px;display:flex;flex-direction:column;gap:7px">
+          <h3 style="margin:0;font-weight:600;font-size:clamp(22px,3vw,38px);letter-spacing:-.025em;line-height:1.08">{{ p.title }}</h3>
+          <span style="color:#9296a3;font-size:15px;line-height:1.55;max-width:640px">{{ p.desc }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:6px">
+            <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">{{ p.meta }}</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#6672ff">{{ p.techLine }}</span>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+  <section id="personal" style="margin-bottom:130px">
+    <div data-reveal="0" style="display:flex;align-items:baseline;gap:22px;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;margin-bottom:40px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#6672ff">(C)</span>
+      <h2 style="margin:0;font-weight:600;font-size:clamp(30px,3.8vw,48px);letter-spacing:-.03em">Personal</h2>
+      <span style="margin-left:auto;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b">00 PROJECTS</span>
+    </div>
+    <div data-reveal="60" style="border:1px solid rgba(255,255,255,.09);border-radius:2px;padding:80px 32px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;background:radial-gradient(circle at 50% 0%,rgba(67,83,255,.08),transparent 60%)">
+      <span style="font-weight:600;font-size:clamp(24px,3vw,34px);letter-spacing:-.02em">More <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#6672ff">coming soon</span></span>
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.12em;color:#575c6b">PERSONAL EXPERIMENTS IN PROGRESS — WATCH THIS SPACE</span>
+    </div>
+  </section>
+  <footer style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;border-top:1px solid rgba(255,255,255,.07);padding:26px 0 36px;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">
+    <span>© 2026 CYDRIC JAMES BULAN</span>
+    <a href="mailto:cedricjamesbulan@gmail.com" style="color:#575c6b" style-hover="color:#6672ff">CEDRICJAMESBULAN@GMAIL.COM</a>
+    <a href="#page" style="color:#575c6b" style-hover="color:#6672ff">TOP ↑</a>
+  </footer>
+</main>
+<sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeLb }}" style="position:fixed;inset:0;z-index:100;background:rgba(10,11,16,.94);backdrop-filter:blur(14px);display:grid;place-items:center;padding:28px;animation:fadein .25s ease both">
+    <div onClick="{{ stopClick }}" style="width:min(960px,100%);display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+        <h3 style="margin:0;font-weight:600;font-size:clamp(20px,3vw,32px);letter-spacing:-.02em">{{ lbTitle }}</h3>
+        <button onClick="{{ closeLb }}" style="cursor:pointer;background:none;border:1px solid rgba(255,255,255,.18);color:#9296a3;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;padding:10px 16px;border-radius:2px;transition:border-color .25s,color .25s" style-hover="border-color:#4353ff;color:#eaeaf0">ESC ✕</button>
+      </div>
+      <div style="position:relative;aspect-ratio:16/9;border:1px solid rgba(255,255,255,.12);border-radius:2px;overflow:hidden;background:repeating-linear-gradient({{ lbAngle }},#13141c 0 14px,#0d0e14 14px 28px);display:grid;place-items:center">
+        <span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.1em;color:#9296a3">{{ lbLabel }}</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px">
+        <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">{{ lbTech }}</span>
+        <div style="display:flex;gap:12px;align-items:center">
+          <span style="font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;color:#6672ff">{{ lbCounter }}</span>
+          <button onClick="{{ prevShot }}" style="cursor:pointer;background:none;border:1px solid rgba(255,255,255,.18);color:#eaeaf0;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;padding:10px 18px;border-radius:2px;transition:border-color .25s" style-hover="border-color:#4353ff">← PREV</button>
+          <button onClick="{{ nextShot }}" style="cursor:pointer;background:#4353ff;border:1px solid #4353ff;color:#eaeaf0;font-family:'Geist Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.14em;padding:10px 18px;border-radius:2px;transition:background .25s" style-hover="background:#5a68ff">NEXT →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ cmdOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeCmd }}" style="position:fixed;inset:0;z-index:120;background:rgba(10,11,16,.8);backdrop-filter:blur(8px);display:flex;justify-content:center;align-items:flex-start;padding:14vh 24px 24px;animation:fadein .2s ease both">
+    <div onClick="{{ stopClick }}" style="width:min(560px,100%);background:#0e0f15;border:1px solid rgba(255,255,255,.12);border-radius:8px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6)">
+      <input value="{{ q }}" onChange="{{ setQ }}" autoFocus="{{ true }}" placeholder="Type a command…" style="width:100%;background:transparent;border:none;outline:none;color:#eaeaf0;font-family:'Geist Mono',monospace;font-size:14px;letter-spacing:.04em;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-height:320px;overflow:auto;padding:8px">
+        <sc-for list="{{ cmdItems }}" as="it" hint-placeholder-count="5">
+          <div onClick="{{ it.run }}" onMouseEnter="{{ it.hover }}" style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 14px;border-radius:4px;cursor:pointer;background:{{ it.bg }}">
+            <span style="font-size:14px;color:{{ it.fg }}">{{ it.label }}</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.14em;color:#575c6b">{{ it.hint }}</span>
+          </div>
+        </sc-for>
+        <sc-if value="{{ cmdEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:16px 14px;color:#575c6b;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em">NO MATCHES</div></sc-if>
+      </div>
+      <div style="display:flex;gap:18px;padding:12px 20px;border-top:1px solid rgba(255,255,255,.08);font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:#575c6b"><span>↑↓ NAVIGATE</span><span>↵ SELECT</span><span>ESC CLOSE</span></div>
+    </div>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  state = { open: null, shot: 0, cmd: false, q: '', sel: 0 };
+  academic = [
+    { slug: "case-no-zero", title: "Case No. Zero: A Philippine Legal Crime Narrative", meta: "CAPSTONE · TEAM LEAD & LEAD DEV · DEC 2025", desc: "Built all three core systems — investigation, dialogue, courtroom — simulating Philippine legal investigation and trial procedure.", tech: ["GODOT","GDSCRIPT"], gallery: 8, github: "https://github.com/cedcedie/capstone-game-case-no-zero" },
+    { slug: "library-monitoring", title: "Library Attendance & Circulation Monitoring", meta: "TEAM LEAD · 2024", desc: "Led a 4-person team building a web library system: dashboards, auth, attendance logs, circulation tracking.", tech: ["PHP","JAVASCRIPT","HTML/CSS"], gallery: 0, github: "https://github.com/cedcedie/Library-Attendance-And-Circulation-Monitoring" }
+  ];
+  freelance = [
+    { slug: "lms-science-ar", title: "LMS: Science with AR", meta: "SOLO DEVELOPER · MAR 2026", desc: "AR-integrated LMS for Grade 7 Science (MATATAG curriculum) — 24 interactive 3D models across atoms, cells, and states of matter.", tech: ["UNITY","VUFORIA","BLENDER","REACT","FIREBASE"], gallery: 11 },
+    { slug: "hydrolar-dashboard", title: "Hydrolar — Energy Storage Dashboard", meta: "SOLO DEVELOPER · 2026", desc: "Mobile-first battery and energy monitoring dashboard with interactive charts and a weather-aware install-safety view.", tech: ["REACT","VITE","TAILWIND","RECHARTS"], gallery: 7 },
+    { slug: "cafe-web", title: "Cafe Management System (Web)", meta: "WEB DEVELOPER · 2026", desc: "Web-based cafe management for a client: orders, deliveries, printable receipts, PostgreSQL-backed admin dashboard.", tech: ["JAVASCRIPT","HTML/CSS","POSTGRESQL"], gallery: 6 },
+    { slug: "heri-threads", title: "Heri-Threads", meta: "WEB DEVELOPER · 2026", desc: "Cultural showcase of Ifugao dances and traditional attire, built on the TALL stack.", tech: ["LARAVEL","LIVEWIRE","ALPINE.JS","TAILWIND"], gallery: 9 },
+    { slug: "cafe-web-mobile", title: "Cafe Management System (Web & Mobile)", meta: "FULL-STACK DEVELOPER · 2026", desc: "Native Android ordering app + real-time web admin dashboard — Node/Express REST API, Socket.IO live updates, MongoDB storage.", tech: ["KOTLIN","NODE.JS","EXPRESS","MONGODB","SOCKET.IO"], gallery: 11 },
+    { slug: "disaster-ranger", title: "Disaster Ranger", meta: "GAME DEVELOPER · 2025", desc: "2D disaster-preparedness game for elementary schools, in hand-drawn pixel art.", tech: ["GODOT","GDSCRIPT","ASEPRITE"], gallery: 9 },
+    { slug: "brick-breaker", title: "Brick Breaker", meta: "GAME DEVELOPER · 2025", desc: "Polished arcade brick-breaker with hand-designed levels and responsive paddle physics.", tech: ["GODOT","GDSCRIPT"], gallery: 3 },
+    { slug: "germ-buster", title: "Germ Buster", meta: "GAME DEVELOPER · 2026", desc: "Educational game teaching hygiene and germ awareness.", tech: ["GODOT","GDSCRIPT","ASEPRITE"], gallery: 3 },
+    { slug: "rock-paper-scissors", title: "Rock Paper Scissors", meta: "GAME DEVELOPER · 2025", desc: "Fast-paced RPS with animated showdowns and score tracking.", tech: ["GODOT","GDSCRIPT"], gallery: 4 }
+  ];
+  all() { return [...this.academic, ...this.freelance]; }
+  runAct(a) { this.setState({ cmd: false }); a.go(); }
+  openP(p) { if (p.gallery > 0) this.setState({ open: p.slug, shot: 0 }); }
+  renderVals() {
+    const mk = (p, i) => ({ ...p,
+      idx: String(i + 1).padStart(2, "0"),
+      shots: p.gallery > 0 ? String(p.gallery).padStart(2, "0") + " SHOTS" : "REPO ONLY",
+      hasGit: !!p.github, techLine: p.tech.join(" / "),
+      open: () => this.openP(p),
+      key: e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); this.openP(p); } }
+    });
+    const cur = this.state.open != null ? this.all().find(p => p.slug === this.state.open) : null;
+    const n = this.state.shot;
+    const acts = [
+      { label: 'Go to Index', hint: 'PAGE', go: () => location.href = 'Home v2.dc.html' },
+      { label: 'Go to Credentials', hint: 'PAGE', go: () => location.href = 'Certificates v2.dc.html' },
+      { label: 'Jump to Academic', hint: 'SECTION', go: () => location.hash = 'academic' },
+      { label: 'Jump to Freelance', hint: 'SECTION', go: () => location.hash = 'freelance' },
+      { label: 'Jump to Personal', hint: 'SECTION', go: () => location.hash = 'personal' },
+      { label: 'Copy email address', hint: 'ACTION', go: () => { if (navigator.clipboard) navigator.clipboard.writeText('cedricjamesbulan@gmail.com'); } },
+      { label: 'Download CV', hint: 'ACTION', go: () => window.open('uploads/cv-1786734711887-sfa8.pdf', '_blank') },
+      { label: 'Open GitHub', hint: 'LINK', go: () => window.open('https://github.com/cedcedie', '_blank') },
+      { label: 'Open LinkedIn', hint: 'LINK', go: () => window.open('https://linkedin.com/in/cydricjames', '_blank') }
+    ];
+    const qq = this.state.q.toLowerCase();
+    const list = acts.filter(a => a.label.toLowerCase().includes(qq));
+    this._list = list;
+    return {
+      cmdOpen: this.state.cmd, cmdEmpty: list.length === 0, q: this.state.q,
+      cmdItems: list.map((a, i) => ({ ...a,
+        bg: i === this.state.sel ? 'rgba(67,83,255,.16)' : 'transparent',
+        fg: i === this.state.sel ? '#eaeaf0' : '#9296a3',
+        run: () => this.runAct(a),
+        hover: () => this.setState({ sel: i })
+      })),
+      openCmd: () => this.setState({ cmd: true, q: '', sel: 0 }),
+      closeCmd: () => this.setState({ cmd: false }),
+      setQ: e => this.setState({ q: e.target.value, sel: 0 }),
+      academic: this.academic.map(mk), freelance: this.freelance.map(mk),
+      lbOpen: !!cur,
+      lbTitle: cur ? cur.title : "",
+      lbLabel: cur ? `${cur.slug} — shot ${n + 1} of ${cur.gallery} · drop real capture here` : "",
+      lbCounter: cur ? `${String(n + 1).padStart(2, "0")} / ${String(cur.gallery).padStart(2, "0")}` : "",
+      lbTech: cur ? cur.tech.join(" / ") : "",
+      lbAngle: `${45 + n * 20}deg`,
+      closeLb: () => this.setState({ open: null, shot: 0 }),
+      prevShot: () => cur && this.setState(s => ({ shot: (s.shot - 1 + cur.gallery) % cur.gallery })),
+      nextShot: () => cur && this.setState(s => ({ shot: (s.shot + 1) % cur.gallery })),
+      stopClick: e => e.stopPropagation()
+    };
+  }
+  componentDidUpdate() { document.body.style.overflow = this.state.open ? "hidden" : ""; }
+  componentDidMount() {
+    this._kd = e => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); this.setState(s => ({ cmd: !s.cmd, q: '', sel: 0 })); return; }
+      if (this.state.cmd) {
+        const list = this._list || [];
+        if (e.key === 'Escape') this.setState({ cmd: false });
+        if (e.key === 'ArrowDown') { e.preventDefault(); this.setState(s => ({ sel: Math.min(s.sel + 1, list.length - 1) })); }
+        if (e.key === 'ArrowUp') { e.preventDefault(); this.setState(s => ({ sel: Math.max(s.sel - 1, 0) })); }
+        if (e.key === 'Enter' && list[this.state.sel]) this.runAct(list[this.state.sel]);
+        return;
+      }
+      if (this.state.open == null) return;
+      const cur = this.all().find(p => p.slug === this.state.open);
+      if (e.key === "Escape") this.setState({ open: null, shot: 0 });
+      if (cur && e.key === "ArrowRight") this.setState(s => ({ shot: (s.shot + 1) % cur.gallery }));
+      if (cur && e.key === "ArrowLeft") this.setState(s => ({ shot: (s.shot - 1 + cur.gallery) % cur.gallery }));
+    };
+    window.addEventListener("keydown", this._kd);
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motion = (this.props.motion ?? true) && !reduced;
+    document.querySelectorAll('a[data-nav]').forEach(a => a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || !motion) return;
+      e.preventDefault();
+      const m = document.getElementById('page');
+      if (m) { m.style.transition = 'opacity .26s ease, transform .26s ease'; m.style.opacity = '0'; m.style.transform = 'translateY(-12px)'; }
+      setTimeout(() => { location.href = href; }, 270);
+    }));
+    const bar = document.getElementById('scrollbar');
+    let busy = false;
+    addEventListener('scroll', () => { if (busy) return; busy = true; requestAnimationFrame(() => { const max = document.documentElement.scrollHeight - innerHeight; if (bar) bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`; busy = false; }); }, { passive: true });
+    if (motion && matchMedia('(pointer:fine)').matches) {
+      const dot = document.createElement('div');
+      dot.style.cssText = 'position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;background:#6672ff;z-index:200;pointer-events:none;transform:translate(-50%,-50%)';
+      const ring = document.createElement('div');
+      ring.style.cssText = 'position:fixed;top:0;left:0;width:34px;height:34px;border-radius:50%;border:1px solid rgba(102,114,255,.4);z-index:200;pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s';
+      document.body.append(dot, ring);
+      let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+      addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; const on = !!(e.target.closest && e.target.closest('a,button,[role=button]')); ring.style.width = ring.style.height = on ? '54px' : '34px'; ring.style.borderColor = on ? '#6672ff' : 'rgba(102,114,255,.4)'; });
+      const loop = () => { rx += (mx - rx) * .16; ry += (my - ry) * .16; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; this._raf = requestAnimationFrame(loop); }; loop();
+      document.querySelectorAll('[data-magnet]').forEach(el => {
+        el.addEventListener('mousemove', e => { const r = el.getBoundingClientRect(); el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .18}px,${(e.clientY - r.top - r.height / 2) * .3}px)`; });
+        el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+      });
+    }
+    if (!motion) return;
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if (en.isIntersecting) { const t = en.target; t.style.opacity = '1'; t.style.transform = 'none'; io.unobserve(t); }
+    }), { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('[data-reveal]').forEach((el, i) => {
+      if (el.getBoundingClientRect().top < innerHeight * 0.85) return;
+      const d = (i % 3) * 90;
+      el.style.opacity = '0'; el.style.transform = 'translateY(30px)';
+      el.style.transition = `opacity .9s cubic-bezier(.16,1,.3,1) ${d}ms, transform .9s cubic-bezier(.16,1,.3,1) ${d}ms`;
+      io.observe(el);
+    });
+  }
+  componentWillUnmount() { window.removeEventListener("keydown", this._kd); document.body.style.overflow = ""; if (this._raf) cancelAnimationFrame(this._raf); }
+}
+</script>
+</body>
+</html>

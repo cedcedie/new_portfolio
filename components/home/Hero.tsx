@@ -1,0 +1,168 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import Magnetic from "@/components/Magnetic";
+import { EMAIL } from "@/lib/data";
+import { useReducedMotion } from "@/lib/useReducedMotion";
+
+const serif: React.CSSProperties = {
+  fontFamily: "var(--font-instrument-serif), serif",
+  fontStyle: "italic",
+  fontWeight: 400,
+};
+
+/** Asia/Manila HH:mm, refreshed every 30s. */
+function useManilaClock() {
+  const [time, setTime] = useState("--:--");
+  useEffect(() => {
+    const tick = () =>
+      setTime(
+        new Date().toLocaleTimeString("en-GB", {
+          timeZone: "Asia/Manila",
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      );
+    tick();
+    const id = setInterval(tick, 30000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
+}
+
+/**
+ * Editorial poster hero: the portrait sits centre-column and the name is set
+ * in stacked lines that interlock with it — CYDRIC above the head, JAMES
+ * behind it, BULAN cutting across the chest as an outline. Type and image are
+ * one composition rather than two panels side by side.
+ */
+export default function Hero() {
+  const clock = useManilaClock();
+  const reduced = useReducedMotion();
+  const root = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+
+    el.classList.add("is-ready");
+    if (reduced) return;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+
+      tl.fromTo(
+        ".pz-rule",
+        { scaleX: 0 },
+        { scaleX: 1, duration: 1.1, stagger: 0.07, transformOrigin: "left center" },
+      )
+        .fromTo(
+          ".pz-eyebrow > *",
+          { yPercent: 130, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 0.85, stagger: 0.06 },
+          "-=0.85",
+        )
+        // The portrait scales up from slightly small as the type lands.
+        .fromTo(
+          ".pz-portrait",
+          { scale: 1.08, opacity: 0, filter: "blur(14px)" },
+          { scale: 1, opacity: 1, filter: "blur(0px)", duration: 1.4 },
+          "-=0.7",
+        )
+        .fromTo(
+          ".pz-char",
+          { yPercent: 118 },
+          { yPercent: 0, duration: 1.15, stagger: 0.03 },
+          "-=1.15",
+        )
+        .fromTo(
+          ".pz-fade",
+          { y: 24, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.85, stagger: 0.08 },
+          "-=0.8",
+        );
+    }, root);
+
+    return () => ctx.revert();
+  }, [reduced]);
+
+  const chars = (word: string) =>
+    word.split("").map((c, i) => (
+      <span key={`${word}-${i}`} className="pz-char">
+        {c}
+      </span>
+    ));
+
+  return (
+    <header ref={root} className="pz" aria-label="Cydric James Bulan">
+      <div className="pz-rule" aria-hidden="true" />
+
+      {/* One status item left, one place/time right. The role is already
+          stated by the lede below, so it isn't repeated here. */}
+      <div className="pz-eyebrow">
+        <span>
+          <span className="pz-dot" />
+          Available for work
+        </span>
+        <span>
+          Bulacan, PH — <span suppressHydrationWarning>{clock}</span>
+        </span>
+      </div>
+
+      {/* Poster block: type and portrait share one stacking context. */}
+      <div className="pz-stage">
+        <h1 className="pz-name">
+          <span className="pz-row pz-row-1" aria-hidden="true">
+            {chars("Cydric")}
+          </span>
+          <span className="pz-row pz-row-2" aria-hidden="true">
+            {chars("James")}
+          </span>
+          <span className="pz-row pz-row-3" aria-hidden="true">
+            {chars("Bulan")}
+          </span>
+          <span className="sr-only">Cydric James Bulan</span>
+        </h1>
+
+        <div className="pz-portrait">
+          <Image
+            src="/profile-cutout.png"
+            alt="Cydric James Bulan"
+            width={500}
+            height={500}
+            priority
+            sizes="(max-width: 900px) 74vw, 460px"
+          />
+        </div>
+      </div>
+
+      <div className="pz-rule" aria-hidden="true" />
+
+      <div className="pz-foot">
+        <p className="pz-lede pz-fade">
+          Full-stack web apps, mobile products and{" "}
+          <span style={{ ...serif, color: "#eaeaf0" }}>2D games</span> — built
+          for classrooms, courtrooms and cafes.
+        </p>
+
+        {/* Two actions, no more. GitHub lives in its own section further down;
+            the resume is in the ⌘K palette and the contact block. */}
+        <div className="pz-actions pz-fade">
+          <Magnetic>
+            <Link href="/projects" className="pz-cta">
+              See projects <span aria-hidden="true">→</span>
+            </Link>
+          </Magnetic>
+          <Magnetic>
+            <a href={`mailto:${EMAIL}`} className="pz-cta pz-cta-ghost">
+              Get in touch
+            </a>
+          </Magnetic>
+        </div>
+      </div>
+    </header>
+  );
+}

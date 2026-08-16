@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cydric James Bulan — Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#0a0b10;color:#eaeaf0;font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#eaeaf0;text-decoration:none}
+a:hover{color:#6672ff}
+::selection{background:#4353ff;color:#eaeaf0}
+@keyframes rise{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes orbit{to{transform:rotate(360deg)}}
+@keyframes lineUp{from{transform:translateY(115%)}to{transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div id="page" data-screen-label="Home v2">
+<div id="scrollbar" style="position:fixed;top:0;left:0;right:0;height:2px;z-index:60;background:#4353ff;transform:scaleX(0);transform-origin:left;pointer-events:none"></div>
+<div id="spy" style="position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:55;display:none;flex-direction:column;gap:16px;align-items:flex-end">
+  <a href="#about" style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.12em;color:#575c6b">01</a>
+  <a href="#stack" style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.12em;color:#575c6b">02</a>
+  <a href="#experience" style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.12em;color:#575c6b">03</a>
+  <a href="#work" style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.12em;color:#575c6b">04</a>
+  <a href="#contact" style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.12em;color:#575c6b">05</a>
+</div>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 40px;background:rgba(10,11,16,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07)">
+  <a data-nav="1" href="Home v2.dc.html" style="font-weight:600;font-size:15px;letter-spacing:-.02em;color:#eaeaf0">Cydric Bulan<span style="color:#6672ff">.</span></a>
+  <div style="display:flex;gap:32px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em">
+    <a data-nav="1" href="Home v2.dc.html" style="color:#eaeaf0;border-bottom:1px solid #4353ff;padding-bottom:3px">INDEX</a>
+    <a data-nav="1" href="Projects v2.dc.html" style="color:#575c6b" style-hover="color:#eaeaf0">WORK</a>
+    <a data-nav="1" href="Certificates v2.dc.html" style="color:#575c6b" style-hover="color:#eaeaf0">CREDENTIALS</a>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <button onClick="{{ openCmd }}" title="Command menu" style="cursor:pointer;background:none;border:1px solid rgba(255,255,255,.14);color:#9296a3;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.12em;padding:9px 12px;border-radius:2px;transition:border-color .25s,color .25s" style-hover="border-color:#4353ff;color:#eaeaf0">⌘K</button>
+    <a data-magnet="1" href="#contact" style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#eaeaf0;border:1px solid rgba(255,255,255,.18);padding:10px 18px;border-radius:2px;transition:border-color .25s,background .25s,transform .3s" style-hover="border-color:#4353ff;background:rgba(67,83,255,.12);color:#eaeaf0">CONTACT ↗</a>
+  </div>
+</nav>
+<header style="max-width:1360px;margin:0 auto;padding:150px 40px 0">
+  <div style="display:flex;justify-content:space-between;gap:24px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:18px;animation:rise .7s cubic-bezier(.16,1,.3,1) both">
+    <span style="display:inline-flex;align-items:center;gap:9px;color:#9296a3"><span style="width:6px;height:6px;border-radius:50%;background:#6672ff;animation:blink 2.4s ease-in-out infinite"></span>AVAILABLE FOR WORK</span>
+    <span>BULACAN, PH — <span id="clock">--:--</span> UTC+8</span>
+  </div>
+  <h1 id="hero-title" style="margin:40px 0 0;font-weight:700;font-size:clamp(64px,11.5vw,182px);line-height:.9;letter-spacing:-.045em;text-transform:uppercase">
+    <span style="display:block;overflow:hidden;padding-bottom:.05em;margin-bottom:-.05em"><span style="display:block;animation:lineUp .95s cubic-bezier(.16,1,.3,1) .05s both">Cydric</span></span>
+    <span style="display:block;overflow:hidden;padding-bottom:.05em;margin-bottom:-.05em"><span style="display:block;animation:lineUp .95s cubic-bezier(.16,1,.3,1) .18s both">James <span style="-webkit-text-stroke:1.5px rgba(234,234,240,.9);color:transparent">Bulan</span></span></span>
+  </h1>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:56px;align-items:end;margin-top:56px;padding-bottom:72px">
+    <div style="animation:rise .9s cubic-bezier(.16,1,.3,1) .28s both">
+      <p style="margin:0;font-size:clamp(20px,2.2vw,27px);line-height:1.45;letter-spacing:-.015em;color:#9296a3;max-width:520px;text-wrap:pretty">Software developer building <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#eaeaf0;font-size:1.12em">full-stack web apps</span>, <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#eaeaf0;font-size:1.12em">mobile products</span> &amp; <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#eaeaf0;font-size:1.12em">2D games</span> — from first scope to deployment.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;margin-top:38px">
+        <a data-nav="1" data-magnet="1" href="Projects v2.dc.html" style="display:inline-flex;align-items:center;gap:12px;background:#4353ff;color:#eaeaf0;font-weight:500;font-size:14px;letter-spacing:.02em;padding:16px 30px;border-radius:2px;transition:background .25s,transform .3s" style-hover="background:#5a68ff;color:#eaeaf0">Selected work <span aria-hidden="true">→</span></a>
+        <a data-magnet="1" href="mailto:cedricjamesbulan@gmail.com" style="display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(255,255,255,.18);color:#eaeaf0;font-weight:500;font-size:14px;letter-spacing:.02em;padding:16px 30px;border-radius:2px;transition:border-color .25s,transform .3s" style-hover="border-color:#4353ff;color:#eaeaf0">Get in touch</a>
+      </div>
+    </div>
+    <div id="hero-3d-mount" style="position:relative;width:100%;max-width:460px;justify-self:end;aspect-ratio:4/3;border:1px solid rgba(255,255,255,.09);border-radius:2px;overflow:hidden;background:radial-gradient(circle at 50% 55%,rgba(67,83,255,.13),transparent 62%),#0c0d13;animation:rise 1s cubic-bezier(.16,1,.3,1) .38s both">
+      <div style="position:absolute;inset:0;display:grid;place-items:center">
+        <div style="position:relative;width:140px;height:140px">
+          <div style="position:absolute;inset:0;border:1px solid rgba(102,114,255,.5);border-radius:50%;border-top-color:transparent;animation:orbit 14s linear infinite"></div>
+          <div style="position:absolute;inset:26px;border:1px solid rgba(255,255,255,.18);border-radius:50%;border-bottom-color:transparent;animation:orbit 9s linear infinite reverse"></div>
+          <div style="position:absolute;inset:62px;background:#4353ff;border-radius:50%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div style="border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);overflow:hidden;padding:20px 0">
+  <div style="display:flex;width:max-content;animation:marquee 44s linear infinite">
+    <div style="display:flex;align-items:center">
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/javascript/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">JAVASCRIPT</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/typescript/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">TYPESCRIPT</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/python/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">PYTHON</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/php/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">PHP</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/dart/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">DART</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/kotlin/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">KOTLIN</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/react/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">REACT</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/nextdotjs/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">NEXT.JS</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/flutter/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">FLUTTER</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/tailwindcss/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">TAILWIND</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/unity/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">UNITY</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/godotengine/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">GODOT</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/blender/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">BLENDER</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/postgresql/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">POSTGRESQL</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/mongodb/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">MONGODB</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/firebase/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">FIREBASE</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/socketdotio/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">SOCKET.IO</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/git/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">GIT</span></span>
+    </div>
+    <div style="display:flex;align-items:center" aria-hidden="true">
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/javascript/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">JAVASCRIPT</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/typescript/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">TYPESCRIPT</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/python/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">PYTHON</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/php/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">PHP</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/dart/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">DART</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/kotlin/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">KOTLIN</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/react/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">REACT</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/nextdotjs/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">NEXT.JS</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/flutter/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">FLUTTER</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/tailwindcss/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">TAILWIND</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/unity/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">UNITY</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/godotengine/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">GODOT</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/blender/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">BLENDER</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/postgresql/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">POSTGRESQL</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/mongodb/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">MONGODB</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/firebase/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">FIREBASE</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/socketdotio/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">SOCKET.IO</span></span>
+      <span style="display:inline-flex;align-items:center;gap:11px;padding-right:60px"><img data-si="1" src="https://cdn.simpleicons.org/git/8b8f9a" alt="" style="width:19px;height:19px;display:block"><span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b;white-space:nowrap">GIT</span></span>
+    </div>
+  </div>
+</div>
+<main style="max-width:1360px;margin:0 auto;padding:0 40px">
+  <section id="about" style="padding:160px 0 0">
+    <div data-reveal="0" style="display:flex;align-items:baseline;gap:22px;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;margin-bottom:70px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#6672ff">(01)</span>
+      <h2 style="margin:0;font-weight:600;font-size:clamp(36px,4.8vw,62px);letter-spacing:-.03em">The short <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400">version</span></h2>
+      <span style="margin-left:auto;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b">ABOUT</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px">
+      <div data-reveal="80" style="display:flex;flex-direction:column;gap:36px;max-width:700px">
+        <p style="margin:0;font-size:clamp(22px,2.4vw,30px);line-height:1.5;letter-spacing:-.015em;color:#9296a3;text-wrap:pretty">An IT graduate who ships — built across <span style="color:#eaeaf0">freelance work</span>, a <span style="color:#eaeaf0">university internship</span>, and four years of academic projects. Strong OOP foundations, fluent Git, modern web tech.</p>
+        <div style="border-left:2px solid #4353ff;padding:6px 0 6px 26px;display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.16em;color:#6672ff">WHY I BUILD</span>
+          <p style="margin:0;font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(19px,2vw,25px);line-height:1.55;color:#eaeaf0;text-wrap:pretty">I build for classrooms, courtrooms, and cafes — games that teach kids disaster prep, AR that makes Grade 7 science tangible, dashboards that keep orders flowing in real time. Software people actually use.</p>
+        </div>
+      </div>
+      <div data-reveal="160" style="display:flex;flex-direction:column;gap:0;max-width:460px;justify-self:end;width:100%">
+        <div style="display:flex;justify-content:space-between;gap:18px;border-top:1px solid rgba(255,255,255,.08);padding:20px 0">
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <span style="font-weight:500;font-size:16px">BS Information Technology</span>
+            <span style="color:#9296a3;font-size:14px">STI College Balagtas, Bulacan</span>
+          </div>
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#575c6b;padding-top:4px">2022—2026</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:18px;border-top:1px solid rgba(255,255,255,.08);padding:20px 0">
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <span style="font-weight:500;font-size:16px">General Academic Strand</span>
+            <span style="color:#9296a3;font-size:14px">Bulacan Montessori School Inc.</span>
+          </div>
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#575c6b;padding-top:4px">2020—2022</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:18px;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);padding:20px 0">
+          <span style="font-weight:500;font-size:16px">Based in Bulacan, PH</span>
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#575c6b;padding-top:4px">REMOTE-READY</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="stack" style="padding:160px 0 0">
+    <div data-reveal="0" style="display:flex;align-items:baseline;gap:22px;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;margin-bottom:54px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#6672ff">(02)</span>
+      <h2 style="margin:0;font-weight:600;font-size:clamp(36px,4.8vw,62px);letter-spacing:-.03em">What I <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400">do</span></h2>
+      <span style="margin-left:auto;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b">CAPABILITIES</span>
+    </div>
+    <div data-reveal="60" style="display:flex;flex-wrap:wrap;gap:20px;border-top:1px solid rgba(255,255,255,.08);padding:48px 0;transition:padding-left .35s" style-hover="padding-left:22px">
+      <span style="flex:0 0 210px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6672ff;padding-top:10px">01 — WEB</span>
+      <div style="flex:1 1 400px;display:flex;flex-direction:column;gap:12px">
+        <h3 style="margin:0;font-weight:600;font-size:clamp(26px,3.4vw,44px);letter-spacing:-.025em;line-height:1.05">Web applications</h3>
+        <p style="margin:0;color:#9296a3;font-size:16px;line-height:1.65;max-width:620px;text-wrap:pretty">Full-stack products end to end — admin dashboards, management systems, cultural showcases. <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#eaeaf0">Typed, componentized, deployed.</span></p>
+        <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">REACT / NEXT.JS / TYPESCRIPT / TAILWIND / PHP / LARAVEL / POSTGRESQL / MYSQL</span>
+      </div>
+    </div>
+    <div data-reveal="120" style="display:flex;flex-wrap:wrap;gap:20px;border-top:1px solid rgba(255,255,255,.08);padding:48px 0;transition:padding-left .35s" style-hover="padding-left:22px">
+      <span style="flex:0 0 210px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6672ff;padding-top:10px">02 — MOBILE</span>
+      <div style="flex:1 1 400px;display:flex;flex-direction:column;gap:12px">
+        <h3 style="margin:0;font-weight:600;font-size:clamp(26px,3.4vw,44px);letter-spacing:-.025em;line-height:1.05">Mobile development</h3>
+        <p style="margin:0;color:#9296a3;font-size:16px;line-height:1.65;max-width:620px;text-wrap:pretty">Cross-platform and native Android apps wired to <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#eaeaf0">real-time backends</span> — live orders, live sync, live dashboards.</p>
+        <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">FLUTTER / DART / KOTLIN / NODE.JS / SOCKET.IO / MONGODB / FIREBASE</span>
+      </div>
+    </div>
+    <div data-reveal="180" style="display:flex;flex-wrap:wrap;gap:20px;border-top:1px solid rgba(255,255,255,.08);padding:48px 0;transition:padding-left .35s" style-hover="padding-left:22px">
+      <span style="flex:0 0 210px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6672ff;padding-top:10px">03 — GAMES &amp; AR</span>
+      <div style="flex:1 1 400px;display:flex;flex-direction:column;gap:12px">
+        <h3 style="margin:0;font-weight:600;font-size:clamp(26px,3.4vw,44px);letter-spacing:-.025em;line-height:1.05">Games &amp; AR experiences</h3>
+        <p style="margin:0;color:#9296a3;font-size:16px;line-height:1.65;max-width:620px;text-wrap:pretty">2D games and AR learning tools for schools and clients — from <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#eaeaf0">hand-drawn pixel art</span> to 24-model AR curricula.</p>
+        <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">GODOT / GDSCRIPT / UNITY / VUFORIA / BLENDER / ASEPRITE</span>
+      </div>
+    </div>
+    <div data-reveal="240" style="display:flex;flex-wrap:wrap;gap:20px;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);padding:26px 0">
+      <span style="flex:0 0 210px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#575c6b;padding-top:2px">FULL TOOLBOX</span>
+      <span style="flex:1 1 400px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;line-height:2;color:#9296a3">JAVA · C# · PYTHON · ASP.NET · REDUX · ZUSTAND · REST APIS · GIT · GITHUB · VS CODE · FIGMA · POSTMAN · ANDROID STUDIO</span>
+    </div>
+  </section>
+  <section id="experience" style="padding:160px 0 0">
+    <div data-reveal="0" style="display:flex;align-items:baseline;gap:22px;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;margin-bottom:54px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#6672ff">(03)</span>
+      <h2 style="margin:0;font-weight:600;font-size:clamp(36px,4.8vw,62px);letter-spacing:-.03em">Where I&rsquo;ve <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400">worked</span></h2>
+      <span style="margin-left:auto;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b">2023 — NOW</span>
+    </div>
+    <div data-reveal="80" style="display:flex;flex-wrap:wrap;gap:20px;border-top:1px solid rgba(255,255,255,.08);padding:44px 0">
+      <span style="flex:0 0 210px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6672ff;padding-top:8px">2023 — PRESENT</span>
+      <div style="flex:1 1 400px;display:flex;flex-direction:column;gap:16px">
+        <h3 style="margin:0;font-weight:600;font-size:clamp(24px,2.8vw,34px);letter-spacing:-.02em">Freelance Developer <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#9296a3">— remote</span></h3>
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:660px">
+          <span style="color:#9296a3;font-size:15.5px;line-height:1.65">Cross-platform cafe ordering system — Flutter customer app + React admin panel, real-time sync over Socket.IO and MongoDB.</span>
+          <span style="color:#9296a3;font-size:15.5px;line-height:1.65">“Disaster Ranger,” a 2D Godot game teaching kids disaster preparedness.</span>
+          <span style="color:#9296a3;font-size:15.5px;line-height:1.65">Full-cycle delivery on web and game projects — scoping through deployment.</span>
+        </div>
+        <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">REACT / FLUTTER / MONGODB / SOCKET.IO / GODOT / FIREBASE</span>
+      </div>
+    </div>
+    <div data-reveal="160" style="display:flex;flex-wrap:wrap;gap:20px;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);padding:44px 0">
+      <span style="flex:0 0 210px;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6672ff;padding-top:8px">FEB — MAY 2025</span>
+      <div style="flex:1 1 400px;display:flex;flex-direction:column;gap:16px">
+        <h3 style="margin:0;font-weight:600;font-size:clamp(24px,2.8vw,34px);letter-spacing:-.02em">Frontend Developer Intern <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#9296a3">— Bulacan State University</span></h3>
+        <div style="display:flex;flex-direction:column;gap:10px;max-width:660px">
+          <span style="color:#9296a3;font-size:15.5px;line-height:1.65">Built UI components for Document Tracking, Record Management, and Vehicle Trip Ticket systems.</span>
+          <span style="color:#9296a3;font-size:15.5px;line-height:1.65">Integrated REST APIs alongside backend developers.</span>
+        </div>
+        <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">REACT / REST APIS</span>
+      </div>
+    </div>
+  </section>
+  <section id="work" style="padding:160px 0 0">
+    <div data-reveal="0" style="display:flex;align-items:baseline;gap:22px;border-top:1px solid rgba(255,255,255,.08);padding-top:22px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#6672ff">(04)</span>
+      <h2 style="margin:0;font-weight:600;font-size:clamp(36px,4.8vw,62px);letter-spacing:-.03em">Selected <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400">work</span></h2>
+      <a data-nav="1" href="Projects v2.dc.html" style="margin-left:auto;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#9296a3" style-hover="color:#6672ff">FULL INDEX — 11 ↗</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:start;padding-top:44px">
+      <div style="position:sticky;top:110px">
+        <div style="position:relative;aspect-ratio:4/3;border:1px solid rgba(255,255,255,.1);border-radius:2px;overflow:hidden;background:radial-gradient(circle at 50% 100%,rgba(67,83,255,.12),transparent 55%),repeating-linear-gradient({{ wsAngle }},#12131b 0 12px,#0d0e14 12px 24px)">
+          <span style="position:absolute;top:16px;left:18px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;color:#9296a3">{{ wsSlug }}</span>
+          <span style="position:absolute;top:16px;right:18px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;color:#6672ff">{{ wsShots }}</span>
+          <span style="position:absolute;bottom:2px;right:14px;font-weight:700;font-size:clamp(90px,8vw,150px);line-height:1;letter-spacing:-.05em;-webkit-text-stroke:1px rgba(102,114,255,.55);color:transparent">{{ wsIdx }}</span>
+          <span style="position:absolute;bottom:18px;left:18px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;color:#575c6b">{{ wsTech }}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;gap:16px;margin-top:14px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;color:#575c6b"><span>PREVIEW — SWAPS AS YOU SCROLL</span><span style="color:#6672ff">{{ wsCount }}</span></div>
+      </div>
+      <div>
+        <div data-ws="0" style="min-height:58vh;display:flex;flex-direction:column;justify-content:center;gap:14px;border-top:1px solid rgba(255,255,255,.08);padding:32px 0">
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6672ff">01 — CAPSTONE · TEAM LEAD · DEC 2025</span>
+          <h3 style="margin:0;font-weight:600;font-size:clamp(30px,4vw,52px);letter-spacing:-.03em;line-height:1.02">Case No. Zero</h3>
+          <p style="margin:0;color:#9296a3;font-size:16px;line-height:1.65;max-width:460px;text-wrap:pretty">A Philippine legal crime narrative — built all three core systems: investigation, dialogue, courtroom.</p>
+          <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">GODOT / GDSCRIPT</span>
+        </div>
+        <div data-ws="1" style="min-height:58vh;display:flex;flex-direction:column;justify-content:center;gap:14px;border-top:1px solid rgba(255,255,255,.08);padding:32px 0">
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6672ff">02 — SOLO DEVELOPER · MAR 2026</span>
+          <h3 style="margin:0;font-weight:600;font-size:clamp(30px,4vw,52px);letter-spacing:-.03em;line-height:1.02">LMS: Science with AR</h3>
+          <p style="margin:0;color:#9296a3;font-size:16px;line-height:1.65;max-width:460px;text-wrap:pretty">AR-integrated Grade 7 Science LMS — 24 interactive 3D models across atoms, cells, and states of matter.</p>
+          <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">UNITY / VUFORIA / BLENDER / REACT / FIREBASE</span>
+        </div>
+        <div data-ws="2" style="min-height:58vh;display:flex;flex-direction:column;justify-content:center;gap:14px;border-top:1px solid rgba(255,255,255,.08);padding:32px 0">
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6672ff">03 — SOLO DEVELOPER · 2026</span>
+          <h3 style="margin:0;font-weight:600;font-size:clamp(30px,4vw,52px);letter-spacing:-.03em;line-height:1.02">Hydrolar</h3>
+          <p style="margin:0;color:#9296a3;font-size:16px;line-height:1.65;max-width:460px;text-wrap:pretty">Mobile-first energy storage dashboard — interactive charts and a weather-aware install-safety view.</p>
+          <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">REACT / VITE / TAILWIND / RECHARTS</span>
+        </div>
+        <div data-ws="3" style="min-height:58vh;display:flex;flex-direction:column;justify-content:center;gap:14px;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);padding:32px 0">
+          <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6672ff">04 — FULL-STACK · 2026</span>
+          <h3 style="margin:0;font-weight:600;font-size:clamp(30px,4vw,52px);letter-spacing:-.03em;line-height:1.02">Cafe System — Web &amp; Mobile</h3>
+          <p style="margin:0;color:#9296a3;font-size:16px;line-height:1.65;max-width:460px;text-wrap:pretty">Native Android ordering app + real-time web admin dashboard over Socket.IO live updates.</p>
+          <span style="font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">KOTLIN / NODE.JS / EXPRESS / MONGODB</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div data-reveal="0" style="overflow:hidden;padding:180px 0 0;margin:0 -40px">
+    <div style="display:flex;width:max-content;animation:marquee 26s linear infinite">
+      <span style="font-weight:700;font-size:clamp(60px,9vw,136px);letter-spacing:-.035em;text-transform:uppercase;white-space:nowrap;padding-right:.55em;-webkit-text-stroke:1px rgba(234,234,240,.25);color:transparent">Let&rsquo;s build something <span style="-webkit-text-stroke:0px;color:#4353ff">✳</span> Available for work <span style="-webkit-text-stroke:0px;color:#4353ff">✳</span> </span>
+      <span aria-hidden="true" style="font-weight:700;font-size:clamp(60px,9vw,136px);letter-spacing:-.035em;text-transform:uppercase;white-space:nowrap;padding-right:.55em;-webkit-text-stroke:1px rgba(234,234,240,.25);color:transparent">Let&rsquo;s build something <span style="-webkit-text-stroke:0px;color:#4353ff">✳</span> Available for work <span style="-webkit-text-stroke:0px;color:#4353ff">✳</span> </span>
+    </div>
+  </div>
+  <section id="contact" style="padding:110px 0 70px">
+    <div data-reveal="0" style="display:flex;align-items:baseline;gap:22px;border-top:1px solid rgba(255,255,255,.08);padding-top:22px;margin-bottom:56px">
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em;color:#6672ff">(05)</span>
+      <span style="font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b">CONTACT</span>
+      <span style="margin-left:auto;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.16em;color:#575c6b">REPLIES FAST</span>
+    </div>
+    <h2 data-reveal="60" style="margin:0 0 56px;font-weight:700;font-size:clamp(56px,10.5vw,168px);line-height:.9;letter-spacing:-.045em;text-transform:uppercase">Let&rsquo;s build<br><span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;text-transform:none;color:#6672ff">something.</span></h2>
+    <a data-reveal="120" href="mailto:cedricjamesbulan@gmail.com" style="display:inline-block;font-weight:500;font-size:clamp(19px,3vw,34px);letter-spacing:-.015em;color:#eaeaf0;border-bottom:1px solid rgba(102,114,255,.55);padding-bottom:8px;transition:border-color .25s,color .25s" style-hover="border-color:#6672ff;color:#6672ff">cedricjamesbulan@gmail.com</a>
+    <button onClick="{{ copyEmail }}" style="cursor:pointer;margin-left:20px;vertical-align:middle;background:none;border:1px solid rgba(255,255,255,.16);color:#9296a3;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;padding:10px 16px;border-radius:2px;transition:border-color .25s,color .25s" style-hover="border-color:#4353ff;color:#eaeaf0">{{ copyLabel }}</button>
+    <a href="uploads/cv-1786734711887-sfa8.pdf" target="_blank" style="margin-left:12px;vertical-align:middle;display:inline-block;border:1px solid rgba(255,255,255,.16);color:#9296a3;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;padding:10px 16px;border-radius:2px;transition:border-color .25s,color .25s" style-hover="border-color:#4353ff;color:#eaeaf0">DOWNLOAD CV ↓</a>
+    <div data-reveal="180" style="display:flex;flex-wrap:wrap;gap:32px;margin-top:48px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.14em">
+      <span style="color:#9296a3">+63 961 622 5451</span>
+      <a href="https://github.com/cedcedie" target="_blank" style="color:#9296a3" style-hover="color:#6672ff">GITHUB ↗</a>
+      <a href="https://linkedin.com/in/cydricjames" target="_blank" style="color:#9296a3" style-hover="color:#6672ff">LINKEDIN ↗</a>
+    </div>
+  </section>
+  <footer style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;border-top:1px solid rgba(255,255,255,.07);padding:26px 0 36px;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:#575c6b">
+    <span>© 2026 CYDRIC JAMES BULAN</span>
+    <span>BULACAN, PHILIPPINES</span>
+    <a href="#page" style="color:#575c6b" style-hover="color:#6672ff">TOP ↑</a>
+  </footer>
+</main>
+<sc-if value="{{ cmdOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeCmd }}" style="position:fixed;inset:0;z-index:120;background:rgba(10,11,16,.8);backdrop-filter:blur(8px);display:flex;justify-content:center;align-items:flex-start;padding:14vh 24px 24px;animation:fadein .2s ease both">
+    <div onClick="{{ stopClick }}" style="width:min(560px,100%);background:#0e0f15;border:1px solid rgba(255,255,255,.12);border-radius:8px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6)">
+      <input value="{{ q }}" onChange="{{ setQ }}" autoFocus="{{ true }}" placeholder="Type a command…" style="width:100%;background:transparent;border:none;outline:none;color:#eaeaf0;font-family:'Geist Mono',monospace;font-size:14px;letter-spacing:.04em;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="max-height:320px;overflow:auto;padding:8px">
+        <sc-for list="{{ cmdItems }}" as="it" hint-placeholder-count="5">
+          <div onClick="{{ it.run }}" onMouseEnter="{{ it.hover }}" style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 14px;border-radius:4px;cursor:pointer;background:{{ it.bg }}">
+            <span style="font-size:14px;color:{{ it.fg }}">{{ it.label }}</span>
+            <span style="font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.14em;color:#575c6b">{{ it.hint }}</span>
+          </div>
+        </sc-for>
+        <sc-if value="{{ cmdEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:16px 14px;color:#575c6b;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.1em">NO MATCHES</div></sc-if>
+      </div>
+      <div style="display:flex;gap:18px;padding:12px 20px;border-top:1px solid rgba(255,255,255,.08);font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:#575c6b"><span>↑↓ NAVIGATE</span><span>↵ SELECT</span><span>ESC CLOSE</span></div>
+    </div>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  state = { cmd: false, q: '', sel: 0, copied: false, ws: 0 };
+  featured = [
+    { slug: 'case-no-zero', shots: '08 SHOTS', tech: 'GODOT / GDSCRIPT' },
+    { slug: 'lms-science-ar', shots: '11 SHOTS', tech: 'UNITY / VUFORIA / REACT' },
+    { slug: 'hydrolar-dashboard', shots: '07 SHOTS', tech: 'REACT / VITE / RECHARTS' },
+    { slug: 'cafe-web-mobile', shots: '11 SHOTS', tech: 'KOTLIN / NODE / MONGODB' }
+  ];
+  stackList = [
+    { n: 'JAVASCRIPT', s: 'javascript' }, { n: 'TYPESCRIPT', s: 'typescript' }, { n: 'PYTHON', s: 'python' },
+    { n: 'PHP', s: 'php' }, { n: 'DART', s: 'dart' }, { n: 'KOTLIN', s: 'kotlin' },
+    { n: 'REACT', s: 'react' }, { n: 'NEXT.JS', s: 'nextdotjs' }, { n: 'FLUTTER', s: 'flutter' },
+    { n: 'TAILWIND', s: 'tailwindcss' }, { n: 'UNITY', s: 'unity' }, { n: 'GODOT', s: 'godotengine' },
+    { n: 'BLENDER', s: 'blender' }, { n: 'POSTGRESQL', s: 'postgresql' }, { n: 'MONGODB', s: 'mongodb' },
+    { n: 'FIREBASE', s: 'firebase' }, { n: 'SOCKET.IO', s: 'socketdotio' }, { n: 'GIT', s: 'git' }
+  ];
+  copy() {
+    if (navigator.clipboard) navigator.clipboard.writeText('cedricjamesbulan@gmail.com');
+    this.setState({ copied: true });
+    clearTimeout(this._ct); this._ct = setTimeout(() => this.setState({ copied: false }), 1600);
+  }
+  runAct(a) { this.setState({ cmd: false }); a.go(); }
+  renderVals() {
+    const acts = [
+      { label: 'Go to Work index', hint: 'PAGE', go: () => location.href = 'Projects v2.dc.html' },
+      { label: 'Go to Credentials', hint: 'PAGE', go: () => location.href = 'Certificates v2.dc.html' },
+      { label: 'Jump to About', hint: 'SECTION', go: () => location.hash = 'about' },
+      { label: 'Jump to What I do', hint: 'SECTION', go: () => location.hash = 'stack' },
+      { label: 'Jump to Experience', hint: 'SECTION', go: () => location.hash = 'experience' },
+      { label: 'Jump to Selected work', hint: 'SECTION', go: () => location.hash = 'work' },
+      { label: 'Jump to Contact', hint: 'SECTION', go: () => location.hash = 'contact' },
+      { label: 'Copy email address', hint: 'ACTION', go: () => this.copy() },
+      { label: 'Download CV', hint: 'ACTION', go: () => window.open('uploads/cv-1786734711887-sfa8.pdf', '_blank') },
+      { label: 'Open GitHub', hint: 'LINK', go: () => window.open('https://github.com/cedcedie', '_blank') },
+      { label: 'Open LinkedIn', hint: 'LINK', go: () => window.open('https://linkedin.com/in/cydricjames', '_blank') }
+    ];
+    const q = this.state.q.toLowerCase();
+    const list = acts.filter(a => a.label.toLowerCase().includes(q));
+    this._list = list;
+    const w = this.featured[this.state.ws] || this.featured[0];
+    return {
+
+      wsSlug: w.slug, wsShots: w.shots, wsTech: w.tech,
+      wsIdx: String(this.state.ws + 1).padStart(2, '0'),
+      wsCount: String(this.state.ws + 1).padStart(2, '0') + ' / 04',
+      wsAngle: (45 + this.state.ws * 22) + 'deg',
+      cmdOpen: this.state.cmd, cmdEmpty: list.length === 0, q: this.state.q,
+      copyLabel: this.state.copied ? 'COPIED ✓' : 'COPY EMAIL',
+      cmdItems: list.map((a, i) => ({ ...a,
+        bg: i === this.state.sel ? 'rgba(67,83,255,.16)' : 'transparent',
+        fg: i === this.state.sel ? '#eaeaf0' : '#9296a3',
+        run: () => this.runAct(a),
+        hover: () => this.setState({ sel: i })
+      })),
+      openCmd: () => this.setState({ cmd: true, q: '', sel: 0 }),
+      closeCmd: () => this.setState({ cmd: false }),
+      setQ: e => this.setState({ q: e.target.value, sel: 0 }),
+      copyEmail: () => this.copy(),
+      stopClick: e => e.stopPropagation()
+    };
+  }
+  componentDidMount() {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motion = (this.props.motion ?? true) && !reduced;
+    document.querySelectorAll('a[data-nav]').forEach(a => a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || !motion) return;
+      e.preventDefault();
+      const m = document.getElementById('page');
+      if (m) { m.style.transition = 'opacity .26s ease, transform .26s ease'; m.style.opacity = '0'; m.style.transform = 'translateY(-12px)'; }
+      setTimeout(() => { location.href = href; }, 270);
+    }));
+    this._kd = e => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); this.setState(s => ({ cmd: !s.cmd, q: '', sel: 0 })); return; }
+      if (!this.state.cmd) return;
+      const list = this._list || [];
+      if (e.key === 'Escape') this.setState({ cmd: false });
+      if (e.key === 'ArrowDown') { e.preventDefault(); this.setState(s => ({ sel: Math.min(s.sel + 1, list.length - 1) })); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); this.setState(s => ({ sel: Math.max(s.sel - 1, 0) })); }
+      if (e.key === 'Enter' && list[this.state.sel]) this.runAct(list[this.state.sel]);
+    };
+    window.addEventListener('keydown', this._kd);
+    document.querySelectorAll('img[data-si]').forEach(img => img.addEventListener('error', () => { img.style.display = 'none'; }));
+    const wsIo = new IntersectionObserver(es => es.forEach(en => {
+      if (en.isIntersecting) { const i = +(en.target.dataset.ws || 0); if (i !== this.state.ws) this.setState({ ws: i }); }
+    }), { rootMargin: '-42% 0px -42% 0px', threshold: 0 });
+    document.querySelectorAll('[data-ws]').forEach(el => wsIo.observe(el));
+    const spy = document.getElementById('spy');
+    if (spy) {
+      const setSpy = () => { spy.style.display = innerWidth >= 1200 ? 'flex' : 'none'; };
+      setSpy(); addEventListener('resize', setSpy);
+      const links = [...spy.querySelectorAll('a')];
+      const spyIo = new IntersectionObserver(es => es.forEach(en => {
+        if (en.isIntersecting) links.forEach(l => { const on = l.getAttribute('href') === '#' + en.target.id; l.style.color = on ? '#6672ff' : '#575c6b'; l.style.fontWeight = on ? '500' : '400'; });
+      }), { rootMargin: '-35% 0px -55% 0px' });
+      ['about','stack','experience','work','contact'].forEach(id => { const s = document.getElementById(id); if (s) spyIo.observe(s); });
+    }
+    const clk = document.getElementById('clock');
+    const tickClock = () => { if (clk) clk.textContent = new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Manila', hour: '2-digit', minute: '2-digit' }); };
+    tickClock(); this._clk = setInterval(tickClock, 30000);
+    const bar = document.getElementById('scrollbar');
+    const mount = document.getElementById('hero-3d-mount');
+    const title = document.getElementById('hero-title');
+    let busy = false;
+    addEventListener('scroll', () => { if (busy) return; busy = true; requestAnimationFrame(() => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      if (bar) bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+      if (motion) { if (mount) mount.style.translate = `0 ${scrollY * -0.05}px`; if (title) title.style.translate = `0 ${scrollY * 0.07}px`; }
+      busy = false; }); }, { passive: true });
+    if (motion && matchMedia('(pointer:fine)').matches) {
+      const dot = document.createElement('div');
+      dot.style.cssText = 'position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;background:#6672ff;z-index:200;pointer-events:none;transform:translate(-50%,-50%)';
+      const ring = document.createElement('div');
+      ring.style.cssText = 'position:fixed;top:0;left:0;width:34px;height:34px;border-radius:50%;border:1px solid rgba(102,114,255,.4);z-index:200;pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s';
+      document.body.append(dot, ring);
+      let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+      addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; const on = !!(e.target.closest && e.target.closest('a,button,[role=button]')); ring.style.width = ring.style.height = on ? '54px' : '34px'; ring.style.borderColor = on ? '#6672ff' : 'rgba(102,114,255,.4)'; });
+      const loop = () => { rx += (mx - rx) * .16; ry += (my - ry) * .16; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; this._raf = requestAnimationFrame(loop); }; loop();
+      document.querySelectorAll('[data-magnet]').forEach(el => {
+        el.addEventListener('mousemove', e => { const r = el.getBoundingClientRect(); el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .18}px,${(e.clientY - r.top - r.height / 2) * .3}px)`; });
+        el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+      });
+    }
+    if (!motion) return;
+    const io = new IntersectionObserver(es => es.forEach(en => {
+      if (en.isIntersecting) { const t = en.target; t.style.opacity = '1'; t.style.transform = 'none'; io.unobserve(t); }
+    }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      if (el.getBoundingClientRect().top < innerHeight * 0.85) return;
+      const d = +(el.dataset.reveal || 0);
+      el.style.opacity = '0'; el.style.transform = 'translateY(30px)';
+      el.style.transition = `opacity .9s cubic-bezier(.16,1,.3,1) ${d}ms, transform .9s cubic-bezier(.16,1,.3,1) ${d}ms`;
+      io.observe(el);
+    });
+  }
+  componentWillUnmount() { if (this._raf) cancelAnimationFrame(this._raf); if (this._clk) clearInterval(this._clk); if (this._kd) window.removeEventListener('keydown', this._kd); clearTimeout(this._ct); }
+}
+</script>
+</body>
+</html>
