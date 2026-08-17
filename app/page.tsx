@@ -218,7 +218,18 @@ export default function HomePage() {
         </ScrollVelocityContainer>
       </div>
 
-      <main style={{ maxWidth: 1360, margin: "0 auto", padding: "0 40px" }}>
+      <main
+        style={{
+          maxWidth: 1360,
+          margin: "0 auto",
+          // A flat 40px on both sides left less breathing room on mobile
+          // than Hero's own 24px, and than every other page's since-fixed
+          // side padding — About, Tech Stack, GitHub, Experience, Selected
+          // Work, and Contact all sat closer to the screen edge than the
+          // sections before/after them.
+          padding: "0 clamp(24px, 4vw, 40px)",
+        }}
+      >
         {/* (01) About */}
         <section id="about" style={{ padding: "160px 0 0" }}>
           <SectionHeader index="(01)" label="ABOUT" marginBottom={70}>
@@ -231,8 +242,7 @@ export default function HomePage() {
               gap: 64,
             }}
           >
-            <Reveal
-              delay={80}
+            <div
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -240,27 +250,38 @@ export default function HomePage() {
                 maxWidth: 700,
               }}
             >
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: "clamp(22px,2.4vw,30px)",
-                  lineHeight: 1.5,
-                  letterSpacing: "-.015em",
-                  color: "#9296a3",
-                  textWrap: "pretty",
-                }}
-              >
-                I build software end to end — scoping, writing, and shipping
-                it myself, across{" "}
-                <Highlighter action="highlight" color="#4353ff">
-                  <span style={{ color: "#eaeaf0" }}>freelance work</span>
-                </Highlighter>{" "}
-                and a{" "}
-                <Highlighter action="underline" color="#6672ff">
-                  <span style={{ color: "#eaeaf0" }}>university internship</span>
-                </Highlighter>
-                . Strong OOP foundations, fluent Git, modern web tech.
-              </p>
+              <Reveal delay={80}>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "clamp(22px,2.4vw,30px)",
+                    lineHeight: 1.5,
+                    letterSpacing: "-.015em",
+                    color: "#9296a3",
+                    textWrap: "pretty",
+                  }}
+                >
+                  I build software end to end — scoping, writing, and
+                  shipping it myself, across{" "}
+                  <Highlighter action="highlight" color="#4353ff">
+                    <span style={{ color: "#eaeaf0" }}>freelance work</span>
+                  </Highlighter>{" "}
+                  and a{" "}
+                  <Highlighter action="underline" color="#6672ff">
+                    <span style={{ color: "#eaeaf0" }}>
+                      university internship
+                    </span>
+                  </Highlighter>
+                  . Strong OOP foundations, fluent Git, modern web tech.
+                </p>
+              </Reveal>
+              {/* Not wrapped in Reveal — WordReveal already animates itself
+                  in (word-by-word, tied to scroll progress), so an outer
+                  mount-triggered opacity fade on top of that was two
+                  systems animating the same text: it fully faded in once,
+                  then scrolling further dimmed trailing words again as
+                  WordReveal's own progress caught up — read as the reveal
+                  playing twice. */}
               <div
                 style={{
                   borderLeft: "2px solid #4353ff",
@@ -293,7 +314,7 @@ export default function HomePage() {
                   {`Started out just trying to make games. That curiosity turned into freelance client work, then into shipping software for people who actually depend on it — a courtroom simulation, a cafe's order system, a kids' game about disaster prep.`}
                 </WordReveal>
               </div>
-            </Reveal>
+            </div>
 
             <Reveal
               delay={160}

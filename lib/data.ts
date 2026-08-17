@@ -258,6 +258,12 @@ export type Certificate = {
   title: string;
   issuer: string;
   year: string;
+  /** Opens directly in-browser (PNG/JPG) rather than triggering a download
+   *  prompt the way a bare PDF link often does. Prefer this over `fileUrl`
+   *  when both exist. */
+  imageUrl?: string;
+  /** Falls back to this when no image scan of the certificate exists yet. */
+  fileUrl?: string;
 };
 
 /** Newest first — matches "most recent achievement leads" on the index. */
@@ -267,6 +273,8 @@ export const certificates: Certificate[] = [
     title: "Azure AI Fundamentals Crash Course",
     issuer: "ULAP.org / Jonah Andersson Tech",
     year: "2026",
+    imageUrl: "/certificates/azure-ai-fundamentals.png",
+    fileUrl: "/certificates/azure-ai-fundamentals.pdf",
   },
   {
     idx: "02",
@@ -279,6 +287,8 @@ export const certificates: Certificate[] = [
     title: "SAP S/4HANA — HCM, WM, PS, EAM, CS, QM (Global Bike)",
     issuer: "STI College / SAP University Alliances",
     year: "DEC 2024",
+    imageUrl: "/certificates/sap-s4hana.png",
+    fileUrl: "/certificates/sap-s4hana.pdf",
   },
   {
     idx: "04",
@@ -291,17 +301,23 @@ export const certificates: Certificate[] = [
     title: "Systems Administration",
     issuer: "STI Balagtas / Linux Professional Institute",
     year: "JUN 2023",
+    imageUrl: "/certificates/systems-administration.png",
+    fileUrl: "/certificates/systems-administration.pdf",
   },
   {
     idx: "06",
     title: "Java Fundamentals 2",
     issuer: "Oracle Academy",
     year: "JUN 2023",
+    imageUrl: "/certificates/java-fundamentals-2.jpg",
+    fileUrl: "/certificates/java-fundamentals-2.pdf",
   },
   {
     idx: "07",
     title: "Java Fundamentals",
     issuer: "Oracle Academy",
     year: "JAN 2023",
+    imageUrl: "/certificates/java-fundamentals.png",
+    fileUrl: "/certificates/java-fundamentals.pdf",
   },
 ];

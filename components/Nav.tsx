@@ -20,6 +20,19 @@ const links = [
 export default function Nav() {
   const pathname = usePathname();
   const [hidden, setHidden] = useState(false);
+  // Below 900px, .nv-links (INDEX/WORK/CREDENTIALS) is hidden by CSS with
+  // nothing replacing it — mobile had no way to move between pages short of
+  // the browser's back button. This panel is the replacement, mobile-only.
+  const [menuOpen, setMenuOpen] = useState(false);
+  // Reset during render (React's documented pattern for "state that should
+  // reset when a prop changes"), not in an effect — an effect's setState
+  // would commit the stale-open state for one frame, then force a second
+  // render to close it.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+  }
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -62,6 +75,16 @@ export default function Nav() {
       </div>
 
       <div className="nv-group nv-actions">
+        <button
+          type="button"
+          className="nv-burger"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span data-open={menuOpen ? "true" : undefined} />
+          <span data-open={menuOpen ? "true" : undefined} />
+        </button>
         <Magnetic>
           {pathname === "/" ? (
             <a
@@ -84,6 +107,22 @@ export default function Nav() {
             </a>
           )}
         </Magnetic>
+      </div>
+
+      {/* Mobile-only dropdown — CSS hides this whole block above 900px, same
+          breakpoint .nv-links disappears at, so exactly one of the two is
+          ever the way to reach another page. */}
+      <div className="nv-mobile-menu" data-open={menuOpen ? "true" : undefined}>
+        {links.map((l) => (
+          <Link
+            key={l.href}
+            href={l.href}
+            data-active={pathname === l.href ? "true" : undefined}
+            onClick={() => setMenuOpen(false)}
+          >
+            {l.label}
+          </Link>
+        ))}
       </div>
     </nav>
   );

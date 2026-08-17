@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Reveal from "@/components/Reveal";
 import Footer from "@/components/Footer";
+import IndexHeader from "@/components/IndexHeader";
 import Lightbox from "./Lightbox";
 import {
   academic,
@@ -11,7 +12,6 @@ import {
   personal,
   type Project,
 } from "@/lib/data";
-import { useEntranceMotion } from "@/lib/useEntranceMotion";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { BorderBeam } from "@/components/magicui/border-beam";
 
@@ -284,7 +284,6 @@ function ProjectRow({
 export default function ProjectsIndex() {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const [shot, setShot] = useState(0);
-  const reduced = useEntranceMotion();
 
   const current = openSlug
     ? (allProjects.find((p) => p.slug === openSlug) ?? null)
@@ -303,73 +302,55 @@ export default function ProjectsIndex() {
         style={{
           maxWidth: 1360,
           margin: "0 auto",
-          padding: "160px 40px 60px",
+          // Matches .pz's (Hero) top padding — was a flat 160px here, so the
+          // topmost content sat at a different height on this page than on
+          // the homepage, and jumped again switching to /certificates. Side
+          // padding was a flat 40px at every width too — Hero and every
+          // other section drop to 24px under 900px, so this page sat with
+          // noticeably more dead space at the screen edge than everywhere
+          // else on mobile.
+          padding: "clamp(104px, 13vh, 154px) clamp(24px, 4vw, 40px) 60px",
         }}
       >
-        <header style={{ marginBottom: 100 }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: 24,
-              fontFamily: mono,
-              fontSize: 11,
-              letterSpacing: ".16em",
-              color: "#575c6b",
-              borderBottom: hairline,
-              paddingBottom: 18,
-              animation: reduced
-                ? undefined
-                : "rise .7s cubic-bezier(.16,1,.3,1) both",
-            }}
-          >
-            <span>/WORK — FULL INDEX</span>
-            <span>
+        <IndexHeader
+          eyebrowLeft="/WORK — FULL INDEX"
+          eyebrowRight={
+            <>
               <NumberTicker value={14} /> PROJECTS · 2023 — 2026
-            </span>
-          </div>
-          <h1
-            style={{
-              margin: "40px 0 0",
-              fontWeight: 700,
-              fontSize: "clamp(58px,10.5vw,164px)",
-              lineHeight: 0.9,
-              letterSpacing: "-.045em",
-              textTransform: "uppercase",
-              animation: reduced
-                ? undefined
-                : "rise .9s cubic-bezier(.16,1,.3,1) .1s both",
-            }}
-          >
-            All <span className="outline-type">work</span>
-          </h1>
-          <p
-            style={{
-              margin: "30px 0 0",
-              maxWidth: 520,
-              fontSize: "clamp(17px,1.8vw,21px)",
-              lineHeight: 1.55,
-              color: "#9296a3",
-              textWrap: "pretty",
-              animation: reduced
-                ? undefined
-                : "rise .9s cubic-bezier(.16,1,.3,1) .22s both",
-            }}
-          >
-            Academic, freelance, and game work —{" "}
-            <span
-              style={{
-                fontFamily: "var(--font-instrument-serif), serif",
-                fontStyle: "italic",
-                color: "#eaeaf0",
-                fontSize: "1.1em",
-              }}
-            >
-              open any row
-            </span>{" "}
-            to flip through its gallery.
-          </p>
-        </header>
+            </>
+          }
+          headline={
+            <>
+              All{" "}
+              <span
+                style={{
+                  fontFamily: "var(--font-instrument-serif), serif",
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                  color: "#6672ff",
+                }}
+              >
+                work
+              </span>
+            </>
+          }
+          lede={
+            <>
+              Academic, freelance, and game work —{" "}
+              <span
+                style={{
+                  fontFamily: "var(--font-instrument-serif), serif",
+                  fontStyle: "italic",
+                  color: "#eaeaf0",
+                  fontSize: "1.1em",
+                }}
+              >
+                open any row
+              </span>{" "}
+              to flip through its gallery.
+            </>
+          }
+        />
 
         <section id="personal" style={{ marginBottom: 130 }}>
           <SectionHead
@@ -383,7 +364,13 @@ export default function ProjectsIndex() {
               key={p.slug}
               project={p}
               index={i}
-              delay={(i % 3) * 90}
+              // Monotonic and capped, not `(i % 3) * 90` — that pattern reset
+              // every 3 rows, so under a fast scroll a later row (delay 0)
+              // could finish revealing before an earlier one still waiting
+              // out its 180ms. Each row's own ScrollTrigger only fires once
+              // it individually crosses the viewport line regardless, so the
+              // cap just keeps a gentle stagger without visual-order flips.
+              delay={Math.min(i * 40, 200)}
               onOpen={open}
             />
           ))}
@@ -401,7 +388,13 @@ export default function ProjectsIndex() {
               key={p.slug}
               project={p}
               index={i}
-              delay={(i % 3) * 90}
+              // Monotonic and capped, not `(i % 3) * 90` — that pattern reset
+              // every 3 rows, so under a fast scroll a later row (delay 0)
+              // could finish revealing before an earlier one still waiting
+              // out its 180ms. Each row's own ScrollTrigger only fires once
+              // it individually crosses the viewport line regardless, so the
+              // cap just keeps a gentle stagger without visual-order flips.
+              delay={Math.min(i * 40, 200)}
               onOpen={open}
             />
           ))}
@@ -419,7 +412,13 @@ export default function ProjectsIndex() {
               key={p.slug}
               project={p}
               index={i}
-              delay={(i % 3) * 90}
+              // Monotonic and capped, not `(i % 3) * 90` — that pattern reset
+              // every 3 rows, so under a fast scroll a later row (delay 0)
+              // could finish revealing before an earlier one still waiting
+              // out its 180ms. Each row's own ScrollTrigger only fires once
+              // it individually crosses the viewport line regardless, so the
+              // cap just keeps a gentle stagger without visual-order flips.
+              delay={Math.min(i * 40, 200)}
               onOpen={open}
             />
           ))}

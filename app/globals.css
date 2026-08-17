@@ -96,6 +96,24 @@ html {
   overflow-x: clip;
 }
 
+/* Every jump-to-section trigger (Nav's Contact link, ScrollSpy, the command
+   palette) calls scrollIntoView({block:"start"}), which aligns the target's
+   top edge with the very top of the viewport — directly under the fixed
+   nav bar, with zero clearance. Most sections have enough top padding of
+   their own that this went unnoticed, but #contact's is thinner and the
+   nav re-shows on any scroll-up, so its own eyebrow row landed pinned right
+   under (sometimes behind) the nav. scroll-margin-top gives every anchor
+   target the same clearance regardless of which trigger scrolled to it. */
+#about,
+#stack,
+#stack-3d,
+#github,
+#experience,
+#work,
+#contact {
+  scroll-margin-top: 90px;
+}
+
 body {
   margin: 0;
   background: #0a0b10;
@@ -231,6 +249,45 @@ body::after {
   color: transparent;
 }
 
+/* Work / Credentials index intro. Hidden by default so there's no flash of
+   the final state before GSAP's timeline (IndexHeader.tsx) takes over —
+   same is-ready gate the Hero uses. No rule under the eyebrow row: the
+   headline right below it already reads as "new page" on its own. */
+.idx-header:not(.is-ready) .idx-eyebrow,
+.idx-header:not(.is-ready) .idx-headline,
+.idx-header:not(.is-ready) .idx-lede {
+  opacity: 0;
+}
+
+.idx-eyebrow {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: #575c6b;
+  padding-bottom: 18px;
+}
+
+.idx-headline {
+  margin: 24px 0 0;
+  font-weight: 700;
+  font-size: clamp(58px, 10.5vw, 164px);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+.idx-lede {
+  margin: 30px 0 0;
+  max-width: 520px;
+  font-size: clamp(17px, 1.8vw, 21px);
+  line-height: 1.55;
+  color: #9296a3;
+  text-wrap: pretty;
+}
+
 /* ── Selected work: pinned full-width laptop ───────────────────────────────
    The stage holds the viewport while scroll advances the project; screens and
    copy crossfade in place rather than scrolling past. */
@@ -248,10 +305,14 @@ body::after {
   align-items: center;
   padding: clamp(76px, 9vh, 108px) 0 clamp(18px, 2.6vh, 34px);
   overflow: hidden;
-  /* Opaque while pinned, or the section above shows through behind the
-     machine during the zoom. Slightly translucent so the page's ambient
-     lighting still reads through. */
-  background: rgba(10, 11, 16, 0.94);
+  /* Needs to be opaque enough to hide the section above scrolling behind the
+     machine during the zoom, but .94 left almost none of body::before's
+     ambient gradient showing through — the section read as a flatter,
+     visibly boxed-off rectangle against the rest of the page. .82 still
+     fully hides the scroll-behind content (it's over an identical-hue fill,
+     not transparent) while letting enough of the ambient light survive that
+     the seam disappears. */
+  background: rgba(10, 11, 16, 0.82);
 }
 
 .sw-head {
@@ -341,8 +402,15 @@ body::after {
   .sw-steps {
     display: block;
   }
+  /* --sw-step-h is set from SelectedWork.tsx to the sticky stage's real
+     measured height — a flat 46vh here scrolled the same long distance
+     between steps regardless of how big the laptop card actually rendered,
+     which read as an oversized, half-empty section on devices where the
+     card settled small. clamp() keeps a sane floor/ceiling in case the
+     custom property hasn't been set yet (first paint) or the stage measures
+     unexpectedly small/large. */
   .sw-step {
-    min-height: 46vh;
+    min-height: clamp(240px, var(--sw-step-h, 46vh), 90vh);
   }
 }
 
@@ -529,6 +597,18 @@ body::after {
    (1366x768 at 175% = 781x439, landscape) down this path, where the stacked
    copy ended up far below the fold and unreadable. */
 @media (max-width: 900px) and (max-aspect-ratio: 1/1) {
+  /* The sticky stage below has no breathing room from its neighbours: on
+     desktop the GSAP pin/zoom supplies its own clean scroll runway, but on
+     mobile #work butts directly against Experience above and Contact below
+     with zero gap. The sticky card engages and releases right at those
+     boundaries, so Experience's own content was still scrolling past while
+     the laptop was already stuck in place, and it un-stuck straight into
+     Contact with no transition — read as an abrupt jump rather than a
+     scroll. A bit of real margin on both sides gives the engage/release a
+     moment of plain scroll before/after it, instead of a hard cut. */
+  #work {
+    margin: 60px 0;
+  }
   /* No GSAP pin here, so the stage is content-sized and the machine is
      width-driven again — the row-height sizing above would overflow.
      `position: sticky` does the pinning instead: .sw-steps below supplies
@@ -544,6 +624,13 @@ body::after {
     display: block;
     padding: 40px 0 0;
     overflow: visible;
+    /* The opaque fill on .sw-stage exists to hide the section above
+       scrolling behind the machine during the desktop GSAP-pinned zoom —
+       there's no pin or zoom here (position: sticky just rides within this
+       section's own box, nothing from elsewhere ever shows through it), so
+       nothing needs hiding and the fill just blocked body::before's ambient
+       light, reading as a flat black box against the rest of the page. */
+    background: transparent;
   }
   /* Static stage: drop the size-container and height rules from the pinned
      layout, or the machine keeps a viewport-sized box and the copy below it
@@ -653,6 +740,7 @@ body::after {
 }
 
 .gh-card {
+  position: relative;
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 2px;
   padding: clamp(20px, 3vw, 34px);
@@ -661,8 +749,31 @@ body::after {
     rgba(67, 83, 255, 0.07),
     transparent 68%
   );
-  /* The chart is wide; let it scroll rather than squash on small screens. */
+  /* The chart is wide (external SVG, fixed aspect, doesn't reflow); let it
+     scroll rather than squash on small screens. The scrollbar itself is
+     hidden — a visible OS scrollbar cutting across a card read as a UI
+     glitch rather than an intentional affordance — and a right-edge fade
+     (below) signals "more content" the way the rest of the site already
+     signals overflow, instead of relying on the bar. */
   overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.gh-card::-webkit-scrollbar {
+  display: none;
+}
+/* Only needed where the chart can actually overflow its box. */
+@media (max-width: 700px) {
+  .gh-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 36px;
+    pointer-events: none;
+    background: linear-gradient(to right, transparent, #0a0b10);
+  }
 }
 
 /* The upstream SVG hard-codes #eee for empty days, which glares on a dark
@@ -788,12 +899,107 @@ body::after {
   color: #eaeaf0;
 }
 
+/* Hamburger toggle for the mobile menu below — two bars that pivot into an
+   X when open. Hidden above 900px, where .nv-links (the inline INDEX / WORK
+   / CREDENTIALS row) is what carries navigation instead. */
+.nv-burger {
+  display: none;
+  position: relative;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.nv-burger span {
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  height: 1.5px;
+  background: #eaeaf0;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    top 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.2s;
+}
+.nv-burger span:first-child {
+  top: 13px;
+}
+.nv-burger span:last-child {
+  top: 20px;
+}
+.nv-burger span[data-open="true"]:first-child {
+  top: 16.5px;
+  transform: rotate(45deg);
+}
+.nv-burger span[data-open="true"]:last-child {
+  top: 16.5px;
+  transform: rotate(-45deg);
+}
+
+.nv-mobile-menu {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .nv {
     padding: 18px 24px;
   }
   .nv-links {
     display: none;
+  }
+  .nv-burger {
+    display: block;
+  }
+
+  /* Floating panel under the bar, matching .nv's own "no backdrop, items
+     float" language rather than a full-screen takeover or a boxed dropdown
+     — consistent with the rest of the chrome. */
+  .nv-mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 66px;
+    right: 24px;
+    left: 24px;
+    z-index: 49;
+    gap: 4px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(10, 11, 16, 0.92);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    transform-origin: top right;
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+    pointer-events: none;
+    transition:
+      opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nv-mobile-menu[data-open="true"] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .nv-mobile-menu a {
+    padding: 14px 12px;
+    border-radius: 6px;
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    color: #9296a3;
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+  .nv-mobile-menu a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #eaeaf0;
+  }
+  .nv-mobile-menu a[data-active="true"] {
+    color: #6672ff;
   }
 }
 
@@ -829,6 +1035,15 @@ body::after {
      BULAN   outline, in front, cutting across the chest */
 .pz {
   position: relative;
+  /* No explicit height before this meant Hero was purely content-sized —
+     on a wide, shorter viewport (e.g. 1920x1080) its content didn't need
+     the full screen, so the marquee band directly below it in normal flow
+     was already partly visible on first paint. Hero's own reveal animation
+     playing while the marquee sat there too, both on screen at once, read
+     as everything animating on load at once rather than a single settled
+     hero. min-height guarantees Hero always claims the full viewport, so
+     the marquee starts below the fold on any screen. */
+  min-height: 100svh;
   max-width: 1360px;
   margin: 0 auto;
   padding: clamp(104px, 13vh, 154px) 40px clamp(40px, 6vh, 72px);

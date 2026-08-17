@@ -127,6 +127,15 @@ export default function Contact() {
       <div className="contact-grid">
         <div>
           <Reveal delay={120} as="div" style={{ display: "block" }}>
+            {/* Email on its own row, buttons on the next — the two used to
+                be inline siblings relying on the email text being short
+                enough to wrap the buttons onto a new line by themselves.
+                That held together on desktop but on mobile the email wraps
+                to two lines and its own underline (padding-bottom + border)
+                sat directly above the buttons row with almost no gap,
+                crowding into them. A real block break with margin keeps the
+                two rows apart at every width, not just when the wrap
+                happens to land right. */}
             <a
               href={`mailto:${EMAIL}`}
               className="contact-email"
@@ -138,53 +147,58 @@ export default function Contact() {
                 color: "#eaeaf0",
                 borderBottom: "1px solid rgba(102,114,255,.55)",
                 paddingBottom: 8,
+                marginBottom: 20,
                 transition: "border-color .25s,color .25s",
               }}
             >
               {EMAIL}
             </a>
-            <button
-              type="button"
-              onClick={copy}
-              className="btn-hair"
+            <div
               style={{
-                cursor: "pointer",
-                marginLeft: 20,
-                verticalAlign: "middle",
-                background: "none",
-                border: "1px solid rgba(255,255,255,.16)",
-                color: "#9296a3",
-                fontFamily: mono,
-                fontSize: 10,
-                letterSpacing: ".14em",
-                padding: "10px 16px",
-                borderRadius: 2,
-                transition: "border-color .25s,color .25s",
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 12,
               }}
             >
-              {copied ? "COPIED ✓" : "COPY EMAIL"}
-            </button>
-            <a
-              href={CV_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-hair"
-              style={{
-                marginLeft: 12,
-                verticalAlign: "middle",
-                display: "inline-block",
-                border: "1px solid rgba(255,255,255,.16)",
-                color: "#9296a3",
-                fontFamily: mono,
-                fontSize: 10,
-                letterSpacing: ".14em",
-                padding: "10px 16px",
-                borderRadius: 2,
-                transition: "border-color .25s,color .25s",
-              }}
-            >
-              DOWNLOAD CV ↓
-            </a>
+              <button
+                type="button"
+                onClick={copy}
+                className="btn-hair"
+                style={{
+                  cursor: "pointer",
+                  background: "none",
+                  border: "1px solid rgba(255,255,255,.16)",
+                  color: "#9296a3",
+                  fontFamily: mono,
+                  fontSize: 10,
+                  letterSpacing: ".14em",
+                  padding: "10px 16px",
+                  borderRadius: 2,
+                  transition: "border-color .25s,color .25s",
+                }}
+              >
+                {copied ? "COPIED ✓" : "COPY EMAIL"}
+              </button>
+              <a
+                href={CV_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-hair"
+                style={{
+                  display: "inline-block",
+                  border: "1px solid rgba(255,255,255,.16)",
+                  color: "#9296a3",
+                  fontFamily: mono,
+                  fontSize: 10,
+                  letterSpacing: ".14em",
+                  padding: "10px 16px",
+                  borderRadius: 2,
+                  transition: "border-color .25s,color .25s",
+                }}
+              >
+                DOWNLOAD CV ↓
+              </a>
+            </div>
           </Reveal>
 
           <Reveal

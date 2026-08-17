@@ -39,6 +39,20 @@ export default function SelectedWork() {
       "(max-width: 900px) and (max-aspect-ratio: 1/1)",
     ).matches;
     if (reduced || stacked) {
+      // The scroll runway between steps used to be a flat 46vh regardless
+      // of how tall the sticky card actually renders — on a device where
+      // the laptop settles small, that left a long stretch of empty scroll
+      // below an already-static card before the next project (or Contact)
+      // arrived. Measuring the real stage height and sizing each step off
+      // that keeps the runway proportional to the content driving it: about
+      // one stage's worth of scroll to register each step, not a guess.
+      const setStepHeight = () => {
+        const h = pin.getBoundingClientRect().height;
+        section.style.setProperty("--sw-step-h", `${Math.round(h)}px`);
+      };
+      setStepHeight();
+      window.addEventListener("resize", setStepHeight, { passive: true });
+
       const els = gsap.utils.toArray<HTMLElement>(".sw-step", section);
       const ts = els.map((el, i) =>
         ScrollTrigger.create({
@@ -48,7 +62,10 @@ export default function SelectedWork() {
           onEnterBack: () => setWs(i),
         }),
       );
-      return () => ts.forEach((t) => t.kill());
+      return () => {
+        window.removeEventListener("resize", setStepHeight);
+        ts.forEach((t) => t.kill());
+      };
     }
 
     const steps = featured.length;
