@@ -12,6 +12,8 @@ import {
   type Project,
 } from "@/lib/data";
 import { useEntranceMotion } from "@/lib/useEntranceMotion";
+import { NumberTicker } from "@/components/magicui/number-ticker";
+import { BorderBeam } from "@/components/magicui/border-beam";
 
 const mono = "var(--font-geist-mono), monospace";
 const hairline = "1px solid rgba(255,255,255,.08)";
@@ -28,14 +30,16 @@ function SectionHead({
   marginBottom: number;
 }) {
   return (
+    // No rule above the heading — the (X) letter, the heading itself and the
+    // generous section spacing already signal a new section on their own,
+    // same as the homepage's SectionHeader. A rule here was redundant weight
+    // stacked directly under the page header's own closing rule above it.
     <Reveal
       delay={0}
       style={{
         display: "flex",
         alignItems: "baseline",
         gap: 22,
-        borderTop: hairline,
-        paddingTop: 22,
         marginBottom,
       }}
     >
@@ -94,6 +98,7 @@ function ProjectRow({
       : videos > 0
         ? `${String(project.shots.length).padStart(2, "0")} · ${videos} VIDEO`
         : `${String(project.shots.length).padStart(2, "0")} SHOTS`;
+  const [hovered, setHovered] = useState(false);
 
   return (
     <Reveal
@@ -143,6 +148,8 @@ function ProjectRow({
           {String(index + 1).padStart(2, "0")}
         </span>
         <div
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
           style={{
             position: "relative",
             flex: "0 0 168px",
@@ -184,6 +191,12 @@ function ProjectRow({
           >
             {shots}
           </span>
+          {/* Mounted only on hover — an always-on beam per row would mean 14+
+              simultaneous infinite loops running the whole time you're on
+              this page for no one to see. */}
+          {hovered && (
+            <BorderBeam size={60} duration={4} colorFrom="#4353ff" colorTo="#8b95ff" />
+          )}
         </div>
         <div
           style={{
@@ -311,7 +324,9 @@ export default function ProjectsIndex() {
             }}
           >
             <span>/WORK — FULL INDEX</span>
-            <span>14 PROJECTS · 2023 — 2026</span>
+            <span>
+              <NumberTicker value={14} /> PROJECTS · 2023 — 2026
+            </span>
           </div>
           <h1
             style={{
@@ -356,14 +371,14 @@ export default function ProjectsIndex() {
           </p>
         </header>
 
-        <section id="academic" style={{ marginBottom: 130 }}>
+        <section id="personal" style={{ marginBottom: 130 }}>
           <SectionHead
             letter="A"
-            title="Academic"
-            count="02 PROJECTS"
+            title="Personal"
+            count="01 PROJECT"
             marginBottom={8}
           />
-          {academic.map((p, i) => (
+          {personal.map((p, i) => (
             <ProjectRow
               key={p.slug}
               project={p}
@@ -392,14 +407,14 @@ export default function ProjectsIndex() {
           ))}
         </section>
 
-        <section id="personal" style={{ marginBottom: 130 }}>
+        <section id="academic" style={{ marginBottom: 130 }}>
           <SectionHead
             letter="C"
-            title="Personal"
-            count="01 PROJECT"
+            title="Academic"
+            count="02 PROJECTS"
             marginBottom={8}
           />
-          {personal.map((p, i) => (
+          {academic.map((p, i) => (
             <ProjectRow
               key={p.slug}
               project={p}

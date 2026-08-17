@@ -3,7 +3,7 @@
 import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useEntranceMotion } from "@/lib/useEntranceMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,7 +31,14 @@ export default function Reveal({
   id,
 }: Props) {
   const ref = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
+  // useEntranceMotion(), not useReducedMotion() directly: the latter starts
+  // as a placeholder (`true`) before the real preference is known, and once
+  // it flips to the real value this effect re-runs — for content that was
+  // already showing (the placeholder skipped the animation entirely), that
+  // re-run calls gsap.set(el,{opacity:0,y:30}) and replays the reveal from
+  // scratch, a visible flicker. The frozen value settles once and doesn't
+  // retrigger this effect a second time.
+  const reduced = useEntranceMotion();
 
   useEffect(() => {
     const el = ref.current;

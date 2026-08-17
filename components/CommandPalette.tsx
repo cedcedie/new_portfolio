@@ -84,9 +84,9 @@ export default function CommandPalette() {
         : pathname === "/projects"
           ? [
               {
-                label: "Jump to Academic",
+                label: "Jump to Personal",
                 hint: "SECTION",
-                go: () => jump("academic"),
+                go: () => jump("personal"),
               },
               {
                 label: "Jump to Freelance",
@@ -94,9 +94,9 @@ export default function CommandPalette() {
                 go: () => jump("freelance"),
               },
               {
-                label: "Jump to Personal",
+                label: "Jump to Academic",
                 hint: "SECTION",
-                go: () => jump("personal"),
+                go: () => jump("academic"),
               },
             ]
           : [];

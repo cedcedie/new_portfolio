@@ -2,7 +2,7 @@
 
 import { useRef, type CSSProperties } from "react";
 import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useEntranceMotion } from "@/lib/useEntranceMotion";
 
 /**
  * Word-by-word scroll reveal.
@@ -22,7 +22,12 @@ export default function WordReveal({
   className?: string;
 }) {
   const ref = useRef<HTMLParagraphElement>(null);
-  const reduced = useReducedMotion();
+  // useEntranceMotion(), not useReducedMotion() directly: this component
+  // returns different JSX per branch (plain <p> vs. word-by-word motion
+  // spans), so a raw reduced flipping placeholder-true -> real-false after
+  // mount would remount the whole subtree — a visible flash. The frozen
+  // value settles once, so the branch it renders never changes underneath it.
+  const reduced = useEntranceMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start 0.9", "start 0.35"],

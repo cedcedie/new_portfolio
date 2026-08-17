@@ -253,7 +253,15 @@ export const stackList = [
   { n: "GIT", s: "git" },
 ];
 
-export const certificates = [
+export type Certificate = {
+  idx: string;
+  title: string;
+  issuer: string;
+  year: string;
+};
+
+/** Newest first — matches "most recent achievement leads" on the index. */
+export const certificates: Certificate[] = [
   {
     idx: "01",
     title: "Azure AI Fundamentals Crash Course",
@@ -262,38 +270,38 @@ export const certificates = [
   },
   {
     idx: "02",
-    title: "Java Fundamentals",
-    issuer: "Oracle Academy",
-    year: "JAN 2023",
-  },
-  {
-    idx: "03",
-    title: "Java Fundamentals 2",
-    issuer: "Oracle Academy",
-    year: "JUN 2023",
-  },
-  {
-    idx: "04",
-    title: "Systems Administration",
-    issuer: "STI Balagtas / Linux Professional Institute",
-    year: "JUN 2023",
-  },
-  {
-    idx: "05",
-    title: "11th TOPCIT Certificate",
-    issuer: "Test of Practical Competency in IT",
-    year: "NOV 2024",
-  },
-  {
-    idx: "06",
     title: "13th TOPCIT Certificate",
     issuer: "Test of Practical Competency in IT",
     year: "NOV 2025",
   },
   {
-    idx: "07",
+    idx: "03",
     title: "SAP S/4HANA — HCM, WM, PS, EAM, CS, QM (Global Bike)",
     issuer: "STI College / SAP University Alliances",
     year: "DEC 2024",
+  },
+  {
+    idx: "04",
+    title: "11th TOPCIT Certificate",
+    issuer: "Test of Practical Competency in IT",
+    year: "NOV 2024",
+  },
+  {
+    idx: "05",
+    title: "Systems Administration",
+    issuer: "STI Balagtas / Linux Professional Institute",
+    year: "JUN 2023",
+  },
+  {
+    idx: "06",
+    title: "Java Fundamentals 2",
+    issuer: "Oracle Academy",
+    year: "JUN 2023",
+  },
+  {
+    idx: "07",
+    title: "Java Fundamentals",
+    issuer: "Oracle Academy",
+    year: "JAN 2023",
   },
 ];
