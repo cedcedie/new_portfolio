@@ -7,7 +7,6 @@ import { gsap } from "gsap";
 import Magnetic from "@/components/Magnetic";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { EMAIL } from "@/lib/data";
-import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const serif: React.CSSProperties = {
   fontFamily: "var(--font-instrument-serif), serif",
@@ -42,7 +41,6 @@ function useManilaClock() {
  */
 export default function Hero() {
   const clock = useManilaClock();
-  const reduced = useReducedMotion();
   const root = useRef<HTMLElement>(null);
   // StrictMode (dev only) mounts, cleans up, and remounts every effect once;
   // gsap.context's cleanup reverts the timeline mid-flight, so without this
@@ -53,12 +51,35 @@ export default function Hero() {
 
   useEffect(() => {
     const el = root.current;
-    if (!el) return;
-
-    el.classList.add("is-ready");
-    if (reduced || played.current) return;
+    if (!el || played.current) return;
     played.current = true;
 
+    // Read the media query directly, once, instead of through
+    // useReducedMotion() — that hook starts `true` as a safe placeholder
+    // until the real value resolves (every *other* consumer wants that: skip
+    // motion rather than flash it), but here it meant this effect ran once
+    // for the placeholder `true` — releasing the CSS-hidden state and
+    // revealing the hero — and again moments later for the real value,
+    // which built the GSAP timeline and yanked everything back to hidden
+    // before animating it in. One real replay per load, not a StrictMode
+    // artifact. Reading the query directly skips the placeholder entirely.
+    const reduced = window.matchMedia?.(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reduced) {
+      // No motion at all: release the CSS-hidden state straight away, since
+      // no tween is coming to take over from it.
+      el.classList.add("is-ready");
+      return;
+    }
+
+    // Order matters: build the timeline (its `fromTo` calls set every
+    // element's "from" values synchronously) before releasing the CSS
+    // `.pz:not(.is-ready)` hidden rule — releasing it first left a one-frame
+    // (longer under dev-mode's slower JS execution) window where everything
+    // sat at its natural, fully-visible resting state before GSAP yanked it
+    // back to hidden and animated it in, reading as a double reveal.
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
@@ -89,8 +110,12 @@ export default function Hero() {
         );
     }, root);
 
+    el.classList.add("is-ready");
+
     return () => ctx.revert();
-  }, [reduced]);
+    // Runs once (guarded by `played`) — no reactive dependency on the
+    // reduced-motion preference, which is read directly above instead.
+  }, []);
 
   const chars = (word: string) =>
     word.split("").map((c, i) => (

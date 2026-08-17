@@ -290,4 +290,10 @@ export const certificates = [
     issuer: "Test of Practical Competency in IT",
     year: "NOV 2025",
   },
+  {
+    idx: "07",
+    title: "SAP S/4HANA — HCM, WM, PS, EAM, CS, QM (Global Bike)",
+    issuer: "STI College / SAP University Alliances",
+    year: "DEC 2024",
+  },
 ];

@@ -33,7 +33,7 @@ export default function CertificatesIndex() {
           }}
         >
           <span>/CREDENTIALS</span>
-          <span>06 CERTIFICATIONS · 2023 — 2026</span>
+          <span>07 CERTIFICATIONS · 2023 — 2026</span>
         </div>
         <h1
           style={{

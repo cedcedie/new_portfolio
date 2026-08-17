@@ -529,9 +529,16 @@ body::after {
    (1366x768 at 175% = 781x439, landscape) down this path, where the stacked
    copy ended up far below the fold and unreadable. */
 @media (max-width: 900px) and (max-aspect-ratio: 1/1) {
-  /* No pin here, so the stage is content-sized and the machine is
-     width-driven again — the row-height sizing above would overflow. */
+  /* No GSAP pin here, so the stage is content-sized and the machine is
+     width-driven again — the row-height sizing above would overflow.
+     `position: sticky` does the pinning instead: .sw-steps below supplies
+     3 x 46vh of scroll runway, and the stage rides along the top of the
+     viewport for that whole distance so the laptop/copy swap stays visible.
+     Without this, the stage scrolled off-screen immediately and the runway
+     read as a large empty gap with nothing left on screen to react to it. */
   .sw-stage {
+    position: sticky;
+    top: 0;
     height: auto;
     min-height: auto;
     display: block;

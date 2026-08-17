@@ -250,17 +250,16 @@ export default function HomePage() {
                   textWrap: "pretty",
                 }}
               >
-                Eleven shipped projects and counting — a capstone game built
-                for Philippine courtrooms,{" "}
+                I build software end to end — scoping, writing, and shipping
+                it myself, across{" "}
                 <Highlighter action="highlight" color="#4353ff">
                   <span style={{ color: "#eaeaf0" }}>freelance work</span>
                 </Highlighter>{" "}
-                for real clients, and a{" "}
+                and a{" "}
                 <Highlighter action="underline" color="#6672ff">
                   <span style={{ color: "#eaeaf0" }}>university internship</span>
-                </Highlighter>{" "}
-                along the way. Strong OOP foundations, fluent Git, modern web
-                tech.
+                </Highlighter>
+                . Strong OOP foundations, fluent Git, modern web tech.
               </p>
               <div
                 style={{
