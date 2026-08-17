@@ -21,6 +21,35 @@
   --animate-marquee: mui-marquee var(--duration, 40s) infinite linear;
   --animate-marquee-vertical: mui-marquee-vertical var(--duration, 40s) linear
     infinite;
+
+  /* Magic UI Shimmer Button. --speed is supplied per-instance by the component. */
+  --animate-shimmer-slide: shimmer-slide var(--speed, 3s) ease-in-out infinite
+    alternate;
+  --animate-spin-around: spin-around calc(var(--speed, 3s) * 2) infinite
+    linear;
+}
+
+@keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+  }
+}
+
+@keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+  }
+  15%,
+  35% {
+    transform: translateZ(0) rotate(90deg);
+  }
+  65%,
+  85% {
+    transform: translateZ(0) rotate(270deg);
+  }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+  }
 }
 
 /* Magic UI Marquee keyframes. Named `mui-*` so they don't collide with the
@@ -49,17 +78,20 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/* No global smooth-scroll: GSAP ScrollTrigger drives SelectedWork's pin with
+   its own scrub tween, and the browser's native smooth-scroll interpolation
+   fought it — a single wheel tick landed as 2-3 native "smooth" steps queued
+   on top of the scrub, and released right at the end of the pin the queued
+   steps kept resolving after ScrollTrigger had already unpinned, reading as
+   the page snapping back up by one step. Anchor links (#about, ScrollSpy,
+   CommandPalette's jump()) already pass `behavior: "smooth"` per call where
+   it's actually wanted, so nothing relies on this being global. */
 
-/* The custom cursor dot/ring are position:fixed on <body> and track the
-   pointer, so near the right or bottom edge they extend past the viewport and
-   raise a scrollbar.
-
-   Clip on <body> would break GSAP's position:fixed pinning, so apply it to
-   <html> instead — that suppresses the scrollbar without creating a
-   containing block for fixed descendants. */
+/* Fixed-position chrome (ScrollProgress, the command palette backdrop) can
+   extend past the viewport edge and raise a horizontal scrollbar. Clip on
+   <body> would break GSAP's position:fixed pinning, so apply it to <html>
+   instead — that suppresses the scrollbar without creating a containing
+   block for fixed descendants. */
 html {
   overflow-x: clip;
 }
@@ -443,6 +475,32 @@ body::after {
   display: block;
 }
 
+/* Same stacking/transition contract as .lap-screen img, for a project with
+   no cover yet. */
+.lap-screen-empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  background: #0b0c11;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(11px, 1.1vw, 13px);
+  letter-spacing: 0.18em;
+  color: #575c6b;
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 0.55s;
+}
+.lap-screen-empty[data-on="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s;
+}
+
 /* Base: the wedge under the lid, plus the trackpad notch. */
 .lap-base {
   position: relative;
@@ -704,25 +762,6 @@ body::after {
   gap: 10px;
 }
 
-.nv-cmd {
-  cursor: pointer;
-  background: none;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #9296a3;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.12em;
-  padding: 9px 12px;
-  border-radius: 999px;
-  transition:
-    border-color 0.25s,
-    color 0.25s;
-}
-.nv-cmd:hover {
-  border-color: #4353ff;
-  color: #eaeaf0;
-}
-
 .nv-contact {
   font-family: var(--font-geist-mono), monospace;
   font-size: 11px;
@@ -943,7 +982,6 @@ body::after {
   gap: 10px;
   padding: 14px 26px;
   border-radius: 999px;
-  background: #4353ff;
   border: 1px solid #4353ff;
   color: #eaeaf0;
   font-weight: 500;
@@ -954,10 +992,6 @@ body::after {
     border-color 0.25s,
     transform 0.3s;
 }
-.pz-cta:hover {
-  background: #5a68ff;
-  color: #eaeaf0;
-}
 .pz-cta-ghost {
   background: transparent;
   border-color: rgba(255, 255, 255, 0.18);
@@ -965,6 +999,16 @@ body::after {
 .pz-cta-ghost:hover {
   background: rgba(67, 83, 255, 0.12);
   border-color: #4353ff;
+}
+
+/* Primary CTA — Magic UI ShimmerButton. Font/padding matched to .pz-cta so
+   the pair reads as one set; the component owns its own background/border. */
+.pz-cta-shimmer {
+  gap: 10px;
+  padding: 14px 26px !important;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: inherit;
 }
 
 .pz-links {
@@ -1806,6 +1850,31 @@ body::after {
 .contact-email:hover {
   border-color: #6672ff;
   color: #6672ff;
+}
+
+/* Content left, Kiki right. Single column under 900px — the loop drops below
+   the details instead of squeezing beside them. */
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(32px, 6vw, 96px);
+}
+.contact-kiki {
+  width: clamp(140px, 16vw, 220px);
+  aspect-ratio: 1;
+  justify-self: end;
+  opacity: 0.92;
+}
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact-kiki {
+    width: clamp(120px, 40vw, 180px);
+    justify-self: center;
+    order: -1;
+  }
 }
 
 .github-link:hover {

@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import Nav from "./Nav";
 import ScrollProgress from "./ScrollProgress";
-import CustomCursor from "./CustomCursor";
 import CommandPalette from "./CommandPalette";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
@@ -21,7 +20,6 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
     <>
       <ScrollProgress />
       <Nav />
-      <CustomCursor />
       <CommandPalette />
       <AnimatePresence mode="wait" initial={false}>
         <motion.div

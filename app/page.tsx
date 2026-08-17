@@ -211,7 +211,6 @@ export default function HomePage() {
               Web apps{" "}
               <span style={asterisk}>✳</span> Mobile products{" "}
               <span style={asterisk}>✳</span> 2D games{" "}
-              <span style={asterisk}>✳</span> AR experiences{" "}
               <span style={asterisk}>✳</span>{" "}
             </span>
           </ScrollVelocityRow>
@@ -251,16 +250,17 @@ export default function HomePage() {
                   textWrap: "pretty",
                 }}
               >
-                An IT graduate who ships — built across{" "}
+                Eleven shipped projects and counting — a capstone game built
+                for Philippine courtrooms,{" "}
                 <Highlighter action="highlight" color="#4353ff">
                   <span style={{ color: "#eaeaf0" }}>freelance work</span>
-                </Highlighter>
-                , a{" "}
+                </Highlighter>{" "}
+                for real clients, and a{" "}
                 <Highlighter action="underline" color="#6672ff">
                   <span style={{ color: "#eaeaf0" }}>university internship</span>
-                </Highlighter>
-                , and four years of academic projects. Strong OOP foundations,
-                fluent Git, modern web tech.
+                </Highlighter>{" "}
+                along the way. Strong OOP foundations, fluent Git, modern web
+                tech.
               </p>
               <div
                 style={{
@@ -291,7 +291,7 @@ export default function HomePage() {
                     textWrap: "pretty",
                   }}
                 >
-                  {`I build for classrooms, courtrooms, and cafes — games that teach kids disaster prep, AR that makes Grade 7 science tangible, dashboards that keep orders flowing in real time. Software people actually use.`}
+                  {`Started out just trying to make games. That curiosity turned into freelance client work, then into shipping software for people who actually depend on it — a courtroom simulation, a cafe's order system, a kids' game about disaster prep.`}
                 </WordReveal>
               </div>
             </Reveal>
@@ -395,7 +395,7 @@ export default function HomePage() {
               <span style={serifInline}>Typed, componentized, deployed.</span>
             </p>
             <span style={techLine}>
-              REACT / NEXT.JS / TYPESCRIPT / TAILWIND / PHP / LARAVEL /
+              REACT / NEXT.JS / TYPESCRIPT / TAILWIND / PHP / LARAVEL / JAVA /
               POSTGRESQL / MYSQL
             </span>
           </RailRow>

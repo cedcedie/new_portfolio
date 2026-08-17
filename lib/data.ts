@@ -21,6 +21,9 @@ export type Project = {
   /** Cover thumbnail for the index row. */
   cover?: string;
   github?: string;
+  /** Not shipped yet — no shots, no repo link, badge reads UPCOMING instead
+   * of REPO ONLY. */
+  upcoming?: boolean;
 };
 
 /** Build `/projects/<dir>/<dir>-<n>.<ext>` for n = 1..count. */
@@ -59,6 +62,25 @@ export const academic: Project[] = [
 ];
 
 export const freelance: Project[] = [
+  {
+    slug: "driminventory",
+    title: "DRIM Inventory System",
+    meta: "SOLO DEVELOPER · 2026",
+    desc: "Role-based inventory management for a client: purchase requests through purchase orders, stock adjustments with audit reasons, and technician-linked material requisition forms.",
+    tech: ["NEXT.JS", "TYPESCRIPT", "PRISMA", "POSTGRESQL"],
+    gallery: 7,
+    shots: gal("driminventory", 7),
+    cover: "/projects/driminventory/driminventory-1.png",
+  },
+  {
+    slug: "sakramentohub",
+    title: "SakramentoHub — Parish Sacrament Booking",
+    meta: "FULL-STACK DEVELOPER · 2026",
+    desc: "Sacrament booking system for a parish: a Flutter app (APK + PWA) for parishioners to book slots and upload GCash receipts, a Laravel API with role-based auth, and a React admin dashboard for the secretary to verify bookings and print certificates.",
+    tech: ["FLUTTER", "LARAVEL", "REACT", "MYSQL"],
+    gallery: 0,
+    shots: [],
+  },
   {
     slug: "lms-science-ar",
     title: "LMS: Science with AR",
@@ -160,9 +182,24 @@ export const freelance: Project[] = [
   },
 ];
 
-export const allProjects: Project[] = [...academic, ...freelance];
+/** Personal projects — self-directed, not for a client or a class. */
+export const personal: Project[] = [
+  {
+    slug: "koded",
+    title: "Koded",
+    meta: "SOLO DEVELOPER · UPCOMING",
+    desc: "A typing test, but for code — practice typing real syntax across programming languages instead of prose.",
+    tech: ["TYPESCRIPT", "REACT"],
+    gallery: 0,
+    shots: [],
+    upcoming: true,
+  },
+];
 
-/** Home "Selected work" split-scroll chapters. */
+export const allProjects: Project[] = [...academic, ...freelance, ...personal];
+
+/** Home "Selected work" split-scroll chapters — three, deliberately: the
+   strongest academic, freelance, and personal piece, not the full index. */
 export const featured = [
   {
     slug: "case-no-zero",
@@ -174,31 +211,22 @@ export const featured = [
     techLine: "GODOT / GDSCRIPT",
   },
   {
-    slug: "lms-science-ar",
-    shots: "11 SHOTS",
-    tech: "UNITY / VUFORIA / REACT",
-    meta: "02 — SOLO DEVELOPER · MAR 2026",
-    title: "LMS: Science with AR",
-    desc: "AR-integrated Grade 7 Science LMS — 24 interactive 3D models across atoms, cells, and states of matter.",
-    techLine: "UNITY / VUFORIA / BLENDER / REACT / FIREBASE",
-  },
-  {
-    slug: "hydrolar-dashboard",
+    slug: "driminventory",
     shots: "07 SHOTS",
-    tech: "REACT / VITE / RECHARTS",
-    meta: "03 — SOLO DEVELOPER · 2026",
-    title: "Hydrolar",
-    desc: "Mobile-first energy storage dashboard — interactive charts and a weather-aware install-safety view.",
-    techLine: "REACT / VITE / TAILWIND / RECHARTS",
+    tech: "NEXT.JS / PRISMA / POSTGRESQL",
+    meta: "02 — SOLO DEVELOPER · 2026",
+    title: "DRIM Inventory System",
+    desc: "Role-based inventory management — purchase requests through purchase orders, audited stock adjustments, technician-linked requisitions.",
+    techLine: "NEXT.JS / TYPESCRIPT / PRISMA / POSTGRESQL",
   },
   {
-    slug: "cafe-web-mobile",
-    shots: "11 SHOTS",
-    tech: "KOTLIN / NODE / MONGODB",
-    meta: "04 — FULL-STACK · 2026",
-    title: "Cafe System — Web & Mobile",
-    desc: "Native Android ordering app + real-time web admin dashboard over Socket.IO live updates.",
-    techLine: "KOTLIN / NODE.JS / EXPRESS / MONGODB",
+    slug: "koded",
+    shots: "UPCOMING",
+    tech: "TYPESCRIPT / REACT",
+    meta: "03 — SOLO DEVELOPER · UPCOMING",
+    title: "Koded",
+    desc: "A typing test, but for code — practice typing real syntax across programming languages instead of prose.",
+    techLine: "TYPESCRIPT / REACT",
   },
 ];
 
@@ -207,6 +235,7 @@ export const stackList = [
   { n: "JAVASCRIPT", s: "javascript" },
   { n: "TYPESCRIPT", s: "typescript" },
   { n: "PYTHON", s: "python" },
+  { n: "JAVA", s: "openjdk" },
   { n: "PHP", s: "php" },
   { n: "DART", s: "dart" },
   { n: "KOTLIN", s: "kotlin" },

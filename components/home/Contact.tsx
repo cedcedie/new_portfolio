@@ -1,16 +1,26 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import Reveal from "@/components/Reveal";
 import { AuroraText } from "@/components/magicui/aurora-text";
 import { KineticText } from "@/components/magicui/kinetic-text";
 import { CV_URL, EMAIL, GITHUB_URL, LINKEDIN_URL, PHONE } from "@/lib/data";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const mono = "var(--font-geist-mono), monospace";
+
+// lottie-react touches the DOM on import — load it client-only, and only
+// once it's actually needed (this section is well below the fold).
+const Lottie = dynamic(
+  () => import("lottie-react").then((mod) => mod.Lottie),
+  { ssr: false },
+);
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const reduced = useReducedMotion();
 
   const copy = () => {
     navigator.clipboard?.writeText(EMAIL);
@@ -111,99 +121,120 @@ export default function Contact() {
         </span>
       </Reveal>
 
-      <Reveal delay={120} as="div" style={{ display: "block" }}>
-        <a
-          href={`mailto:${EMAIL}`}
-          className="contact-email"
-          style={{
-            display: "inline-block",
-            fontWeight: 500,
-            fontSize: "clamp(19px,3vw,34px)",
-            letterSpacing: "-.015em",
-            color: "#eaeaf0",
-            borderBottom: "1px solid rgba(102,114,255,.55)",
-            paddingBottom: 8,
-            transition: "border-color .25s,color .25s",
-          }}
-        >
-          {EMAIL}
-        </a>
-        <button
-          type="button"
-          onClick={copy}
-          className="btn-hair"
-          style={{
-            cursor: "pointer",
-            marginLeft: 20,
-            verticalAlign: "middle",
-            background: "none",
-            border: "1px solid rgba(255,255,255,.16)",
-            color: "#9296a3",
-            fontFamily: mono,
-            fontSize: 10,
-            letterSpacing: ".14em",
-            padding: "10px 16px",
-            borderRadius: 2,
-            transition: "border-color .25s,color .25s",
-          }}
-        >
-          {copied ? "COPIED ✓" : "COPY EMAIL"}
-        </button>
-        <a
-          href={CV_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-hair"
-          style={{
-            marginLeft: 12,
-            verticalAlign: "middle",
-            display: "inline-block",
-            border: "1px solid rgba(255,255,255,.16)",
-            color: "#9296a3",
-            fontFamily: mono,
-            fontSize: 10,
-            letterSpacing: ".14em",
-            padding: "10px 16px",
-            borderRadius: 2,
-            transition: "border-color .25s,color .25s",
-          }}
-        >
-          DOWNLOAD CV ↓
-        </a>
-      </Reveal>
+      {/* Content left, Kiki right — the delivery-service loop is a closing
+          flourish, not competing with the headline, so it sits beside the
+          details rather than above or below them. */}
+      <div className="contact-grid">
+        <div>
+          <Reveal delay={120} as="div" style={{ display: "block" }}>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="contact-email"
+              style={{
+                display: "inline-block",
+                fontWeight: 500,
+                fontSize: "clamp(19px,3vw,34px)",
+                letterSpacing: "-.015em",
+                color: "#eaeaf0",
+                borderBottom: "1px solid rgba(102,114,255,.55)",
+                paddingBottom: 8,
+                transition: "border-color .25s,color .25s",
+              }}
+            >
+              {EMAIL}
+            </a>
+            <button
+              type="button"
+              onClick={copy}
+              className="btn-hair"
+              style={{
+                cursor: "pointer",
+                marginLeft: 20,
+                verticalAlign: "middle",
+                background: "none",
+                border: "1px solid rgba(255,255,255,.16)",
+                color: "#9296a3",
+                fontFamily: mono,
+                fontSize: 10,
+                letterSpacing: ".14em",
+                padding: "10px 16px",
+                borderRadius: 2,
+                transition: "border-color .25s,color .25s",
+              }}
+            >
+              {copied ? "COPIED ✓" : "COPY EMAIL"}
+            </button>
+            <a
+              href={CV_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-hair"
+              style={{
+                marginLeft: 12,
+                verticalAlign: "middle",
+                display: "inline-block",
+                border: "1px solid rgba(255,255,255,.16)",
+                color: "#9296a3",
+                fontFamily: mono,
+                fontSize: 10,
+                letterSpacing: ".14em",
+                padding: "10px 16px",
+                borderRadius: 2,
+                transition: "border-color .25s,color .25s",
+              }}
+            >
+              DOWNLOAD CV ↓
+            </a>
+          </Reveal>
 
-      <Reveal
-        delay={180}
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 32,
-          marginTop: 48,
-          fontFamily: mono,
-          fontSize: 11.5,
-          letterSpacing: ".14em",
-        }}
-      >
-        <span style={{ color: "#9296a3" }}>{PHONE}</span>
-        <a
-          href={GITHUB_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link-muted"
-          style={{ color: "#9296a3" }}
-        >
-          GITHUB ↗
-        </a>
-        <a
-          href={LINKEDIN_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link-muted"
-          style={{ color: "#9296a3" }}
-        >
-          LINKEDIN ↗
-        </a>
-      </Reveal>
+          <Reveal
+            delay={180}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 32,
+              marginTop: 48,
+              fontFamily: mono,
+              fontSize: 11.5,
+              letterSpacing: ".14em",
+            }}
+          >
+            <span style={{ color: "#9296a3" }}>{PHONE}</span>
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-muted"
+              style={{ color: "#9296a3" }}
+            >
+              GITHUB ↗
+            </a>
+            <a
+              href={LINKEDIN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-muted"
+              style={{ color: "#9296a3" }}
+            >
+              LINKEDIN ↗
+            </a>
+          </Reveal>
+        </div>
+
+        {!reduced && (
+          <Reveal delay={140} className="contact-kiki">
+            {/* Fetched from /public rather than bundled — keeps a 200KB
+                animation file out of the JS bundle entirely. */}
+            <Lottie
+              src="/kiki.json"
+              loop
+              autoplay
+              aria-hidden="true"
+              style={{ width: "100%", height: "100%" }}
+            />
+          </Reveal>
+        )}
+      </div>
     </section>
   );
 }

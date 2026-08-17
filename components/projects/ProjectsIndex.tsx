@@ -4,7 +4,13 @@ import { useState } from "react";
 import Reveal from "@/components/Reveal";
 import Footer from "@/components/Footer";
 import Lightbox from "./Lightbox";
-import { academic, allProjects, freelance, type Project } from "@/lib/data";
+import {
+  academic,
+  allProjects,
+  freelance,
+  personal,
+  type Project,
+} from "@/lib/data";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const mono = "var(--font-geist-mono), monospace";
@@ -81,11 +87,13 @@ function ProjectRow({
 }) {
   const openable = project.shots.length > 0;
   const videos = project.shots.filter((s) => s.type === "video").length;
-  const shots = !openable
-    ? "REPO ONLY"
-    : videos > 0
-      ? `${String(project.shots.length).padStart(2, "0")} · ${videos} VIDEO`
-      : `${String(project.shots.length).padStart(2, "0")} SHOTS`;
+  const shots = project.upcoming
+    ? "UPCOMING"
+    : !openable
+      ? "REPO ONLY"
+      : videos > 0
+        ? `${String(project.shots.length).padStart(2, "0")} · ${videos} VIDEO`
+        : `${String(project.shots.length).padStart(2, "0")} SHOTS`;
 
   return (
     <Reveal
@@ -303,7 +311,7 @@ export default function ProjectsIndex() {
             }}
           >
             <span>/WORK — FULL INDEX</span>
-            <span>11 PROJECTS · 2023 — 2026</span>
+            <span>14 PROJECTS · 2023 — 2026</span>
           </div>
           <h1
             style={{
@@ -370,7 +378,7 @@ export default function ProjectsIndex() {
           <SectionHead
             letter="B"
             title="Freelance"
-            count="09 PROJECTS"
+            count="11 PROJECTS"
             marginBottom={8}
           />
           {freelance.map((p, i) => (
@@ -388,54 +396,18 @@ export default function ProjectsIndex() {
           <SectionHead
             letter="C"
             title="Personal"
-            count="00 PROJECTS"
-            marginBottom={40}
+            count="01 PROJECT"
+            marginBottom={8}
           />
-          <Reveal
-            delay={60}
-            style={{
-              border: "1px solid rgba(255,255,255,.09)",
-              borderRadius: 2,
-              padding: "80px 32px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 14,
-              textAlign: "center",
-              background:
-                "radial-gradient(circle at 50% 0%,rgba(67,83,255,.08),transparent 60%)",
-            }}
-          >
-            <span
-              style={{
-                fontWeight: 600,
-                fontSize: "clamp(24px,3vw,34px)",
-                letterSpacing: "-.02em",
-              }}
-            >
-              More{" "}
-              <span
-                style={{
-                  fontFamily: "var(--font-instrument-serif), serif",
-                  fontStyle: "italic",
-                  fontWeight: 400,
-                  color: "#6672ff",
-                }}
-              >
-                coming soon
-              </span>
-            </span>
-            <span
-              style={{
-                fontFamily: mono,
-                fontSize: 11,
-                letterSpacing: ".12em",
-                color: "#575c6b",
-              }}
-            >
-              PERSONAL EXPERIMENTS IN PROGRESS — WATCH THIS SPACE
-            </span>
-          </Reveal>
+          {personal.map((p, i) => (
+            <ProjectRow
+              key={p.slug}
+              project={p}
+              index={i}
+              delay={(i % 3) * 90}
+              onOpen={open}
+            />
+          ))}
         </section>
 
         <Footer variant="email" />

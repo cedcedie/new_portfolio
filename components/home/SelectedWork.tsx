@@ -17,7 +17,7 @@ const covers = featured.map(
 
 /**
  * Pinned showcase: the laptop holds the viewport while scrolling advances
- * through the four featured projects. Each project gets one screen-height of
+ * through the featured projects. Each project gets one screen-height of
  * scroll, so the swap reads as a deliberate step rather than a crossfade you
  * scroll past.
  */
@@ -167,7 +167,7 @@ export default function SelectedWork() {
               color: "#9296a3",
             }}
           >
-            FULL INDEX — 11 ↗
+            FULL INDEX — 14 ↗
           </Link>
         </div>
 
@@ -193,7 +193,19 @@ export default function SelectedWork() {
                       fetchPriority={i === 0 ? "high" : "low"}
                       decoding={i === 0 ? "sync" : "async"}
                     />
-                  ) : null,
+                  ) : (
+                    // No cover yet (e.g. an upcoming project) — an explicit
+                    // placeholder reads as "not shipped yet", not a broken
+                    // image.
+                    <div
+                      key={featured[i].slug}
+                      className="lap-screen-empty"
+                      aria-hidden={i === ws ? undefined : true}
+                      data-on={i === ws ? "true" : undefined}
+                    >
+                      <span>COMING SOON</span>
+                    </div>
+                  ),
                 )}
               </div>
             </div>

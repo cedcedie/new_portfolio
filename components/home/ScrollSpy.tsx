@@ -63,6 +63,14 @@ export default function ScrollSpy() {
           <a
             key={s.id}
             href={`#${s.id}`}
+            onClick={(e) => {
+              // No global smooth-scroll (it fights SelectedWork's pinned
+              // scrub — see globals.css); animate this one jump instead.
+              e.preventDefault();
+              document
+                .getElementById(s.id)
+                ?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
             style={{
               fontFamily: mono,
               fontSize: 10,

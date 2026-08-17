@@ -28,7 +28,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Cydric James Bulan — Software Developer",
   description:
-    "Software developer building full-stack web apps, mobile products & 2D games — from first scope to deployment.",
+    "Software developer in Bulacan, PH. Built a courtroom simulation game, freelance web and mobile systems, and AR learning tools — eleven shipped projects so far.",
 };
 
 export default function RootLayout({

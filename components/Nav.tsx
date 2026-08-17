@@ -62,24 +62,27 @@ export default function Nav() {
       </div>
 
       <div className="nv-group nv-actions">
-        <button
-          type="button"
-          title="Command menu"
-          aria-label="Open command menu"
-          onClick={() =>
-            window.dispatchEvent(new CustomEvent("open-command-palette"))
-          }
-          className="nv-cmd"
-        >
-          ⌘K
-        </button>
         <Magnetic>
-          <a
-            href={pathname === "/" ? "#contact" : `mailto:${EMAIL}`}
-            className="nv-contact"
-          >
-            CONTACT ↗
-          </a>
+          {pathname === "/" ? (
+            <a
+              href="#contact"
+              className="nv-contact"
+              onClick={(e) => {
+                // No global smooth-scroll (it fights SelectedWork's pinned
+                // scrub — see globals.css); animate this one jump instead.
+                e.preventDefault();
+                document
+                  .getElementById("contact")
+                  ?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+            >
+              CONTACT ↗
+            </a>
+          ) : (
+            <a href={`mailto:${EMAIL}`} className="nv-contact">
+              CONTACT ↗
+            </a>
+          )}
         </Magnetic>
       </div>
     </nav>

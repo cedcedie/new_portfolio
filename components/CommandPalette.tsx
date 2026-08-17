@@ -27,16 +27,6 @@ export default function CommandPalette() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // Nav button in the header dispatches this.
-  useEffect(() => {
-    const onOpen = () => {
-      setOpen(true);
-      setQuery("");
-    };
-    window.addEventListener("open-command-palette", onOpen);
-    return () => window.removeEventListener("open-command-palette", onOpen);
-  }, []);
-
   const jump = useCallback((hash: string) => {
     document
       .getElementById(hash)

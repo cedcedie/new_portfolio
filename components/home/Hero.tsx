@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import Magnetic from "@/components/Magnetic";
+import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { EMAIL } from "@/lib/data";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
@@ -43,13 +44,20 @@ export default function Hero() {
   const clock = useManilaClock();
   const reduced = useReducedMotion();
   const root = useRef<HTMLElement>(null);
+  // StrictMode (dev only) mounts, cleans up, and remounts every effect once;
+  // gsap.context's cleanup reverts the timeline mid-flight, so without this
+  // guard the intro replays from the top on the second mount — the whole
+  // hero appears to animate in twice on a single load. The timeline should
+  // only ever run for the mount that sticks.
+  const played = useRef(false);
 
   useEffect(() => {
     const el = root.current;
     if (!el) return;
 
     el.classList.add("is-ready");
-    if (reduced) return;
+    if (reduced || played.current) return;
+    played.current = true;
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
@@ -140,13 +148,21 @@ export default function Hero() {
         </p>
 
         {/* Two actions, no more. GitHub lives in its own section further down;
-            the resume is in the ⌘K palette and the contact block. */}
+            the resume is in the command palette and the contact block. The
+            primary action carries the motion (Magic UI's shimmer runs on a
+            loop, not just on hover); the secondary stays quiet on purpose. */}
         <div className="pz-actions pz-fade">
-          <Magnetic>
-            <Link href="/projects" className="pz-cta">
-              See projects <span aria-hidden="true">→</span>
-            </Link>
-          </Magnetic>
+          <ShimmerButton
+            as={Link}
+            href="/projects"
+            background="#4353ff"
+            shimmerColor="#eaeaf0"
+            shimmerDuration="2.6s"
+            borderRadius="999px"
+            className="pz-cta-shimmer"
+          >
+            See projects <span aria-hidden="true">→</span>
+          </ShimmerButton>
           <Magnetic>
             <a href={`mailto:${EMAIL}`} className="pz-cta pz-cta-ghost">
               Get in touch

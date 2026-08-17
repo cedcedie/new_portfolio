@@ -56,7 +56,7 @@ export default function TechStack() {
             color: "#575c6b",
           }}
         >
-          18 TOOLS
+          19 TOOLS
         </span>
       </Reveal>
 
