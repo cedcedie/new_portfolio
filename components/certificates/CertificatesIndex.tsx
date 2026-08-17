@@ -3,13 +3,13 @@
 import Reveal from "@/components/Reveal";
 import Footer from "@/components/Footer";
 import { certificates } from "@/lib/data";
-import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useEntranceMotion } from "@/lib/useEntranceMotion";
 
 const mono = "var(--font-geist-mono), monospace";
 const hairline = "1px solid rgba(255,255,255,.08)";
 
 export default function CertificatesIndex() {
-  const reduced = useReducedMotion();
+  const reduced = useEntranceMotion();
 
   return (
     <main

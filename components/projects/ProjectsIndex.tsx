@@ -11,7 +11,7 @@ import {
   personal,
   type Project,
 } from "@/lib/data";
-import { useReducedMotion } from "@/lib/useReducedMotion";
+import { useEntranceMotion } from "@/lib/useEntranceMotion";
 
 const mono = "var(--font-geist-mono), monospace";
 const hairline = "1px solid rgba(255,255,255,.08)";
@@ -271,7 +271,7 @@ function ProjectRow({
 export default function ProjectsIndex() {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const [shot, setShot] = useState(0);
-  const reduced = useReducedMotion();
+  const reduced = useEntranceMotion();
 
   const current = openSlug
     ? (allProjects.find((p) => p.slug === openSlug) ?? null)

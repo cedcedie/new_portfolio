@@ -42,17 +42,10 @@ function useManilaClock() {
 export default function Hero() {
   const clock = useManilaClock();
   const root = useRef<HTMLElement>(null);
-  // StrictMode (dev only) mounts, cleans up, and remounts every effect once;
-  // gsap.context's cleanup reverts the timeline mid-flight, so without this
-  // guard the intro replays from the top on the second mount — the whole
-  // hero appears to animate in twice on a single load. The timeline should
-  // only ever run for the mount that sticks.
-  const played = useRef(false);
 
   useEffect(() => {
     const el = root.current;
-    if (!el || played.current) return;
-    played.current = true;
+    if (!el) return;
 
     // Read the media query directly, once, instead of through
     // useReducedMotion() — that hook starts `true` as a safe placeholder
@@ -61,8 +54,8 @@ export default function Hero() {
     // for the placeholder `true` — releasing the CSS-hidden state and
     // revealing the hero — and again moments later for the real value,
     // which built the GSAP timeline and yanked everything back to hidden
-    // before animating it in. One real replay per load, not a StrictMode
-    // artifact. Reading the query directly skips the placeholder entirely.
+    // before animating it in, reading as a double reveal on every load.
+    // Reading the query directly skips the placeholder entirely.
     const reduced = window.matchMedia?.(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -74,12 +67,17 @@ export default function Hero() {
       return;
     }
 
-    // Order matters: build the timeline (its `fromTo` calls set every
-    // element's "from" values synchronously) before releasing the CSS
-    // `.pz:not(.is-ready)` hidden rule — releasing it first left a one-frame
-    // (longer under dev-mode's slower JS execution) window where everything
-    // sat at its natural, fully-visible resting state before GSAP yanked it
-    // back to hidden and animated it in, reading as a double reveal.
+    // gsap.context's own mount/cleanup contract is what StrictMode's dev-only
+    // double-invoke (mount, cleanup, remount) is designed to exercise safely:
+    // the phantom mount's ctx.revert() puts every element back at its tween's
+    // "from" state, and the real mount then builds a fresh context and plays
+    // it again from there — cleanly, because both the build and the release
+    // of the CSS-hidden gate happen inside the same synchronous pass every
+    // time. A `played` guard here defeats that contract: with the timeline
+    // build ever deferred (e.g. behind requestAnimationFrame), the guard
+    // trips on the phantom mount before its deferred work has a chance to
+    // run, so when cleanup cancels that work the real mount finds the guard
+    // already set and never tries again — the name never reveals at all.
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
@@ -98,8 +96,16 @@ export default function Hero() {
         )
         .fromTo(
           ".pz-char",
-          { yPercent: 118 },
-          { yPercent: 0, duration: 1.15, stagger: 0.03 },
+          // yPercent on elements that only just mounted this same tick is
+          // unreliable — GSAP occasionally caches the percent-to-pixel
+          // conversion against stale (pre-layout) geometry and never
+          // reconciles it, so the tween reports finishing at yPercent 0 while
+          // the DOM is still sitting at its yPercent 118 "from" pixel value:
+          // the name silently fails to reveal. A function value forces GSAP
+          // to read each char's real, post-layout height itself and animate
+          // in pixels instead, which carries no such cache.
+          { y: (_i, target) => target.getBoundingClientRect().height * 1.18 },
+          { y: 0, duration: 1.15, stagger: 0.03 },
           "-=1.15",
         )
         .fromTo(
@@ -113,8 +119,6 @@ export default function Hero() {
     el.classList.add("is-ready");
 
     return () => ctx.revert();
-    // Runs once (guarded by `played`) — no reactive dependency on the
-    // reduced-motion preference, which is read directly above instead.
   }, []);
 
   const chars = (word: string) =>
