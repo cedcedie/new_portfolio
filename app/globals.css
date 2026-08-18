@@ -94,6 +94,14 @@
    block for fixed descendants. */
 html {
   overflow-x: clip;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge/IE */
+}
+
+/* Chrome, Safari, and other WebKit/Blink browsers. Scrolling itself is
+   unaffected — only the visible track/thumb is hidden. */
+html::-webkit-scrollbar {
+  display: none;
 }
 
 /* Every jump-to-section trigger (Nav's Contact link, ScrollSpy, the command
