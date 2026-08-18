@@ -27,6 +27,16 @@ export default function CommandPalette() {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
+  // Return focus to whatever triggered the palette (⌘K) once it closes,
+  // instead of leaving focus stranded on <body>.
+  useEffect(() => {
+    if (!open) return;
+    const trigger = document.activeElement as HTMLElement | null;
+    return () => {
+      trigger?.focus?.();
+    };
+  }, [open]);
+
   const jump = useCallback((hash: string) => {
     document
       .getElementById(hash)
@@ -187,7 +197,7 @@ export default function CommandPalette() {
             <Command.Empty
               style={{
                 padding: "16px 14px",
-                color: "#575c6b",
+                color: "#767c8f",
                 fontFamily: mono,
                 fontSize: 11,
                 letterSpacing: ".1em",
@@ -216,7 +226,7 @@ export default function CommandPalette() {
                     fontFamily: mono,
                     fontSize: 9.5,
                     letterSpacing: ".14em",
-                    color: "#575c6b",
+                    color: "#767c8f",
                   }}
                 >
                   {a.hint}
@@ -234,7 +244,7 @@ export default function CommandPalette() {
             fontFamily: mono,
             fontSize: 9.5,
             letterSpacing: ".12em",
-            color: "#575c6b",
+            color: "#767c8f",
           }}
         >
           <span>↑↓ NAVIGATE</span>

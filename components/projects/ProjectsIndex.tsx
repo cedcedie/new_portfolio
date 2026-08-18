@@ -30,10 +30,8 @@ function SectionHead({
   marginBottom: number;
 }) {
   return (
-    // No rule above the heading — the (X) letter, the heading itself and the
-    // generous section spacing already signal a new section on their own,
-    // same as the homepage's SectionHeader. A rule here was redundant weight
-    // stacked directly under the page header's own closing rule above it.
+    // No rule above the heading — redundant under the page header's own
+    // closing rule, and the section spacing already reads as a new section.
     <Reveal
       delay={0}
       style={{
@@ -69,7 +67,7 @@ function SectionHead({
           fontFamily: mono,
           fontSize: 11,
           letterSpacing: ".16em",
-          color: "#575c6b",
+          color: "#767c8f",
         }}
       >
         {count}
@@ -142,7 +140,7 @@ function ProjectRow({
             flex: "0 0 44px",
             fontFamily: mono,
             fontSize: 12,
-            color: "#575c6b",
+            color: "#767c8f",
           }}
         >
           {String(index + 1).padStart(2, "0")}
@@ -240,7 +238,7 @@ function ProjectRow({
                 fontFamily: mono,
                 fontSize: 10.5,
                 letterSpacing: ".14em",
-                color: "#575c6b",
+                color: "#767c8f",
               }}
             >
               {project.meta}
@@ -302,13 +300,8 @@ export default function ProjectsIndex() {
         style={{
           maxWidth: 1360,
           margin: "0 auto",
-          // Matches .pz's (Hero) top padding — was a flat 160px here, so the
-          // topmost content sat at a different height on this page than on
-          // the homepage, and jumped again switching to /certificates. Side
-          // padding was a flat 40px at every width too — Hero and every
-          // other section drop to 24px under 900px, so this page sat with
-          // noticeably more dead space at the screen edge than everywhere
-          // else on mobile.
+          // Matches .pz's (Hero) padding so top spacing and mobile side
+          // margins don't jump between this page, /certificates, and home.
           padding: "clamp(104px, 13vh, 154px) clamp(24px, 4vw, 40px) 60px",
         }}
       >
@@ -364,12 +357,8 @@ export default function ProjectsIndex() {
               key={p.slug}
               project={p}
               index={i}
-              // Monotonic and capped, not `(i % 3) * 90` — that pattern reset
-              // every 3 rows, so under a fast scroll a later row (delay 0)
-              // could finish revealing before an earlier one still waiting
-              // out its 180ms. Each row's own ScrollTrigger only fires once
-              // it individually crosses the viewport line regardless, so the
-              // cap just keeps a gentle stagger without visual-order flips.
+              // Monotonic and capped, not `(i % 3) * 90` — that pattern let a
+              // later row finish revealing before an earlier one under fast scroll.
               delay={Math.min(i * 40, 200)}
               onOpen={open}
             />
@@ -388,12 +377,8 @@ export default function ProjectsIndex() {
               key={p.slug}
               project={p}
               index={i}
-              // Monotonic and capped, not `(i % 3) * 90` — that pattern reset
-              // every 3 rows, so under a fast scroll a later row (delay 0)
-              // could finish revealing before an earlier one still waiting
-              // out its 180ms. Each row's own ScrollTrigger only fires once
-              // it individually crosses the viewport line regardless, so the
-              // cap just keeps a gentle stagger without visual-order flips.
+              // Monotonic and capped, not `(i % 3) * 90` — that pattern let a
+              // later row finish revealing before an earlier one under fast scroll.
               delay={Math.min(i * 40, 200)}
               onOpen={open}
             />
@@ -412,12 +397,8 @@ export default function ProjectsIndex() {
               key={p.slug}
               project={p}
               index={i}
-              // Monotonic and capped, not `(i % 3) * 90` — that pattern reset
-              // every 3 rows, so under a fast scroll a later row (delay 0)
-              // could finish revealing before an earlier one still waiting
-              // out its 180ms. Each row's own ScrollTrigger only fires once
-              // it individually crosses the viewport line regardless, so the
-              // cap just keeps a gentle stagger without visual-order flips.
+              // Monotonic and capped, not `(i % 3) * 90` — that pattern let a
+              // later row finish revealing before an earlier one under fast scroll.
               delay={Math.min(i * 40, 200)}
               onOpen={open}
             />

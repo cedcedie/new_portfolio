@@ -79,7 +79,7 @@ function CertificateRow({
             flex: "0 0 44px",
             fontFamily: mono,
             fontSize: 12,
-            color: "#575c6b",
+            color: "#767c8f",
           }}
         >
           {String(index + 1).padStart(2, "0")}
@@ -121,7 +121,7 @@ function CertificateRow({
                 fontFamily: mono,
                 fontSize: 10,
                 letterSpacing: ".1em",
-                color: "#575c6b",
+                color: "#767c8f",
               }}
             >
               {cert.fileUrl ? "PDF" : "NO FILE YET"}
@@ -172,7 +172,7 @@ function CertificateRow({
             fontFamily: mono,
             fontSize: 10.5,
             letterSpacing: ".14em",
-            color: "#575c6b",
+            color: "#767c8f",
             alignSelf: "flex-start",
             paddingTop: 4,
           }}

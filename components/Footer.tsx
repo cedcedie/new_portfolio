@@ -27,14 +27,14 @@ export default function Footer({
         fontFamily: mono,
         fontSize: 10.5,
         letterSpacing: ".14em",
-        color: "#575c6b",
+        color: "#767c8f",
       }}
     >
       <span>© 2026 CYDRIC JAMES BULAN</span>
       {variant === "home" ? (
         <span>BULACAN, PHILIPPINES</span>
       ) : (
-        <a href={`mailto:${EMAIL}`} className="link-muted" style={{ color: "#575c6b" }}>
+        <a href={`mailto:${EMAIL}`} className="link-muted" style={{ color: "#767c8f" }}>
           CEDRICJAMESBULAN@GMAIL.COM
         </a>
       )}
@@ -50,7 +50,7 @@ export default function Footer({
           fontFamily: mono,
           fontSize: 10.5,
           letterSpacing: ".14em",
-          color: "#575c6b",
+          color: "#767c8f",
         }}
       >
         TOP ↑

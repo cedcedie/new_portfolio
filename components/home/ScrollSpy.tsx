@@ -75,7 +75,7 @@ export default function ScrollSpy() {
               fontFamily: mono,
               fontSize: 10,
               letterSpacing: ".12em",
-              color: on ? "#6672ff" : "#575c6b",
+              color: on ? "#6672ff" : "#767c8f",
               fontWeight: on ? 500 : 400,
             }}
           >

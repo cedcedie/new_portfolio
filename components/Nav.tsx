@@ -21,14 +21,11 @@ const links = [
 export default function Nav() {
   const pathname = usePathname();
   const [hidden, setHidden] = useState(false);
-  // Below 900px, .nv-links (INDEX/WORK/CREDENTIALS) is hidden by CSS with
-  // nothing replacing it — mobile had no way to move between pages short of
-  // the browser's back button. This panel is the replacement, mobile-only.
+  // Mobile-only nav panel — .nv-links is CSS-hidden below 900px with
+  // nothing replacing it otherwise.
   const [menuOpen, setMenuOpen] = useState(false);
-  // Reset during render (React's documented pattern for "state that should
-  // reset when a prop changes"), not in an effect — an effect's setState
-  // would commit the stale-open state for one frame, then force a second
-  // render to close it.
+  // Reset during render, not in an effect — an effect's setState would
+  // flash the stale-open state for a frame before closing it.
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (pathname !== prevPathname) {
     setPrevPathname(pathname);

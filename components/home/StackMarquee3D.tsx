@@ -102,14 +102,9 @@ export default function StackMarquee3D() {
     return () => window.removeEventListener("resize", measure);
   }, []);
 
-  // Cursor-driven tilt, desktop only: the grid's fixed angle was the whole
-  // reason it read as an unearned spectacle — a static 3D effect that
-  // doesn't react to anything is just decoration. Tracking the pointer
-  // across the band and nudging rotateX/Y a few degrees toward it gives the
-  // tilt something to justify itself: it's a surface responding to you, not
-  // a fixed illustration. Mobile keeps its own static angle (see the
-  // existing mobile ternary below) — there's no meaningful cursor to track
-  // on touch, and a mousemove listener there would just be dead weight.
+  // Cursor-driven tilt, desktop only — a fixed 3D angle read as unearned
+  // decoration; nudging rotateX/Y toward the pointer gives it something to
+  // respond to. Mobile keeps its own static angle (no cursor to track).
   useEffect(() => {
     if (mobile) return;
     const root = rootRef.current;
@@ -136,10 +131,8 @@ export default function StackMarquee3D() {
     };
   }, [mobile]);
 
-  // Each column gets a rotated copy of the full stack, offset by a stride that
-  // shares no factor with the list length. That keeps every column the same
-  // height while making neighbours (and vertical repeats) land on different
-  // logos — slicing by modulo instead starves columns once columnCount > 18.
+  // Offset stride shares no factor with the list length, so neighbouring
+  // columns land on different logos without starving columns past 18.
   const columns = Array.from({ length: columnCount }, (_, col) => {
     const start = (col * 7) % stackList.length;
     return [...stackList.slice(start), ...stackList.slice(0, start)];

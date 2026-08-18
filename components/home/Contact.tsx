@@ -70,7 +70,7 @@ export default function Contact() {
             fontFamily: mono,
             fontSize: 11,
             letterSpacing: ".16em",
-            color: "#575c6b",
+            color: "#767c8f",
           }}
         >
           CONTACT
@@ -81,7 +81,7 @@ export default function Contact() {
             fontFamily: mono,
             fontSize: 11,
             letterSpacing: ".16em",
-            color: "#575c6b",
+            color: "#767c8f",
           }}
         >
           REPLIES FAST

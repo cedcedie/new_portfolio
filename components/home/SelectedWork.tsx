@@ -32,18 +32,15 @@ export default function SelectedWork() {
     const pin = pinRef.current;
     if (!section || !pin) return;
 
-    // Must match the CSS breakpoint exactly: portrait-ish screens use the
-    // stacked, unpinned layout. A width-only test also caught zoomed-in
-    // desktops, which are landscape and should stay pinned.
+    // Must match the CSS breakpoint exactly (aspect-ratio too, or a
+    // zoomed-in landscape desktop would wrongly get the stacked layout).
     const stacked = window.matchMedia(
       "(max-width: 900px) and (max-aspect-ratio: 1/1)",
     ).matches;
     if (reduced || stacked) {
-      // Each .sw-step is a short fixed-height (32vh, see globals.css)
-      // scroll-runway — just enough distance for its ScrollTrigger to
-      // reliably cross the 60%-viewport line once, not tied to the sticky
-      // card's own (much taller) rendered size. Tying it to the card's
-      // height read as a long, mostly-empty "endless" scroll before Contact.
+      // .sw-step is a fixed-height scroll-runway (32vh, see globals.css),
+      // not tied to the sticky card's own height — that read as an
+      // endless near-empty scroll before Contact.
       const els = gsap.utils.toArray<HTMLElement>(".sw-step", section);
       const ts = els.map((el, i) =>
         ScrollTrigger.create({
@@ -65,16 +62,9 @@ export default function SelectedWork() {
     const total = ZOOM + steps;
 
     const ctx = gsap.context(() => {
-      // The pin engages the instant #work's top hits the viewport top — a
-      // deterministic lock, not a gradual cross-fade, which is how every
-      // pinned-scroll section works. That's correct, but arriving at it
-      // with Experience's own text still fully legible (it only leaves the
-      // viewport naturally, at whatever pace the scroll happens to be
-      // going) made the handoff read as an abrupt cut once the pin locked
-      // and the zoom took over mid-scroll. Fading Experience out over the
-      // approach — scrubbed to the same scroll distance, so it's tied to
-      // position, not time — means it's already gone by the moment the pin
-      // engages, softening the handoff without changing the pin itself.
+      // Fades Experience out over the scroll approach (scrubbed, not timed)
+      // so it's already gone once the pin engages — otherwise the pin's
+      // instant lock cut off its still-legible text abruptly.
       const experience = document.getElementById("experience");
       if (experience) {
         gsap.fromTo(
@@ -113,10 +103,8 @@ export default function SelectedWork() {
 
       const zoomShare = ZOOM / total;
 
-      // Opens from a small but readable card rather than a speck: at near-zero
-      // the machine spent the first stretch as an unrecognisable dark rectangle
-      // in empty space. `power2.out` front-loads the growth so it reaches a
-      // legible size fast, then eases into place.
+      // Opens from a small but readable card, not a speck: power2.out
+      // front-loads the growth so it reaches legible size fast.
       tl.fromTo(
         ".sw-lap .lap",
         { scale: 0.34, y: "4%", opacity: 0.55 },

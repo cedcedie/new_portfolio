@@ -30,6 +30,15 @@ export default function Lightbox({
     };
   }, []);
 
+  // Return focus to the row that opened the lightbox once it unmounts,
+  // instead of leaving focus stranded on <body>.
+  useEffect(() => {
+    const trigger = document.activeElement as HTMLElement | null;
+    return () => {
+      trigger?.focus?.();
+    };
+  }, []);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -160,7 +169,7 @@ export default function Lightbox({
               fontFamily: mono,
               fontSize: 10.5,
               letterSpacing: ".14em",
-              color: "#575c6b",
+              color: "#767c8f",
             }}
           >
             {project.tech.join(" / ")}

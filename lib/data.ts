@@ -5,6 +5,7 @@ export const PHONE = "+63 961 622 5451";
 export const GITHUB_URL = "https://github.com/cedcedie";
 export const LINKEDIN_URL = "https://linkedin.com/in/cydricjames";
 export const CV_URL = "/cv.pdf";
+export const SITE_URL = "https://portfolio-cedcedies-projects.vercel.app";
 
 export type Shot = { src: string; type: "image" | "video" };
 
@@ -80,6 +81,7 @@ export const freelance: Project[] = [
     tech: ["FLUTTER", "LARAVEL", "REACT", "MYSQL"],
     gallery: 0,
     shots: [],
+    upcoming: true,
   },
   {
     slug: "lms-science-ar",

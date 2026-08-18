@@ -53,7 +53,7 @@ export default function TechStack() {
             fontFamily: mono,
             fontSize: 11,
             letterSpacing: ".16em",
-            color: "#575c6b",
+            color: "#767c8f",
           }}
         >
           19 TOOLS

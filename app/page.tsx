@@ -94,7 +94,7 @@ function SectionHeader({
           fontFamily: mono,
           fontSize: 11,
           letterSpacing: ".16em",
-          color: "#575c6b",
+          color: "#767c8f",
         }}
       >
         {label}
@@ -183,7 +183,7 @@ const techLine: React.CSSProperties = {
   fontFamily: mono,
   fontSize: 10.5,
   letterSpacing: ".14em",
-  color: "#575c6b",
+  color: "#767c8f",
 };
 
 export default function HomePage() {
@@ -222,11 +222,8 @@ export default function HomePage() {
         style={{
           maxWidth: 1360,
           margin: "0 auto",
-          // A flat 40px on both sides left less breathing room on mobile
-          // than Hero's own 24px, and than every other page's since-fixed
-          // side padding — About, Tech Stack, GitHub, Experience, Selected
-          // Work, and Contact all sat closer to the screen edge than the
-          // sections before/after them.
+          // Matches Hero's side padding — a flat 40px sat noticeably
+          // tighter than 24px on mobile.
           padding: "0 clamp(24px, 4vw, 40px)",
         }}
       >
@@ -364,7 +361,7 @@ export default function HomePage() {
                       fontFamily: mono,
                       fontSize: 11,
                       letterSpacing: ".1em",
-                      color: "#575c6b",
+                      color: "#767c8f",
                       paddingTop: 4,
                     }}
                   >
@@ -390,7 +387,7 @@ export default function HomePage() {
                     fontFamily: mono,
                     fontSize: 11,
                     letterSpacing: ".1em",
-                    color: "#575c6b",
+                    color: "#767c8f",
                     paddingTop: 4,
                   }}
                 >

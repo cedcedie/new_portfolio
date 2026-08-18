@@ -47,15 +47,8 @@ export default function Hero() {
     const el = root.current;
     if (!el) return;
 
-    // Read the media query directly, once, instead of through
-    // useReducedMotion() — that hook starts `true` as a safe placeholder
-    // until the real value resolves (every *other* consumer wants that: skip
-    // motion rather than flash it), but here it meant this effect ran once
-    // for the placeholder `true` — releasing the CSS-hidden state and
-    // revealing the hero — and again moments later for the real value,
-    // which built the GSAP timeline and yanked everything back to hidden
-    // before animating it in, reading as a double reveal on every load.
-    // Reading the query directly skips the placeholder entirely.
+    // Read directly rather than via useReducedMotion(): that hook's
+    // placeholder-then-real-value flip caused a double reveal here.
     const reduced = window.matchMedia?.(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -67,17 +60,9 @@ export default function Hero() {
       return;
     }
 
-    // gsap.context's own mount/cleanup contract is what StrictMode's dev-only
-    // double-invoke (mount, cleanup, remount) is designed to exercise safely:
-    // the phantom mount's ctx.revert() puts every element back at its tween's
-    // "from" state, and the real mount then builds a fresh context and plays
-    // it again from there — cleanly, because both the build and the release
-    // of the CSS-hidden gate happen inside the same synchronous pass every
-    // time. A `played` guard here defeats that contract: with the timeline
-    // build ever deferred (e.g. behind requestAnimationFrame), the guard
-    // trips on the phantom mount before its deferred work has a chance to
-    // run, so when cleanup cancels that work the real mount finds the guard
-    // already set and never tries again — the name never reveals at all.
+    // No `played` guard: it would trip on StrictMode's phantom mount and
+    // block the real mount from ever rebuilding the timeline. gsap.context's
+    // own revert()-then-rebuild cycle already handles the double-invoke safely.
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
@@ -96,14 +81,9 @@ export default function Hero() {
         )
         .fromTo(
           ".pz-char",
-          // yPercent on elements that only just mounted this same tick is
-          // unreliable — GSAP occasionally caches the percent-to-pixel
-          // conversion against stale (pre-layout) geometry and never
-          // reconciles it, so the tween reports finishing at yPercent 0 while
-          // the DOM is still sitting at its yPercent 118 "from" pixel value:
-          // the name silently fails to reveal. A function value forces GSAP
-          // to read each char's real, post-layout height itself and animate
-          // in pixels instead, which carries no such cache.
+          // Pixel value from a function, not yPercent: on elements that just
+          // mounted, GSAP can cache yPercent against stale pre-layout geometry
+          // and the tween silently never resolves.
           { y: (_i, target) => target.getBoundingClientRect().height * 1.18 },
           { y: 0, duration: 1.15, stagger: 0.03 },
           "-=1.15",
