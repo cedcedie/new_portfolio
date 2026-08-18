@@ -1,37 +1,33 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import Nav from "./Nav";
 import ScrollProgress from "./ScrollProgress";
 import CommandPalette from "./CommandPalette";
-import { useReducedMotion } from "@/lib/useReducedMotion";
 
 /**
- * Persistent chrome + 260ms route transitions (exit: fade out, rise -12px;
- * enter: fade in from below), matching the prototype's navigation fade.
+ * Persistent chrome. No page-level route-transition fade any more — every
+ * page already plays its own entrance (Hero's GSAP name/portrait/CTA
+ * reveal, IndexHeader's GSAP eyebrow/headline/lede reveal), and this
+ * wrapper's own Framer Motion fade/rise used to run at the same time on
+ * client-side navigation: `AnimatePresence` keeps the outgoing page's exit
+ * animation mounted while the incoming page is already mounting underneath
+ * it, so the old page's fade-out and the new page's GSAP fade-in visibly
+ * overlapped — two different opacity animations on overlapping content,
+ * read as everything animating twice. `key={pathname}` still forces a full
+ * remount on navigation (so each page's own entrance replays correctly);
+ * it just doesn't wrap that remount in a second, competing transition.
  */
 export default function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const reduced = useReducedMotion();
 
   return (
     <>
       <ScrollProgress />
       <Nav />
       <CommandPalette />
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={pathname}
-          initial={reduced ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={reduced ? { opacity: 1 } : { opacity: 0, y: -12 }}
-          transition={{ duration: 0.26, ease: "easeOut" }}
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+      <div key={pathname}>{children}</div>
     </>
   );
 }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import Magnetic from "./Magnetic";
 import { EMAIL } from "@/lib/data";
 
@@ -63,15 +64,33 @@ export default function Nav() {
       </Link>
 
       <div className="nv-group nv-links">
-        {links.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            data-active={pathname === l.href ? "true" : undefined}
-          >
-            {l.label}
-          </Link>
-        ))}
+        {links.map((l) => {
+          const active = pathname === l.href;
+          return (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="nv-link"
+              data-active={active ? "true" : undefined}
+            >
+              {l.label}
+              {/* Own underline per link, not the CSS border-bottom every
+                  link used to carry — that toggled on/off on two different
+                  elements with each click, snapping instantly since a CSS
+                  transition can't animate a border moving between separate
+                  DOM nodes. layoutId gives the two an identity Framer can
+                  track across the swap: it animates one shared indicator
+                  sliding from the old active link to the new one instead. */}
+              {active && (
+                <motion.span
+                  layoutId="nv-underline"
+                  className="nv-underline"
+                  transition={{ type: "spring", stiffness: 500, damping: 40 }}
+                />
+              )}
+            </Link>
+          );
+        })}
       </div>
 
       <div className="nv-group nv-actions">

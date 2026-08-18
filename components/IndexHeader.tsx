@@ -32,13 +32,22 @@ export default function IndexHeader({
   lede: ReactNode;
 }) {
   const root = useRef<HTMLElement>(null);
-  const played = useRef(false);
 
   useEffect(() => {
     const el = root.current;
-    if (!el || played.current) return;
-    played.current = true;
+    if (!el) return;
 
+    // No `played` guard: gsap.context's own mount/cleanup contract is what
+    // StrictMode's dev-only double-invoke (mount, cleanup, remount) is
+    // designed to exercise safely — the phantom mount's ctx.revert() puts
+    // every element back at its tween's "from" state, and the real mount
+    // then builds a fresh context and plays it again from there, cleanly,
+    // because the timeline build and the is-ready release happen inside the
+    // same synchronous pass every time. A `played` guard (as Hero's own
+    // version had, before this exact fix) defeats that contract: it trips
+    // on the phantom mount, so when the phantom's cleanup reverts the
+    // timeline the real mount finds the guard already set and never
+    // rebuilds it — elements are left stuck mid-reveal instead of settled.
     const reduced = window.matchMedia?.(
       "(prefers-reduced-motion: reduce)",
     ).matches;

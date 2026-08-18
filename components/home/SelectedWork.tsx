@@ -39,20 +39,11 @@ export default function SelectedWork() {
       "(max-width: 900px) and (max-aspect-ratio: 1/1)",
     ).matches;
     if (reduced || stacked) {
-      // The scroll runway between steps used to be a flat 46vh regardless
-      // of how tall the sticky card actually renders — on a device where
-      // the laptop settles small, that left a long stretch of empty scroll
-      // below an already-static card before the next project (or Contact)
-      // arrived. Measuring the real stage height and sizing each step off
-      // that keeps the runway proportional to the content driving it: about
-      // one stage's worth of scroll to register each step, not a guess.
-      const setStepHeight = () => {
-        const h = pin.getBoundingClientRect().height;
-        section.style.setProperty("--sw-step-h", `${Math.round(h)}px`);
-      };
-      setStepHeight();
-      window.addEventListener("resize", setStepHeight, { passive: true });
-
+      // Each .sw-step is a short fixed-height (32vh, see globals.css)
+      // scroll-runway — just enough distance for its ScrollTrigger to
+      // reliably cross the 60%-viewport line once, not tied to the sticky
+      // card's own (much taller) rendered size. Tying it to the card's
+      // height read as a long, mostly-empty "endless" scroll before Contact.
       const els = gsap.utils.toArray<HTMLElement>(".sw-step", section);
       const ts = els.map((el, i) =>
         ScrollTrigger.create({
@@ -62,10 +53,7 @@ export default function SelectedWork() {
           onEnterBack: () => setWs(i),
         }),
       );
-      return () => {
-        window.removeEventListener("resize", setStepHeight);
-        ts.forEach((t) => t.kill());
-      };
+      return () => ts.forEach((t) => t.kill());
     }
 
     const steps = featured.length;
@@ -77,6 +65,34 @@ export default function SelectedWork() {
     const total = ZOOM + steps;
 
     const ctx = gsap.context(() => {
+      // The pin engages the instant #work's top hits the viewport top — a
+      // deterministic lock, not a gradual cross-fade, which is how every
+      // pinned-scroll section works. That's correct, but arriving at it
+      // with Experience's own text still fully legible (it only leaves the
+      // viewport naturally, at whatever pace the scroll happens to be
+      // going) made the handoff read as an abrupt cut once the pin locked
+      // and the zoom took over mid-scroll. Fading Experience out over the
+      // approach — scrubbed to the same scroll distance, so it's tied to
+      // position, not time — means it's already gone by the moment the pin
+      // engages, softening the handoff without changing the pin itself.
+      const experience = document.getElementById("experience");
+      if (experience) {
+        gsap.fromTo(
+          experience,
+          { opacity: 1 },
+          {
+            opacity: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: section,
+              start: "top bottom",
+              end: "top top",
+              scrub: true,
+            },
+          },
+        );
+      }
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,

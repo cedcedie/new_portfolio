@@ -305,14 +305,16 @@ body::after {
   align-items: center;
   padding: clamp(76px, 9vh, 108px) 0 clamp(18px, 2.6vh, 34px);
   overflow: hidden;
-  /* Needs to be opaque enough to hide the section above scrolling behind the
-     machine during the zoom, but .94 left almost none of body::before's
-     ambient gradient showing through — the section read as a flatter,
-     visibly boxed-off rectangle against the rest of the page. .82 still
-     fully hides the scroll-behind content (it's over an identical-hue fill,
-     not transparent) while letting enough of the ambient light survive that
-     the seam disappears. */
-  background: rgba(10, 11, 16, 0.82);
+  /* This used to carry an opaque fill to hide Experience scrolling behind
+     the machine during the pin's zoom — but that fill was itself a
+     visible, subtly-off-tone rectangle against the rest of the page (the
+     "black box" around this whole section). SelectedWork.tsx now fades
+     Experience out before the pin engages (scrubbed to the approach, not
+     a fixed delay), so by the time the pin locks there's nothing left
+     behind the stage that needs hiding — transparent lets the page's own
+     ambient background (body::before) show through here like everywhere
+     else, instead of this section reading as a separate boxed panel. */
+  background: transparent;
 }
 
 .sw-head {
@@ -402,15 +404,18 @@ body::after {
   .sw-steps {
     display: block;
   }
-  /* --sw-step-h is set from SelectedWork.tsx to the sticky stage's real
-     measured height — a flat 46vh here scrolled the same long distance
-     between steps regardless of how big the laptop card actually rendered,
-     which read as an oversized, half-empty section on devices where the
-     card settled small. clamp() keeps a sane floor/ceiling in case the
-     custom property hasn't been set yet (first paint) or the stage measures
-     unexpectedly small/large. */
+  /* This used to size each step off the sticky stage's real measured
+     height (--sw-step-h) — tying the runway to the laptop card's own size
+     seemed right ("proportional, not a guess"), but the card is genuinely
+     600px+ tall, so 3 steps of that added up to ~2000px of scroll where the
+     sticky card just sits there mostly static — read as a long, empty,
+     "endless black" scroll rather than the deliberate short step-through
+     this was meant to be. A step only needs enough scroll distance to
+     reliably cross the ScrollTrigger's 60%-viewport line once — a small
+     fixed distance does that in a fraction of the space, so the section
+     releases into Contact's normal spacing much sooner. */
   .sw-step {
-    min-height: clamp(240px, var(--sw-step-h, 46vh), 90vh);
+    min-height: 32vh;
   }
 }
 
@@ -536,8 +541,13 @@ body::after {
 .lap-screen img {
   width: 100%;
   height: 100%;
-  /* `contain` keeps whole UIs readable; `cover` was cropping dashboards. */
-  object-fit: contain;
+  /* `contain` kept the whole screenshot readable but left visible letterbox
+     bars whenever a screenshot's own aspect ratio didn't match the 16/10
+     frame — Case No. Zero's cover read as "cut off"/not filling the laptop.
+     `cover` fills the frame completely at the cost of cropping some of the
+     image's edges; object-position: top keeps the part that usually
+     matters most (a browser chrome / nav / page title) in frame. */
+  object-fit: cover;
   object-position: top center;
   background: #0b0c11;
   display: block;
@@ -863,7 +873,9 @@ body::after {
   letter-spacing: 0.16em;
 }
 .nv-links a {
+  position: relative;
   color: #575c6b;
+  padding-bottom: 3px;
   transition: color 0.25s;
   text-shadow: 0 1px 14px rgba(10, 11, 16, 0.9);
 }
@@ -872,8 +884,17 @@ body::after {
 }
 .nv-links a[data-active="true"] {
   color: #eaeaf0;
-  border-bottom: 1px solid #4353ff;
-  padding-bottom: 3px;
+}
+/* Framer-tracked (layoutId="nv-underline" in Nav.tsx): one shared indicator
+   slides from the old active link to the new one on click, instead of a
+   border-bottom toggling instantly on/off on two separate elements. */
+.nv-underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: #4353ff;
 }
 
 .nv-actions {
@@ -1248,6 +1269,13 @@ body::after {
 
 @media (max-width: 900px) {
   .pz {
+    /* The min-height: 100svh added above (to keep the marquee band below
+       Hero off-screen at first paint on wide/short desktop viewports) was
+       never meant to reach mobile — mobile Hero is deliberately
+       content-sized, not full-viewport, specifically so no empty space
+       collects below the CTAs. Forcing 100svh here stretched Hero past its
+       own content again, reintroducing exactly that empty band. */
+    min-height: 0;
     padding: 112px 24px 48px;
   }
   /* Sized to the content, not a fixed band — the name and figure set the

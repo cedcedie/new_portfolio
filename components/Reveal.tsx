@@ -19,8 +19,10 @@ type Props = {
 
 /**
  * Fade/rise 30px, 0.9s expo-out, once, triggered ~12% into the viewport.
- * Above-fold content is never hidden (reference skips elements already
- * above 85% of the viewport on mount).
+ * Content already on screen at mount plays the same reveal immediately
+ * (no ScrollTrigger needed — there's nothing to scroll to), staggered by
+ * `delay` same as everything else; content below the fold waits for its
+ * ScrollTrigger to fire as you scroll to it.
  */
 export default function Reveal({
   delay = 0,
@@ -44,8 +46,7 @@ export default function Reveal({
     const el = ref.current;
     if (!el || reduced) return;
 
-    // Above-the-fold content stays visible — never animate it in.
-    if (el.getBoundingClientRect().top < window.innerHeight * 0.85) return;
+    const aboveFold = el.getBoundingClientRect().top < window.innerHeight * 0.85;
 
     gsap.set(el, { opacity: 0, y: 30 });
     const tween = gsap.to(el, {
@@ -54,7 +55,13 @@ export default function Reveal({
       duration: 0.9,
       delay: delay / 1000,
       ease: "expo.out",
-      scrollTrigger: { trigger: el, start: "top 88%", once: true },
+      // Already-visible content has nothing to scroll to, so it plays
+      // immediately instead of waiting on a ScrollTrigger that would never
+      // fire (the element's `top` never crosses 88% if it's already above
+      // it) — that was the previous "skip it entirely" behaviour.
+      scrollTrigger: aboveFold
+        ? undefined
+        : { trigger: el, start: "top 88%", once: true },
     });
 
     return () => {
