@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Magnetic from "@/components/Magnetic";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
@@ -14,25 +14,6 @@ const serif: React.CSSProperties = {
   fontWeight: 400,
 };
 
-/** Asia/Manila HH:mm, refreshed every 30s. */
-function useManilaClock() {
-  const [time, setTime] = useState("--:--");
-  useEffect(() => {
-    const tick = () =>
-      setTime(
-        new Date().toLocaleTimeString("en-GB", {
-          timeZone: "Asia/Manila",
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
-      );
-    tick();
-    const id = setInterval(tick, 30000);
-    return () => clearInterval(id);
-  }, []);
-  return time;
-}
-
 /**
  * Editorial poster hero: the portrait sits centre-column and the name is set
  * in stacked lines that interlock with it — CYDRIC above the head, JAMES
@@ -40,7 +21,6 @@ function useManilaClock() {
  * one composition rather than two panels side by side.
  */
 export default function Hero() {
-  const clock = useManilaClock();
   const root = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -114,9 +94,7 @@ export default function Hero() {
           stated by the lede below, so it isn't repeated here. */}
       <div className="pz-eyebrow">
         <span>Available for work</span>
-        <span>
-          Bulacan, PH — <span suppressHydrationWarning>{clock}</span>
-        </span>
+        <span>Bulacan, PH</span>
       </div>
 
       {/* Poster block: type and portrait share one stacking context. */}

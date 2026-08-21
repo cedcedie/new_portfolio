@@ -189,12 +189,12 @@ export const personal: Project[] = [
   {
     slug: "koded",
     title: "Koded",
-    meta: "SOLO DEVELOPER · UPCOMING",
+    meta: "SOLO DEVELOPER · 2026",
     desc: "A typing test, but for code — practice typing real syntax across programming languages instead of prose.",
     tech: ["TYPESCRIPT", "REACT"],
-    gallery: 0,
-    shots: [],
-    upcoming: true,
+    gallery: 1,
+    shots: gal("koded", 1),
+    cover: "/projects/koded/koded-1.png",
   },
 ];
 
@@ -223,9 +223,9 @@ export const featured = [
   },
   {
     slug: "koded",
-    shots: "UPCOMING",
+    shots: "01 SHOTS",
     tech: "TYPESCRIPT / REACT",
-    meta: "03 — SOLO DEVELOPER · UPCOMING",
+    meta: "03 — SOLO DEVELOPER · 2026",
     title: "Koded",
     desc: "A typing test, but for code — practice typing real syntax across programming languages instead of prose.",
     techLine: "TYPESCRIPT / REACT",

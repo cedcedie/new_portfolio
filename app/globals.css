@@ -1065,7 +1065,11 @@ body::after {
   min-height: 100svh;
   max-width: 1360px;
   margin: 0 auto;
-  padding: clamp(104px, 13vh, 154px) 40px clamp(40px, 6vh, 72px);
+  /* Top padding raised from a 104px floor — at common viewport heights that
+     put "AVAILABLE FOR WORK" close enough under the fixed nav's own mono
+     caps text that the two rows read as one cramped stack instead of two
+     clearly separate layers, even though nothing technically overlapped. */
+  padding: clamp(140px, 16vh, 180px) 40px clamp(40px, 6vh, 72px);
   display: flex;
   flex-direction: column;
   gap: clamp(14px, 2vh, 26px);
