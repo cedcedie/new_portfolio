@@ -204,22 +204,22 @@ export const allProjects: Project[] = [...academic, ...freelance, ...personal];
    strongest academic, freelance, and personal piece, not the full index. */
 export const featured = [
   {
-    slug: "case-no-zero",
-    shots: "08 SHOTS",
-    tech: "GODOT / GDSCRIPT",
-    meta: "01 — CAPSTONE · TEAM LEAD · DEC 2025",
-    title: "Case No. Zero",
-    desc: "A Philippine legal crime narrative — built all three core systems: investigation, dialogue, courtroom.",
-    techLine: "GODOT / GDSCRIPT",
-  },
-  {
     slug: "driminventory",
     shots: "07 SHOTS",
     tech: "NEXT.JS / PRISMA / POSTGRESQL",
-    meta: "02 — SOLO DEVELOPER · 2026",
+    meta: "01 — SOLO DEVELOPER · 2026",
     title: "DRIM Inventory System",
     desc: "Role-based inventory management — purchase requests through purchase orders, audited stock adjustments, technician-linked requisitions.",
     techLine: "NEXT.JS / TYPESCRIPT / PRISMA / POSTGRESQL",
+  },
+  {
+    slug: "case-no-zero",
+    shots: "08 SHOTS",
+    tech: "GODOT / GDSCRIPT",
+    meta: "02 — CAPSTONE · TEAM LEAD · DEC 2025",
+    title: "Case No. Zero",
+    desc: "A Philippine legal crime narrative — built all three core systems: investigation, dialogue, courtroom.",
+    techLine: "GODOT / GDSCRIPT",
   },
   {
     slug: "koded",
