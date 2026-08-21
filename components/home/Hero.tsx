@@ -113,10 +113,7 @@ export default function Hero() {
       {/* One status item left, one place/time right. The role is already
           stated by the lede below, so it isn't repeated here. */}
       <div className="pz-eyebrow">
-        <span>
-          <span className="pz-dot" />
-          Available for work
-        </span>
+        <span>Available for work</span>
         <span>
           Bulacan, PH — <span suppressHydrationWarning>{clock}</span>
         </span>

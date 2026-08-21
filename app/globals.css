@@ -195,16 +195,6 @@ body::after {
   }
 }
 
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.2;
-  }
-}
-
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -1117,14 +1107,6 @@ body::after {
   gap: 9px;
   color: #9296a3;
 }
-.pz-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #6672ff;
-  animation: blink 2.4s ease-in-out infinite;
-}
-
 .pz-stage {
   position: relative;
   display: grid;
