@@ -192,8 +192,8 @@ export const personal: Project[] = [
     meta: "SOLO DEVELOPER · 2026",
     desc: "A typing test, but for code — practice typing real syntax across programming languages instead of prose.",
     tech: ["TYPESCRIPT", "REACT"],
-    gallery: 1,
-    shots: gal("koded", 1),
+    gallery: 3,
+    shots: gal("koded", 3),
     cover: "/projects/koded/koded-1.png",
   },
 ];
@@ -223,7 +223,7 @@ export const featured = [
   },
   {
     slug: "koded",
-    shots: "01 SHOTS",
+    shots: "03 SHOTS",
     tech: "TYPESCRIPT / REACT",
     meta: "03 — SOLO DEVELOPER · 2026",
     title: "Koded",
