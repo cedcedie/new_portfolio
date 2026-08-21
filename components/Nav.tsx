@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import Magnetic from "./Magnetic";
 import { EMAIL } from "@/lib/data";
+import { usePageTransition } from "./PageTransition";
 
 const links = [
   { href: "/", label: "INDEX" },
@@ -20,6 +21,7 @@ const links = [
  */
 export default function Nav() {
   const pathname = usePathname();
+  const { navigate } = usePageTransition();
   const [hidden, setHidden] = useState(false);
   // Mobile-only nav panel — .nv-links is CSS-hidden below 900px with
   // nothing replacing it otherwise.
@@ -56,7 +58,14 @@ export default function Nav() {
 
   return (
     <nav className="nv" data-hidden={hidden ? "true" : undefined}>
-      <Link href="/" className="nv-mark">
+      <Link
+        href="/"
+        className="nv-mark"
+        onClick={(e) => {
+          e.preventDefault();
+          navigate("/");
+        }}
+      >
         Cydric Bulan<span>.</span>
       </Link>
 
@@ -69,6 +78,10 @@ export default function Nav() {
               href={l.href}
               className="nv-link"
               data-active={active ? "true" : undefined}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(l.href);
+              }}
             >
               {l.label}
               {/* Own underline per link, not the CSS border-bottom every
@@ -134,7 +147,11 @@ export default function Nav() {
             key={l.href}
             href={l.href}
             data-active={pathname === l.href ? "true" : undefined}
-            onClick={() => setMenuOpen(false)}
+            onClick={(e) => {
+              e.preventDefault();
+              setMenuOpen(false);
+              navigate(l.href);
+            }}
           >
             {l.label}
           </Link>

@@ -819,6 +819,45 @@ body::after {
   display: inline-block;
 }
 
+/* ── Page transition curtain ───────────────────────────────────────────────
+   Covers the screen, the route swaps underneath it, then it lifts — see
+   PageTransition.tsx for why this is a separate opaque layer rather than a
+   fade on the page content itself. z-index above .nv (50) so it genuinely
+   covers the chrome too, not just the page body. */
+.pt-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: #08090d;
+  pointer-events: none;
+  transform: translateY(100%);
+}
+.pt-curtain[data-state="covering"] {
+  animation: pt-cover 0.42s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.pt-curtain[data-state="covered"] {
+  transform: translateY(0%);
+}
+.pt-curtain[data-state="revealing"] {
+  animation: pt-reveal 0.46s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes pt-cover {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+@keyframes pt-reveal {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
 /* ── Floating nav ──────────────────────────────────────────────────────────
    No bar or backdrop: items float on the page. Scrolling down fades all but
    the wordmark; scrolling up (or returning to the top) brings them back. */

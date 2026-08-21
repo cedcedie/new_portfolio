@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 import Magnetic from "@/components/Magnetic";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
 import { EMAIL } from "@/lib/data";
+import { usePageTransition } from "@/components/PageTransition";
 
 const serif: React.CSSProperties = {
   fontFamily: "var(--font-instrument-serif), serif",
@@ -22,6 +23,7 @@ const serif: React.CSSProperties = {
  */
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
+  const { navigate } = usePageTransition();
 
   useEffect(() => {
     const el = root.current;
@@ -139,6 +141,10 @@ export default function Hero() {
           <ShimmerButton
             as={Link}
             href="/projects"
+            onClick={(e: React.MouseEvent) => {
+              e.preventDefault();
+              navigate("/projects");
+            }}
             background="#4353ff"
             shimmerColor="#eaeaf0"
             shimmerDuration="2.6s"

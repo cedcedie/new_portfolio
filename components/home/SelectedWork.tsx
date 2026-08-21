@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { allProjects, featured } from "@/lib/data";
 import { useReducedMotion } from "@/lib/useReducedMotion";
+import { usePageTransition } from "@/components/PageTransition";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +23,7 @@ const covers = featured.map(
  * scroll past.
  */
 export default function SelectedWork() {
+  const { navigate } = usePageTransition();
   const [ws, setWs] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
@@ -180,6 +182,10 @@ export default function SelectedWork() {
           <Link
             href="/projects"
             className="link-muted"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/projects");
+            }}
             style={{
               marginLeft: "auto",
               fontFamily: mono,
