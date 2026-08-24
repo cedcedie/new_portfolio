@@ -17,7 +17,7 @@ export function KineticText({
   ...rest
 }: KineticTextProps) {
   const mergedStyle = {
-    "--hover-padding": "calc(1em / 12)",
+    "--hover-spread": "calc(1em / 12)",
     "--text-stroke-width": "calc(1em * 125 / 6000)",
     ...(style as React.CSSProperties | undefined),
   } as React.CSSProperties
@@ -32,7 +32,11 @@ export function KineticText({
         <span
           key={i}
           aria-hidden="true"
-          className="[will-change:font-weight,-webkit-text-stroke-width,padding] [-webkit-text-stroke-color:transparent] [-webkit-text-stroke-width:var(--text-stroke-width)] [transition:font-weight_0.4s,_-webkit-text-stroke-color_0.4s,_padding_0.4s] hover:[padding-inline:var(--hover-padding)] hover:font-[900] hover:[-webkit-text-stroke-color:currentcolor] hover:[-webkit-text-stroke-width:calc(var(--text-stroke-width)*2)] has-[+span+span:hover]:font-[400] has-[+span:hover]:[padding-inline:var(--hover-padding)] has-[+span:hover]:font-[600] [:hover+&]:[padding-inline:var(--hover-padding)] [:hover+&]:font-[600] [:hover+span+&]:font-[400]"
+          // Letters "spread" on hover via margin-inline + a matching scale,
+          // not padding \u2014 margin/scale on an inline-block are compositor-
+          // only (no reflow of neighboring text on every hover), padding on
+          // an inline element is not.
+          className="inline-block [will-change:font-weight,-webkit-text-stroke-width,margin,transform] [-webkit-text-stroke-color:transparent] [-webkit-text-stroke-width:var(--text-stroke-width)] [transition:font-weight_0.4s,_-webkit-text-stroke-color_0.4s,_margin_0.4s,_transform_0.4s] hover:[margin-inline:var(--hover-spread)] hover:font-[900] hover:[-webkit-text-stroke-color:currentcolor] hover:[-webkit-text-stroke-width:calc(var(--text-stroke-width)*2)] has-[+span+span:hover]:font-[400] has-[+span:hover]:[margin-inline:var(--hover-spread)] has-[+span:hover]:font-[600] [:hover+&]:[margin-inline:var(--hover-spread)] [:hover+&]:font-[600] [:hover+span+&]:font-[400]"
         >
           {letter === " " ? "\u00A0" : letter}
         </span>

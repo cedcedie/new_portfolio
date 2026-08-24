@@ -228,12 +228,14 @@ body::after {
   }
 }
 
-/* Row hover: padding-left 0 -> 22px */
+/* Row hover: nudge right on hover. transform, not padding-left, so the
+   shift is compositor-only — no layout reflow on every hover. */
 .row-shift {
-  transition: padding-left 0.35s;
+  transition: transform 0.35s;
+  will-change: transform;
 }
 .row-shift:hover {
-  padding-left: 22px;
+  transform: translateX(22px);
 }
 
 .marquee-track {

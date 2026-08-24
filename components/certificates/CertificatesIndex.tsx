@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Reveal from "@/components/Reveal";
-import Footer from "@/components/Footer";
 import IndexHeader from "@/components/IndexHeader";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { BorderBeam } from "@/components/magicui/border-beam";
@@ -249,8 +248,6 @@ export default function CertificatesIndex() {
           />
         ))}
       </section>
-
-      <Footer variant="email" marginTop={120} />
     </main>
   );
 }

@@ -85,6 +85,15 @@ export default function SelectedWork() {
         );
       }
 
+      // Flags the pin's live range on <body> so anything else reacting to
+      // scroll (the velocity-drift effect, ScrollVelocityDrift) can go
+      // inert for exactly this span — GSAP already owns the transform math
+      // here via its own scrub tween; a second effect nudging content at
+      // the same time would visibly fight it.
+      const setPinned = (v: boolean) => {
+        document.body.dataset.swPinned = v ? "true" : "false";
+      };
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -93,6 +102,10 @@ export default function SelectedWork() {
           scrub: 0.6,
           pin,
           pinSpacing: true,
+          onEnter: () => setPinned(true),
+          onEnterBack: () => setPinned(true),
+          onLeave: () => setPinned(false),
+          onLeaveBack: () => setPinned(false),
           onUpdate: (self) => {
             // Project index only advances after the zoom completes.
             const p = (self.progress * total - ZOOM) / steps;
@@ -136,7 +149,10 @@ export default function SelectedWork() {
         .to({}, { duration: 1 - zoomShare });
     }, section);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      delete document.body.dataset.swPinned;
+    };
   }, [reduced]);
 
   const active = featured[ws] ?? featured[0];

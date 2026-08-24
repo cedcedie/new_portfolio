@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Reveal from "@/components/Reveal";
-import Footer from "@/components/Footer";
 import IndexHeader from "@/components/IndexHeader";
 import Lightbox from "./Lightbox";
 import {
@@ -404,8 +403,6 @@ export default function ProjectsIndex() {
             />
           ))}
         </section>
-
-        <Footer variant="email" />
       </main>
 
       {current && (
