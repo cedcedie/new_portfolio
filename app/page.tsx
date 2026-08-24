@@ -9,7 +9,6 @@ import {
   ScrollVelocityRow,
 } from "@/components/magicui/scroll-based-velocity";
 import Reveal from "@/components/Reveal";
-import ScrollDrift from "@/components/ScrollDrift";
 import { Highlighter } from "@/components/magicui/highlighter";
 import WordReveal from "@/components/WordReveal";
 
@@ -190,35 +189,33 @@ export default function HomePage() {
   return (
     <>
       <ScrollSpy />
-      <ScrollDrift>
-        <Hero />
+      <Hero />
 
-        {/* Outlined marquee directly under the hero — gives the eye a rest after
-            the portrait and states the disciplines in one pass. */}
-        <div
-          style={{
-            // Single row now, so the flex column + gap from the two-row version
-            // are gone — they were reserving space for a second line that no
-            // longer exists and made the band look double-spaced.
-            borderTop: hairline,
-            borderBottom: hairline,
-            padding: "clamp(14px,2vw,22px) 0",
-          }}
-        >
-          {/* Scroll-velocity rows: speed and direction react to how you scroll. */}
-          <ScrollVelocityContainer>
-            <ScrollVelocityRow baseVelocity={3} direction={1}>
-              <span style={marqueeLine}>
-                Web apps{" "}
-                <span style={asterisk}>✳</span> Mobile products{" "}
-                <span style={asterisk}>✳</span> 2D games{" "}
-                <span style={asterisk}>✳</span>{" "}
-              </span>
-            </ScrollVelocityRow>
+      {/* Outlined marquee directly under the hero — gives the eye a rest after
+          the portrait and states the disciplines in one pass. */}
+      <div
+        style={{
+          // Single row now, so the flex column + gap from the two-row version
+          // are gone — they were reserving space for a second line that no
+          // longer exists and made the band look double-spaced.
+          borderTop: hairline,
+          borderBottom: hairline,
+          padding: "clamp(14px,2vw,22px) 0",
+        }}
+      >
+        {/* Scroll-velocity rows: speed and direction react to how you scroll. */}
+        <ScrollVelocityContainer>
+          <ScrollVelocityRow baseVelocity={3} direction={1}>
+            <span style={marqueeLine}>
+              Web apps{" "}
+              <span style={asterisk}>✳</span> Mobile products{" "}
+              <span style={asterisk}>✳</span> 2D games{" "}
+              <span style={asterisk}>✳</span>{" "}
+            </span>
+          </ScrollVelocityRow>
 
-          </ScrollVelocityContainer>
-        </div>
-      </ScrollDrift>
+        </ScrollVelocityContainer>
+      </div>
 
       <main
         style={{
@@ -229,12 +226,6 @@ export default function HomePage() {
           padding: "0 clamp(24px, 4vw, 40px)",
         }}
       >
-        {/* Everything up to Selected Work gets the velocity drift; Selected
-            Work itself and its ScrollTrigger pin are deliberately excluded
-            (and never share a ScrollDrift ancestor with it) — see
-            ScrollDrift.tsx for why a transformed ancestor would break the
-            pin's fixed positioning. */}
-        <ScrollDrift>
         {/* (01) About */}
         <section id="about" style={{ padding: "160px 0 0" }}>
           <SectionHeader index="(01)" label="ABOUT" marginBottom={70}>
@@ -553,20 +544,14 @@ export default function HomePage() {
           </RailRow>
         </section>
 
-        </ScrollDrift>
-
-        {/* (05) Selected work — split scroll. Not wrapped in ScrollDrift: it
-            owns its own GSAP ScrollTrigger pin, which a transformed ancestor
-            would break. */}
+        {/* (05) Selected work — split scroll */}
         <SelectedWork />
 
         {/* The CTA marquee that sat here restated "Available for work" (hero
             eyebrow) and "Let's build something" (the Contact headline directly
             below) — three marquees also read as a tic. Contact now lands
             straight after the work. */}
-        <ScrollDrift>
-          <Contact />
-        </ScrollDrift>
+        <Contact />
       </main>
     </>
   );
