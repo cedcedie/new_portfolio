@@ -78,13 +78,19 @@
   box-sizing: border-box;
 }
 
-/* Global smooth scroll is Lenis (see LenisProvider.tsx), not the native
-   `scroll-behavior: smooth` below — Lenis owns scroll position and syncs
-   GSAP's ScrollTrigger to it every frame, which is why it doesn't repeat
-   the native-smooth-scroll-vs-pin bug documented there. Anchor links
-   (#about, ScrollSpy, CommandPalette's jump()) still pass their own
-   `behavior: "smooth"` per call; harmless since Lenis intercepts native
-   scroll either way. */
+/* No global smooth-scroll: GSAP ScrollTrigger drives SelectedWork's pin with
+   its own scrub tween, and the browser's native smooth-scroll interpolation
+   fought it — a single wheel tick landed as 2-3 native "smooth" steps queued
+   on top of the scrub, and released right at the end of the pin the queued
+   steps kept resolving after ScrollTrigger had already unpinned, reading as
+   the page snapping back up by one step. Anchor links (#about, ScrollSpy,
+   CommandPalette's jump()) already pass `behavior: "smooth"` per call where
+   it's actually wanted, so nothing relies on this being global.
+
+   (Lenis was tried here as a site-wide replacement — synced to
+   ScrollTrigger's ticker so it wouldn't repeat the bug above — and verified
+   working, but was pulled back out; revisit LenisProvider.tsx in git history
+   if it comes back.) */
 
 /* Fixed-position chrome (ScrollProgress, the command palette backdrop) can
    extend past the viewport edge and raise a horizontal scrollbar. Clip on

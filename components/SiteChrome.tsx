@@ -6,7 +6,6 @@ import Nav from "./Nav";
 import ScrollProgress from "./ScrollProgress";
 import CommandPalette from "./CommandPalette";
 import { PageTransitionProvider } from "./PageTransition";
-import LenisProvider from "./LenisProvider";
 
 /**
  * Persistent chrome. No page-level opacity fade on route change — every
@@ -30,13 +29,11 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <LenisProvider>
-      <PageTransitionProvider>
-        <ScrollProgress />
-        <Nav />
-        <CommandPalette />
-        <div key={pathname}>{children}</div>
-      </PageTransitionProvider>
-    </LenisProvider>
+    <PageTransitionProvider>
+      <ScrollProgress />
+      <Nav />
+      <CommandPalette />
+      <div key={pathname}>{children}</div>
+    </PageTransitionProvider>
   );
 }
